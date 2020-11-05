@@ -57,3 +57,8 @@ Route::get('/director', [App\Http\Controllers\DirectorController::class, 'index'
 Route::get('/create_director', [App\Http\Controllers\DirectorController::class, 'create'])->name('create_director');
 
 
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('config:cache');
+    $exitCode = Artisan::call('cache:clear');
+});
+
