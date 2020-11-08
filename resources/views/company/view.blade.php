@@ -432,6 +432,35 @@
                         </div>
                       </div>
                     </div>
+                      <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="col-md-12 col-sm-12">Chair Fee<span class="required">*</span></label>
+                        <div class="col-md-12 col-sm-12" style="display: inline-flex;">
+                          <input class="form-control" value="{{$committee->chair_fee}}" readonly>
+                         
+                        </div>
+                      </div>
+                    </div>
+                      <div class="form-group col-md-6 col-sm-6 col-xs-12" >
+                      <div class="form-group">
+                        <label class="col-md-12 col-sm-12">Member Fee<span class="required">*</span></label>
+                        <div class="col-md-12 col-sm-12" style="display: inline-flex;">
+                          <input class="form-control"  value="{{$committee->member_fee}}" readonly>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="form-group col-md-6 col-sm-6 col-xs-12" >
+                      <div class="form-group">
+                        <label class="col-md-12 col-sm-12">No of Meetings<span class="required">*</span></label>
+                        <div class="col-md-12 col-sm-12" style="display: inline-flex;">
+                          <input class="form-control" value="{{$committee->no_of_meetings}}" readonly>
+                        </div>
+                      </div>
+                    </div>
+                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
+
+                <hr style="clear: both;display: block; border: 1px solid black;">
+                </div>
                     @endforeach
                   </div>
                 </div>

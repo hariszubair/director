@@ -1,7 +1,15 @@
 @extends('layouts.master')
 
 @section('content')
+
+
 <link rel="stylesheet" href="{{asset('public/css/select2.min.css')}}">
+<style>
+ input:focus, select:focus, textarea:focus,  option:focus {
+            background-color: #E5E4DE ;
+            }
+}
+</style>
  <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
@@ -59,6 +67,24 @@
                                             </div>
                                         </div>
                                       </div>
+                                      <div class="form-group col-md-6 col-sm-6 col-xs-12" style="clear: both">
+                                   
+                                        <div class="form-group">
+                                            <label class="col-md-12 col-sm-12">Director Fee Pool</label>
+                                            <div class="col-md-12 col-sm-12">
+                                                <input class="form-control" name="dir_fee_pool" id="dir_fee_pool" value="{{old('dir_fee_pool')}}" tabindex="5">
+                                            </div>
+                                        </div>
+                                      </div>
+                                       <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                   
+                                        <div class="form-group">
+                                            <label class="col-md-12 col-sm-12">Director Fee Pool Last Updated</label>
+                                            <div class="col-md-12 col-sm-12">
+                                               <input data-toggle="datepicker" class="form-control" name="dir_fee_pool_updated" id="dir_fee_pool" placeholder="dd-mm-yyyy" autocomplete="off" data-inputmask-alias="dd-mm-yyyy"  data-val="true" type="text" value="{{old('dir_fee_pool_updated')}}" readonly>
+                                            </div>
+                                        </div>
+                                      </div>
                                         <div class="form-group col-md-6 col-sm-6 col-xs-12" style="clear: both">
                                    
                                         <div class="form-group">
@@ -74,6 +100,24 @@
                                             <label class="col-md-12 col-sm-12">Time to achieve minimum share for Chief Executive in months</label>
                                             <div class="col-md-12 col-sm-12">
                                                 <input class="form-control" name="min_share_time_c_e" id="min_share_time_c_e" value="{{old('min_share_time_c_e')}}" onkeypress='return event.charCode >= 48 && event.charCode <= 57' tabindex="6">
+                                            </div>
+                                        </div>
+                                      </div>
+                                       <div class="form-group col-md-6 col-sm-6 col-xs-12" style="clear: both">
+                                   
+                                        <div class="form-group">
+                                            <label class="col-md-12 col-sm-12">Minimum share for Chair</label>
+                                            <div class="col-md-12 col-sm-12">
+                                                <input class="form-control" name="min_share_chair" id="min_share_chair" value="{{old('min_share_chair')}}" tabindex="5">
+                                            </div>
+                                        </div>
+                                      </div>
+                                        <div class="form-group col-md-6 col-sm-6 col-xs-12" >
+                                   
+                                        <div class="form-group">
+                                            <label class="col-md-12 col-sm-12">Time to achieve minimum share for Chair in months</label>
+                                            <div class="col-md-12 col-sm-12">
+                                                <input class="form-control" name="min_share_time_chair" id="min_share_time_chair" value="{{old('min_share_time_chair')}}" onkeypress='return event.charCode >= 48 && event.charCode <= 57' tabindex="6">
                                             </div>
                                         </div>
                                       </div>
@@ -98,7 +142,7 @@
                                        <div class="form-group col-md-6 col-sm-6 col-xs-12" >
                                    
                                         <div class="form-group">
-                                            <label class="col-md-12 col-sm-12">Minimum share for non executives</label>
+                                            <label class="col-md-12 col-sm-12">Minimum share for other directors</label>
                                             <div class="col-md-12 col-sm-12">
                                                 <input class="form-control" name="min_share_n_e" id="min_share_n_e" value="{{old('min_share_n_e')}}" tabindex="9">
                                             </div>
@@ -107,7 +151,7 @@
                                         <div class="form-group col-md-6 col-sm-6 col-xs-12" >
                                    
                                         <div class="form-group">
-                                            <label class="col-md-12 col-sm-12">Time to achieve minimum share for non executives in months</label>
+                                            <label class="col-md-12 col-sm-12">Time to achieve minimum share for other directors in months</label>
                                             <div class="col-md-12 col-sm-12">
                                                 <input class="form-control" name="min_share_time_n_e" id="min_share_time_n_e" value="{{old('min_share_time_n_e')}}" onkeypress='return event.charCode >= 48 && event.charCode <= 57' tabindex="10">
                                             </div>
@@ -140,7 +184,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Sale Revenue<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input class="form-control" name="financial[sale_revenue]" id="financial[sale_revenue]" value="{{old('financial[sale_revenue]')}}" tabindex="12" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                <input type="number" class="form-control" name="financial[sale_revenue]" id="financial[sale_revenue]" value="{{old('financial[sale_revenue]')}}"  tabindex="12" required  onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
                                             </div>
                                         </div>
                                       </div>
@@ -149,7 +193,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Underlying Profit<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input class="form-control" name="financial[underlying_profit]" id="financial[underlying_profit]" value="{{old('financial[underlying_profit]')}}" tabindex="13" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                <input type="number" class="form-control" name="financial[underlying_profit]" id="financial[underlying_profit]" value="{{old('financial[underlying_profit]')}}" tabindex="13" required>
                                             </div>
                                         </div>
                                       </div>
@@ -158,7 +202,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Average Capital Invested<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input class="form-control" name="financial[a_c_i]" id="financial[a_c_i]" value="{{old('financial[a_c_i]')}}" tabindex="14" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                <input type="number"  class="form-control" name="financial[a_c_i]" id="financial[a_c_i]" value="{{old('financial[a_c_i]')}}" tabindex="14" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                             </div>
                                         </div>
                                       </div>
@@ -167,7 +211,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">ROCI<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input class="form-control" name="financial[roci]" id="financial[roci]" value="{{old('financial[roci]')}}" tabindex="15" required onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode==46' >
+                                                <input type="number"  class="form-control" name="financial[roci]" id="financial[roci]" value="{{old('financial[roci]')}}" tabindex="15" required onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode==46' >
                                             </div>
                                         </div>
                                       </div>
@@ -176,7 +220,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Weight Share<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input class="form-control" name="financial[weight_share]" id="financial[weight_share]" value="{{old('financial[weight_share]')}}" tabindex="16" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                <input type="number"  class="form-control" name="financial[weight_share]" id="financial[weight_share]" value="{{old('financial[weight_share]')}}" tabindex="16" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                             </div>
                                         </div>
                                       </div>
@@ -185,7 +229,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">BASIC EPS(EARNING PER SHARE)<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input class="form-control" name="financial[basic_eps]" id="financial[basic_eps]" value="{{old('financial[basic_eps]')}}" tabindex="17" required onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode==46'>
+                                                <input type="number"  class="form-control" name="financial[basic_eps]" id="financial[basic_eps]" value="{{old('financial[basic_eps]')}}" tabindex="17" required onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode==46'>
                                             </div>
                                         </div>
                                       </div>
@@ -203,7 +247,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Market Captilization<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input class="form-control" name="financial[market_cap]" id="financial[market_cap]" value="{{old('financial[market_cap]')}}" tabindex="19" required>
+                                                <input type="number"  class="form-control" name="financial[market_cap]" id="financial[market_cap]" value="{{old('financial[market_cap]')}}" tabindex="19" required>
                                             </div>
                                         </div>
                                       </div>
@@ -284,7 +328,7 @@
 
     </div>
       `;
-    $('#committee_div').append( html );
+    $('#committee_div').prepend( html );
     committee_counter++;
   }
   function add_director ()
@@ -454,7 +498,7 @@
 
 
 
-    $('#director_div').append( html );
+    $('#director_div').prepend( html );
     director_counter++;
     $('[data-toggle="datepicker"]').datepicker({
         autoHide:'true',

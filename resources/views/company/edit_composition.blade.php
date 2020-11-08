@@ -102,7 +102,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Director<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <select class="form-control js-example-basic-single" name="other[{{$key}}][director_id]" id="other[{{$key}}][director_id]" required>
+                                                <select class="form-control " name="other[{{$key}}][director_id]" id="other[{{$key}}][director_id]" required>
                                                   <option value="">Select a director</option>
                                                   @foreach($companies as $company)
                                                   <option {{$membership->director_id == $company->director->id ? 'selected' : ''}} value="{{$company->director->id}}">{{$company->director->name}}</option>
@@ -115,7 +115,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Type<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <select class="form-control js-example-basic-single" name="other[{{$key}}][type]" id="other[{{$key}}][type]" required>
+                                                <select class="form-control" name="other[{{$key}}][type]" id="other[{{$key}}][type]" required>
                                                   <option value="">Select type</option>
                                                   <option   {{$membership->type == 'Former Executive' ? 'selected' : ''}} value="Former Executive">Former Executive</option>
                                                   <option  {{$membership->type == 'Current Executive' ? 'selected' : ''}} value="Current Executive">Current Executive</option>
@@ -195,7 +195,7 @@ temp=[];
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Director<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <select class="form-control js-example-basic-single" name="other[`+other_committee_counter+`][director_id]" id="other[`+other_committee_counter+`][director_id]" required>
+                                                <select class="form-control " name="other[`+other_committee_counter+`][director_id]" id="other[`+other_committee_counter+`][director_id]" required>
                                                   <option value="">Select a director</option>
                                                   @foreach($companies as $company)
                                                   <option value="{{$company->director->id}}">{{$company->director->name}}</option>
@@ -208,7 +208,7 @@ temp=[];
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Type<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <select class="form-control js-example-basic-single" name="other[`+other_committee_counter+`][type]" id="other[`+other_committee_counter+`][type]" required>
+                                                <select class="form-control " name="other[`+other_committee_counter+`][type]" id="other[`+other_committee_counter+`][type]" required>
                                                   <option value="">Select type</option>
                                                   <option value="Former Executive">Former Executive</option>
                                                   <option value="Current Executive">Current Executive</option>
@@ -234,7 +234,7 @@ temp=[];
 
     </div>
       `;
-    $('#other_committee_div').append( html );
+    $('#other_committee_div').prepend( html );
     $('.js-example-basic-single').select2();
   $('.js-example-basic-multiple').select2();
     other_committee_counter++;

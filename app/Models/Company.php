@@ -9,7 +9,7 @@ class Company extends Model
 {
     use HasFactory;
      protected $fillable =[
-     	'id', 'name', 'code', 'index', 'industry', 'no_of_employees', 'min_share_c_e', 'min_share_time_c_e', 'min_share_o_e', 'min_share_time_o_e', 'min_share_n_e', 'min_share_time_n_e','sector'
+     	'id', 'name', 'code', 'index', 'industry', 'no_of_employees', 'min_share_c_e', 'min_share_time_c_e', 'min_share_o_e', 'min_share_time_o_e', 'min_share_n_e', 'min_share_time_n_e','sector','dir_fee_pool','dir_fee_pool_updated','min_share_chair','min_share_time_chair'
 
      ];
       public function committee()
