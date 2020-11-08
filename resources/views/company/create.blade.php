@@ -238,7 +238,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Free Cashflow<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input class="form-control" name="financial[free_cashflow]" id="financial[free_cashflow]" value="{{old('financial[free_cashflow]')}}" tabindex="18" required  onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                <input type="number" class="form-control" name="financial[free_cashflow]" id="financial[free_cashflow]" value="{{old('financial[free_cashflow]')}}" tabindex="18" required  onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                             </div>
                                         </div>
                                       </div>

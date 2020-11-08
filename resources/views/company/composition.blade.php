@@ -160,7 +160,7 @@
 
     </div>
       `;
-    $('#other_committee_div').append( html );
+    $('#other_committee_div').prepend( html );
     $('.js-example-basic-single').select2();
   $('.js-example-basic-multiple').select2();
     other_committee_counter++;

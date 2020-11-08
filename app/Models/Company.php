@@ -24,4 +24,13 @@ class Company extends Model
 	{
 		return $this->hasMany('App\Models\CompanyDirector');
 	}
+	
+	 public function getDirFeePoolUpdatedAttribute($value)
+    {
+    	if($value != null){
+    	 $date=date_create($value);
+        return date_format($date,"d-m-Y");	
+    	}
+       
+    }
 }

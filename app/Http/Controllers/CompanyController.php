@@ -51,7 +51,7 @@ class CompanyController extends Controller
         $input['industry']=$reference->industry;
         $input['sector']=$reference->sector;
         $input['index']=$reference->ASX_code;
-        
+         $input['dir_fee_pool_updated']=(isset($input['dir_fee_pool_updated']) ? Carbon::parse($input['dir_fee_pool_updated'])->format('Y-m-d') : NULL);
 
     	$company=Company::create($input);
     	
@@ -124,6 +124,7 @@ class CompanyController extends Controller
         $input['industry']=$reference->industry;
         $input['sector']=$reference->sector;
         $input['index']=$reference->ASX_code;
+         $input['dir_fee_pool_updated']=(isset($input['dir_fee_pool_updated']) ? Carbon::parse($input['dir_fee_pool_updated'])->format('Y-m-d') : NULL);
         $company=Company::find($id);
         $company->update($input);
         CompanyFinancial::where('company_id',$id)->update($request->financial);

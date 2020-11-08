@@ -95,6 +95,24 @@
                                             </div>
                                         </div>
                                       </div>
+                                      <div class="form-group col-md-6 col-sm-6 col-xs-12" style="clear: both">
+                                   
+                                        <div class="form-group">
+                                            <label class="col-md-12 col-sm-12">Director Fee Pool</label>
+                                            <div class="col-md-12 col-sm-12">
+                                                <input class="form-control" name="dir_fee_pool" id="dir_fee_pool" value="{{$company->dir_fee_pool}}" tabindex="5" readonly>
+                                            </div>
+                                        </div>
+                                      </div>
+                                       <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                   
+                                        <div class="form-group">
+                                            <label class="col-md-12 col-sm-12">Director Fee Pool Last Updated</label>
+                                            <div class="col-md-12 col-sm-12">
+                                               <input data-toggle="datepicker" class="form-control" name="dir_fee_pool_updated" id="dir_fee_pool" placeholder="dd-mm-yyyy" autocomplete="off" data-inputmask-alias="dd-mm-yyyy"  data-val="true" type="text" value="{{$company->dir_fee_pool_updated}}" readonly>
+                                            </div>
+                                        </div>
+                                      </div>
                                         <div class="form-group col-md-6 col-sm-6 col-xs-12" >
                                    
                                         <div class="form-group">
@@ -110,6 +128,24 @@
                                             <label class="col-md-12 col-sm-12">Time to achieve minimum share for Chief Executive</label>
                                             <div class="col-md-12 col-sm-12">
                                                 <input class="form-control" name="min_share_time_c_e" id="min_share_time_c_e" value="{{$company->min_share_time_c_e}}" onkeypress='return event.charCode >= 48 && event.charCode <= 57' tabindex="6" readonly>
+                                            </div>
+                                        </div>
+                                      </div>
+                                       <div class="form-group col-md-6 col-sm-6 col-xs-12" style="clear: both">
+                                   
+                                        <div class="form-group">
+                                            <label class="col-md-12 col-sm-12">Minimum share for Chair</label>
+                                            <div class="col-md-12 col-sm-12">
+                                                <input class="form-control" name="min_share_chair" id="min_share_chair" value="{{old('min_share_chair')}}" tabindex="5" readonly>
+                                            </div>
+                                        </div>
+                                      </div>
+                                        <div class="form-group col-md-6 col-sm-6 col-xs-12" >
+                                   
+                                        <div class="form-group">
+                                            <label class="col-md-12 col-sm-12">Time to achieve minimum share for Chair in months</label>
+                                            <div class="col-md-12 col-sm-12">
+                                                <input class="form-control" name="min_share_time_chair" id="min_share_time_chair" value="{{old('min_share_time_chair')}}" onkeypress='return event.charCode >= 48 && event.charCode <= 57' tabindex="6" readonly>
                                             </div>
                                         </div>
                                       </div>
@@ -134,7 +170,7 @@
                                        <div class="form-group col-md-6 col-sm-6 col-xs-12" >
                                    
                                         <div class="form-group">
-                                            <label class="col-md-12 col-sm-12">Minimum share for non executives</label>
+                                            <label class="col-md-12 col-sm-12">Minimum share for other directors</label>
                                             <div class="col-md-12 col-sm-12">
                                                 <input class="form-control" name="min_share_n_e" id="min_share_n_e" value="{{$company->min_share_n_e}}" tabindex="9" readonly>
                                             </div>
@@ -143,7 +179,7 @@
                                         <div class="form-group col-md-6 col-sm-6 col-xs-12" >
                                    
                                         <div class="form-group">
-                                            <label class="col-md-12 col-sm-12">Time to achieve minimum share for non executives</label>
+                                            <label class="col-md-12 col-sm-12">Time to achieve minimum share for other directors</label>
                                             <div class="col-md-12 col-sm-12">
                                                 <input class="form-control" name="min_share_time_n_e" id="min_share_time_n_e" value="{{$company->min_share_time_n_e}}" onkeypress='return event.charCode >= 48 && event.charCode <= 57' tabindex="10" readonly>
                                             </div>
