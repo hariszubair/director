@@ -220,7 +220,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">BASIC EPS(EARNING PER SHARE)<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input class="form-control" name="financial[basic_eps]" id="financial[basic_eps]" value="{{$company->financial->basic_eps}}" tabindex="17" required onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode==46'>
+                                                <input class="form-control" name="financial[basic_eps]" id="financial[basic_eps]" value="{{$company->financial->basic_eps}}" tabindex="17" required   step=".01">
                                             </div>
                                         </div>
                                       </div>
