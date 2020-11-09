@@ -211,7 +211,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">ROCI<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input type="number"  class="form-control" name="financial[roci]" id="financial[roci]" value="{{old('financial[roci]')}}" tabindex="15" required onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode==46' >
+                                                <input type="number"  class="form-control" name="financial[roci]" id="financial[roci]" value="{{old('financial[roci]')}}" tabindex="15" required  step=".01">
                                             </div>
                                         </div>
                                       </div>
