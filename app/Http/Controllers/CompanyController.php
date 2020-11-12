@@ -105,7 +105,8 @@ class CompanyController extends Controller
     public function ajax_index(){
         $companies=Company::select('*');
         return Datatables::of($companies)->addColumn('action', function ($row) {
-               return $temp='<a href="edit_company/'.$row->id.'" class="btn btn-primary"><i class="fas fa-edit"></i></a><a href="view_company/'.$row->id.'" class="btn btn-success"><i class="fas fa-eye"></i></a><a href="delete_company/'.$row->id.'" class="btn btn-danger"><i class="fas fa-trash"></i></a>';
+               return $temp='<a href="edit_company/'.$row->id.'" class="btn btn-primary"><i class="fas fa-edit"></i></a><a href="view_company/'.$row->id.'" class="btn btn-success"><i class="fas fa-eye"></i></a>';
+               // <a href="delete_company/'.$row->id.'" class="btn btn-danger"><i class="fas fa-trash"></i></a>
         })
         ->escapeColumns([])->make(true);
 
