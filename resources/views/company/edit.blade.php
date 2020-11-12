@@ -182,9 +182,9 @@
                                        <div class="form-group col-md-6 col-sm-6 col-xs-12" >
                                    
                                         <div class="form-group">
-                                            <label class="col-md-12 col-sm-12">Underlying Profit<span class="required">*</span></label>
+                                            <label class="col-md-12 col-sm-12">Underlying Profit</label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input class="form-control" name="financial[underlying_profit]" id="financial[underlying_profit]" value="{{$company->financial->underlying_profit}}" tabindex="13" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                <input class="form-control" name="financial[underlying_profit]" id="financial[underlying_profit]" value="{{$company->financial->underlying_profit}}" tabindex="13" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                             </div>
                                         </div>
                                       </div>
@@ -227,9 +227,9 @@
                                       <div class="form-group col-md-6 col-sm-6 col-xs-12" >
                                    
                                         <div class="form-group">
-                                            <label class="col-md-12 col-sm-12">Free Cashflow<span class="required">*</span></label>
+                                            <label class="col-md-12 col-sm-12">Free Cashflow</label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input type="number" class="form-control" name="financial[free_cashflow]" id="financial[free_cashflow]" value="{{$company->financial->free_cashflow}}" tabindex="18" required  onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                <input type="number" class="form-control" name="financial[free_cashflow]" id="financial[free_cashflow]" value="{{$company->financial->free_cashflow}}" tabindex="18"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                             </div>
                                         </div>
                                       </div>
@@ -347,7 +347,7 @@
                 <div class="form-group">
                 <label class="col-md-12 col-sm-12">Independent/ Non Independent</label>
                 <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-                <select class="form-control" name="director_company[{{$key}}][independent_type]" id="director_company[{{$key}}][independent_type]" required="">
+                <select class="form-control" name="director_company[{{$key}}][independent_type]" id="director_company[{{$key}}][independent_type]" >
                 <option value="">Please select an option</option>
                 <option {{$director->independent_type == 'Independent' ? 'selected' :'' }}>Independent</option>
                 <option {{$director->independent_type == 'Non Independent' ? 'selected' :'' }}>Non Independent</option>
@@ -469,18 +469,18 @@
                     </div>
                     <div class="form-group col-md-6 col-sm-6 col-xs-12" >
                       <div class="form-group">
-                        <label class="col-md-12 col-sm-12">Chair Fee<span class="required">*</span></label>
+                        <label class="col-md-12 col-sm-12">Chair Fee</label>
                         <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-                          <input class="form-control" name="committee[{{$key}}][chair_fee]" id="commitee[{{$key}}][chair_fee]" required value="{{$committee->chair_fee}}">
+                          <input class="form-control" name="committee[{{$key}}][chair_fee]" id="commitee[{{$key}}][chair_fee]"  value="{{$committee->chair_fee}}">
 
                         </div>
                       </div>
                     </div>
                     <div class="form-group col-md-6 col-sm-6 col-xs-12" >
                       <div class="form-group">
-                        <label class="col-md-12 col-sm-12">Member Fee<span class="required">*</span></label>
+                        <label class="col-md-12 col-sm-12">Member Fee</label>
                         <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-                          <input class="form-control" name="committee[{{$key}}][member_fee]" id="commitee[{{$key}}][member_fee]" required value="{{$committee->member_fee}}">
+                          <input class="form-control" name="committee[{{$key}}][member_fee]" id="commitee[{{$key}}][member_fee]"  value="{{$committee->member_fee}}">
 
                         </div>
                       </div>
@@ -548,8 +548,8 @@
       <input class="form-control" name="company_id"  value="<?php echo $company->id ?>" style="display:none">
       <input class="form-control" name="company_name"  value="<?php echo $company->name ?>" style="display:none">
       <div id="div_committee[`+committee_counter+`]"><div class="form-group col-md-6 col-sm-6 col-xs-12" ><div class="form-group"><label class="col-md-12 col-sm-12">Committee Name<span class="required">*</span></label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control" name="committee[`+committee_counter+`][name]" id="committee[`+committee_counter+`][name]" required></div></div></div>
-    <div class="form-group col-md-6 col-sm-6 col-xs-12" id="div_committee[`+committee_counter+`]"><div class="form-group"><label class="col-md-12 col-sm-12">Chair Fee<span class="required">*</span></label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control" name="committee[`+committee_counter+`][chair_fee]" id="committee[`+committee_counter+`][chair_fee]" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' type='number'></div></div></div>
-    <div class="form-group col-md-6 col-sm-6 col-xs-12" id="div_committee[`+committee_counter+`]"><div class="form-group"><label class="col-md-12 col-sm-12">Member Fee<span class="required">*</span></label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control" name="committee[`+committee_counter+`][member_fee]" id="committee[`+committee_counter+`][member_fee]" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'  type='number'></div></div></div>
+    <div class="form-group col-md-6 col-sm-6 col-xs-12" id="div_committee[`+committee_counter+`]"><div class="form-group"><label class="col-md-12 col-sm-12">Chair Fee</label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control" name="committee[`+committee_counter+`][chair_fee]" id="committee[`+committee_counter+`][chair_fee]"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' type='number'></div></div></div>
+    <div class="form-group col-md-6 col-sm-6 col-xs-12" id="div_committee[`+committee_counter+`]"><div class="form-group"><label class="col-md-12 col-sm-12">Member Fee</label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control" name="committee[`+committee_counter+`][member_fee]" id="committee[`+committee_counter+`][member_fee]" onkeypress='return event.charCode >= 48 && event.charCode <= 57'  type='number'></div></div></div>
     <div class="form-group col-md-6 col-sm-6 col-xs-12" id="div_committee[`+committee_counter+`]"><div class="form-group"><label class="col-md-12 col-sm-12">No of meetings<span class="required">*</span></label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control" name="committee[`+committee_counter+`][no_of_meetings]" id="committee[`+committee_counter+`][no_of_meetings]" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'  type='number'></div></div></div>
     <div class="form-group col-md-12 col-sm-12 col-xs-12" >
 
@@ -653,7 +653,7 @@
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Independent/ Non Independent</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <select class="form-control" name="director_company[`+director_counter+`][independent_type]" id="director_company[`+director_counter+`][independent_type]" required>
+    <select class="form-control" name="director_company[`+director_counter+`][independent_type]" id="director_company[`+director_counter+`][independent_type]" >
     <option value="">Please select an option</option>
     <option>Independent</option>
     <option>Non Independent</option>
