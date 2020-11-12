@@ -191,18 +191,18 @@
                                       <div class="form-group col-md-6 col-sm-6 col-xs-12" >
                                    
                                         <div class="form-group">
-                                            <label class="col-md-12 col-sm-12">Average Capital Invested<span class="required">*</span></label>
+                                            <label class="col-md-12 col-sm-12">Average Capital Invested</label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input class="form-control" name="financial[a_c_i]" id="financial[a_c_i]" value="{{$company->financial->a_c_i}}" tabindex="14" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                <input class="form-control" name="financial[a_c_i]" id="financial[a_c_i]" value="{{$company->financial->a_c_i}}" tabindex="14" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                             </div>
                                         </div>
                                       </div>
                                       <div class="form-group col-md-6 col-sm-6 col-xs-12" >
                                    
                                         <div class="form-group">
-                                            <label class="col-md-12 col-sm-12">ROCI<span class="required">*</span></label>
+                                            <label class="col-md-12 col-sm-12">ROCI</label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input class="form-control" name="financial[roci]" id="financial[roci]" value="{{$company->financial->roci}}" tabindex="15" required   step=".01">
+                                                <input class="form-control" name="financial[roci]" id="financial[roci]" value="{{$company->financial->roci}}" tabindex="15" step=".01">
                                             </div>
                                         </div>
                                       </div>
