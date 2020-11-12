@@ -432,7 +432,7 @@
                 <div class="form-group">
                 <label class="col-md-12 col-sm-12">Unvested Share</label>
                 <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-                <input class="form-control" readonly  value="{{$director->vested_share}}">
+                <input class="form-control" readonly  value="{{$director->unvested_share}}">
                 </div>
                 </div>
                 </div>
@@ -547,7 +547,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Members<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <select class="form-control js-example-basic-multiple" multiple="multiple" readonly>
+                                                <select class="form-control js-example-basic-multiple {{$committee->id}}" multiple="multiple" name="member[{{$committee->id}}][]" id="member[{{$committee->id}}][]" disabled>
                                                   @foreach($companies as $company)
                                                   <option value="{{$company->director->id}}">{{$company->director->name}}</option>
                                                   @endforeach
@@ -578,7 +578,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Director<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <select class="form-control js-example-basic-single" readonly>
+                                                <select class="form-control js-example-basic-single" disabled>
                                                   <option value="">Select a director</option>
                                                   @foreach($companies as $company)
                                                   <option {{$membership->director_id == $company->director->id ? 'selected' : ''}} value="{{$company->director->id}}">{{$company->director->name}}</option>
@@ -591,7 +591,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Type<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <select class="form-control js-example-basic-single" readonly>
+                                                <select class="form-control js-example-basic-single" disabled>
                                                   <option value="">Select type</option>
                                                   <option   {{$membership->type == 'Former Executive' ? 'selected' : ''}} value="Former Executive">Former Executive</option>
                                                   <option  {{$membership->type == 'Current Executive' ? 'selected' : ''}} value="Current Executive">Current Executive</option>
@@ -605,7 +605,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Organization<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                               <input class="form-control" readonlyx   value="{{$membership->organization}}">
+                                               <input class="form-control" disabled   value="{{$membership->organization}}">
                                             </div>
                                         </div>
                                       </div>
@@ -621,4 +621,36 @@
        
         <!-- /page content -->
 
+@endsection
+
+
+@section('footer')
+    <script src="{{asset('public/js/select2.min.js')}}"></script>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+  $('.js-example-basic-single').select2();
+  $('.js-example-basic-multiple').select2();
+  var arr_committee=JSON.parse($('#arr_committee').val())
+// console.log(arr_committee);
+var temp=[];
+  var composition_member=JSON.parse($('#composition_member').val())
+// console.log(composition_member);
+
+$.each(arr_committee, function( index, committee ) {
+  $('#member['+committee+']').select2();
+
+  $.each(composition_member, function( index, member ) {
+  if(member.committee_id==committee){
+    temp.push(member.director_id);
+  }
+
+});
+
+$('.js-example-basic-multiple.'+committee).val(temp).trigger('change');
+// console.log(temp)
+temp=[];
+});
+});
+</script>
 @endsection

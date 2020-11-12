@@ -415,7 +415,7 @@
                 <div class="form-group">
                 <label class="col-md-12 col-sm-12">Unvested Share</label>
                 <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-                <input class="form-control" name="director_company[{{$key}}][unvested_share]" id="director_company[{{$key}}][unvested_share]" type="number" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57"  value="{{$director->vested_share}}">
+                <input class="form-control" name="director_company[{{$key}}][unvested_share]" id="director_company[{{$key}}][unvested_share]" type="number" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57"  value="{{$director->unvested_share}}">
                 </div>
                 </div>
                 </div>
