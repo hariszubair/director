@@ -9,7 +9,7 @@ class Director extends Model
 {
     use HasFactory;
     protected $fillable =[
-     	'name', 'gender', 'dob', 'age', 'qualification', 'Institute', 'created_at', 'updated_at'
+     	'name', 'gender', 'dob', 'age', 'qualification', 'institute', 'created_at', 'updated_at'
 
      ];
      public function company_director()
