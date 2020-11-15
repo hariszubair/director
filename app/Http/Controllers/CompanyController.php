@@ -54,7 +54,8 @@ class CompanyController extends Controller
          $input['dir_fee_pool_updated']=(isset($input['dir_fee_pool_updated']) ? Carbon::parse($input['dir_fee_pool_updated'])->format('Y-m-d') : NULL);
 
     	$company=Company::create($input);
-    	
+    	 $financial['company_id']=$company->id;
+        CompanyFinancial::insert($financial);
          if($request->director_company)
         {
             $temp=[];
@@ -98,8 +99,7 @@ class CompanyController extends Controller
         }
             Committee::insert($committee);
         }   
-         $financial['company_id']=$company->id;
-        CompanyFinancial::insert($financial);
+        
         return redirect()->route('create_composition' , $company->id);
     }
     public function ajax_index(){

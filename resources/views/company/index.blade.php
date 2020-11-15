@@ -1,6 +1,19 @@
 @extends('layouts.master')
 
 @section('content')
+<style type="text/css">
+  body
+{
+    counter-reset: Serial;           /* Set the Serial counter to 0 */
+}
+
+
+tr td:first-child:before
+{
+  counter-increment: Serial;      /* Increment the Serial counter */
+  content: counter(Serial); /* Display the counter */
+}
+</style>
 <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="{{ asset('public/css/jquery.dataTables.min.css')}}">
  <!-- page content -->
@@ -85,15 +98,22 @@
                  return null;
                 }
     },
-       
-     
-          
        { "data": 'name','name':'name'},
        { "data": 'code','name':'code'},
        { "data": 'index','name':'index'},
       { "data": 'industry','name':'industry'},
       { "data": 'action','name':'action'},
+      { "data": 'id','name':'id'},
+
         ],
+        "columnDefs": [
+            {
+                "targets": [ 6 ],
+                "visible": false,
+                "searchable": false
+            },
+        ],
+        "order": [[ 6, "desc" ]]
      
         
              
