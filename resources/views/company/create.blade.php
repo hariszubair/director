@@ -391,7 +391,7 @@
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Board</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <select class="form-control" name="director_company[`+director_counter+`][status]" id="director_company[`+director_counter+`][status]" required>
+    <select class="form-control" name="director_company[`+director_counter+`][board]" id="director_company[`+director_counter+`][board]" required>
     <option value="">Please select an option</option>
     <option>Chairman</option>
     <option>Member</option>

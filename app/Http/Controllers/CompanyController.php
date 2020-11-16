@@ -61,6 +61,7 @@ class CompanyController extends Controller
             $temp=[];
             $record=[];
             foreach ($request->director_company as $key => $value) {
+                // return $value;
             $director=Director::create($request->director[$key]);
             $temp['company_name']=$company->name;
             $temp['company_id']=$company->id;
