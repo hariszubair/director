@@ -33,4 +33,12 @@ class Company extends Model
     	}
        
     }
+     public function getDirFeePoolAttribute($value)
+    {
+       return number_format($value);
+    }
+    public function getNoOfEmployeesAttribute($value)
+    {
+       return number_format($value);
+    }
 }

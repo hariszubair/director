@@ -2,7 +2,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            XYZ</a>
+            Eustaceai</a>
           </div>
           <div class="clearfix"></div>
         </footer>

@@ -19,4 +19,12 @@ class Committee extends Model
 	{
 		return $this->hasMany('App\Models\CommitteeComposition');
 	}
+	 public function getChairFeeAttribute($value)
+    {
+       return number_format($value);
+    }
+    public function getMemberFeeAttribute($value)
+    {
+       return number_format($value);
+    }
 }

@@ -170,12 +170,12 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                     <div class="form-group col-md-6 col-sm-6 col-xs-12" style="display: none">
+                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                    
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Year<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input class="form-control" name="financial[year]" id="financial[year]" value="2020" tabindex="11" required>
+                                                <select class="form-control" name="financial[year]" id="financial[year]" tabindex="11" required> </select>
                                             </div>
                                         </div>
                                       </div>
@@ -311,6 +311,15 @@
               $(":input[data-inputmask-mask]").inputmask();
   $(":input[data-inputmask-alias]").inputmask();
   $(":input[data-inputmask-regex]").inputmask("Regex");
+  var start = 1900;
+var end = new Date().getFullYear();
+  
+var options = "";
+for(var y = end ; y >=start; y--){
+  options += "<option>"+ y +"</option>";
+}
+document.getElementById("financial[year]").innerHTML = options;
+
  })
   var committee_counter=0;
   var director_counter=0;
