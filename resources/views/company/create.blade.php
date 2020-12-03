@@ -72,7 +72,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Director Fee Pool</label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input class="form-control" name="dir_fee_pool" id="dir_fee_pool" value="{{old('dir_fee_pool')}}" tabindex="5">
+                                                <input class="form-control number_only" name="dir_fee_pool" id="dir_fee_pool" value="{{old('dir_fee_pool')}}" tabindex="5">
                                             </div>
                                         </div>
                                       </div>
@@ -183,8 +183,8 @@
                                    
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Sale Revenue<span class="required">*</span></label>
-                                            <div class="col-md-12 col-sm-12">
-                                                <input type="number" class="form-control" name="financial[sale_revenue]" id="financial[sale_revenue]" value="{{old('financial[sale_revenue]')}}"  tabindex="12" required  onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
+                                            <div class="col-md-12 col-sm-12 ">
+                                                <input  class="form-control number_only" name="financial[sale_revenue]" id="financial[sale_revenue]" value="{{old('financial[sale_revenue]')}}"  tabindex="12" required  onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
                                             </div>
                                         </div>
                                       </div>
@@ -193,7 +193,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Underlying Profit</label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input type="number" class="form-control" name="financial[underlying_profit]" id="financial[underlying_profit]" value="{{old('financial[underlying_profit]')}}" tabindex="13" >
+                                                <input  class="form-control number_only" name="financial[underlying_profit]" id="financial[underlying_profit]" value="{{old('financial[underlying_profit]')}}" tabindex="13" >
                                             </div>
                                         </div>
                                       </div>
@@ -202,7 +202,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Average Capital Invested</label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input type="number"  class="form-control" name="financial[a_c_i]" id="financial[a_c_i]" value="{{old('financial[a_c_i]')}}" tabindex="14" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                <input  class="form-control decimal_only" name="financial[a_c_i]" id="financial[a_c_i]" value="{{old('financial[a_c_i]')}}" tabindex="14" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                             </div>
                                         </div>
                                       </div>
@@ -211,7 +211,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">ROCI</label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input type="number"  class="form-control" name="financial[roci]" id="financial[roci]" value="{{old('financial[roci]')}}" tabindex="15"  step=".01">
+                                                <input  class="form-control decimal_only" name="financial[roci]" id="financial[roci]" value="{{old('financial[roci]')}}" tabindex="15"  step=".01">
                                             </div>
                                         </div>
                                       </div>
@@ -220,7 +220,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Weight Share<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input type="number"  class="form-control" name="financial[weight_share]" id="financial[weight_share]" value="{{old('financial[weight_share]')}}" tabindex="16" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                <input   class="form-control number_only" name="financial[weight_share]" id="financial[weight_share]" value="{{old('financial[weight_share]')}}" tabindex="16" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                             </div>
                                         </div>
                                       </div>
@@ -229,7 +229,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">BASIC EPS(EARNING PER SHARE)<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input type="number"  class="form-control" name="financial[basic_eps]" id="financial[basic_eps]" value="{{old('financial[basic_eps]')}}" tabindex="17" required   step=".01">
+                                                <input  class="form-control number_only" name="financial[basic_eps]" id="financial[basic_eps]" value="{{old('financial[basic_eps]')}}" tabindex="17" required   step=".01">
                                             </div>
                                         </div>
                                       </div>
@@ -238,7 +238,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Free Cashflow</label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input type="number" class="form-control" name="financial[free_cashflow]" id="financial[free_cashflow]" value="{{old('financial[free_cashflow]')}}" tabindex="18"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                <input class="form-control number_only" name="financial[free_cashflow]" id="financial[free_cashflow]" value="{{old('financial[free_cashflow]')}}" tabindex="18"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                             </div>
                                         </div>
                                       </div>
@@ -247,7 +247,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Market Captilization<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input type="number"  class="form-control" name="financial[market_cap]" id="financial[market_cap]" value="{{old('financial[market_cap]')}}" tabindex="19" required>
+                                                <input  class="form-control number_only" name="financial[market_cap]" id="financial[market_cap]" value="{{old('financial[market_cap]')}}" tabindex="19" required>
                                             </div>
                                         </div>
                                       </div>
@@ -452,7 +452,7 @@ document.getElementById("financial[year]").innerHTML = options;
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Fee</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <input class="form-control" name="director_company[`+director_counter+`][director_fee]" id="director_company[`+director_counter+`][director_fee]" type='number' onkeypress='return event.charCode >= 48 && event.charCode <= 57'> 
+    <input class="form-control " name="director_company[`+director_counter+`][director_fee]" id="director_company[`+director_counter+`][director_fee]" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode==46'> 
     </div>
     </div>
     </div>
@@ -460,7 +460,7 @@ document.getElementById("financial[year]").innerHTML = options;
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Superannuation</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <input  class="form-control" name="director_company[`+director_counter+`][superannuation]" id="director_company[`+director_counter+`][superannuation]"  type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+    <input  class="form-control" name="director_company[`+director_counter+`][superannuation]" id="director_company[`+director_counter+`][superannuation]"   onkeypress='return (event.charCode >= 48 && event.charCode <= 57)'>
     </div>
     </div>
     </div>
@@ -468,7 +468,7 @@ document.getElementById("financial[year]").innerHTML = options;
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Other fee</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <input class="form-control" name="director_company[`+director_counter+`][other_fee]" id="director_company[`+director_counter+`][other_fee]"  type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+    <input class="form-control" name="director_company[`+director_counter+`][other_fee]" id="director_company[`+director_counter+`][other_fee]"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
     </div>
     </div>
     </div>
@@ -476,7 +476,7 @@ document.getElementById("financial[year]").innerHTML = options;
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Committee fee</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <input class="form-control" name="director_company[`+director_counter+`][committee_fee]" id="director_company[`+director_counter+`][committee_fee]"  type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+    <input class="form-control" name="director_company[`+director_counter+`][committee_fee]" id="director_company[`+director_counter+`][committee_fee]"   onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
     </div>
     </div>
     </div>
@@ -484,7 +484,7 @@ document.getElementById("financial[year]").innerHTML = options;
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Vested Share</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <input class="form-control" name="director_company[`+director_counter+`][vested_share]" id="director_company[`+director_counter+`][vested_share]"  type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+    <input class="form-control" name="director_company[`+director_counter+`][vested_share]" id="director_company[`+director_counter+`][vested_share]"   onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
     </div>
     </div>
     </div>
@@ -492,7 +492,7 @@ document.getElementById("financial[year]").innerHTML = options;
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Unvested Share</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <input class="form-control" name="director_company[`+director_counter+`][unvested_share]" id="director_company[`+director_counter+`][unvested_share]"  type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+    <input class="form-control" name="director_company[`+director_counter+`][unvested_share]" id="director_company[`+director_counter+`][unvested_share]" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
     </div>
     </div>
     </div>
@@ -525,6 +525,20 @@ document.getElementById("financial[year]").innerHTML = options;
   {
     clicked.parent().parent().remove()
   }
-  
+  $('.number_only').keydown(function(event) {
+
+ var patt=/[\d]/gm;
+              if(!patt.test(event.key)) {
+                event.preventDefault(); 
+      
+    }
+    });
+  $('.decimal_only').keydown(function(event) {
+         var patt=/[\d\.]/gm;
+              if(!patt.test(event.key)) {
+                event.preventDefault(); 
+      
+    }
+    });
 </script>
 @endsection
