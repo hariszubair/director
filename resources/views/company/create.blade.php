@@ -184,7 +184,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Sale Revenue<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12 ">
-                                                <input  class="form-control number_only" name="financial[sale_revenue]" id="financial[sale_revenue]" value="{{old('financial[sale_revenue]')}}"  tabindex="12" required  onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
+                                                <input  class="form-control number_only" name="financial[sale_revenue]" id="financial[sale_revenue]" value="{{old('financial[sale_revenue]')}}"  tabindex="12" required >
                                             </div>
                                         </div>
                                       </div>
@@ -202,7 +202,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Average Capital Invested</label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input  class="form-control decimal_only" name="financial[a_c_i]" id="financial[a_c_i]" value="{{old('financial[a_c_i]')}}" tabindex="14" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                                <input  class="form-control decimal_only" name="financial[a_c_i]" id="financial[a_c_i]" value="{{old('financial[a_c_i]')}}" tabindex="14" >
                                             </div>
                                         </div>
                                       </div>
@@ -327,9 +327,9 @@ document.getElementById("financial[year]").innerHTML = options;
   function add_committee ()
   {
     let html=`<div id="div_committee[`+committee_counter+`]"><div class="form-group col-md-6 col-sm-6 col-xs-12" ><div class="form-group"><label class="col-md-12 col-sm-12">Committee Name<span class="required">*</span></label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control" name="committee[`+committee_counter+`][name]" id="committee[`+committee_counter+`][name]" required></div></div></div>
-    <div class="form-group col-md-6 col-sm-6 col-xs-12" id="div_committee[`+committee_counter+`]"><div class="form-group"><label class="col-md-12 col-sm-12">Chair Fee</label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control" name="committee[`+committee_counter+`][chair_fee]" id="committee[`+committee_counter+`][chair_fee]" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></div></div></div>
-    <div class="form-group col-md-6 col-sm-6 col-xs-12" id="div_committee[`+committee_counter+`]"><div class="form-group"><label class="col-md-12 col-sm-12">Member Fee</label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control" name="committee[`+committee_counter+`][member_fee]" id="committee[`+committee_counter+`][member_fee]" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></div></div></div>
-    <div class="form-group col-md-6 col-sm-6 col-xs-12" id="div_committee[`+committee_counter+`]"><div class="form-group"><label class="col-md-12 col-sm-12">No of meetings<span class="required">*</span></label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control" name="committee[`+committee_counter+`][no_of_meetings]" id="committee[`+committee_counter+`][no_of_meetings]" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'></div></div></div>
+    <div class="form-group col-md-6 col-sm-6 col-xs-12" id="div_committee[`+committee_counter+`]"><div class="form-group"><label class="col-md-12 col-sm-12">Chair Fee</label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control number_only" name="committee[`+committee_counter+`][chair_fee]" id="committee[`+committee_counter+`][chair_fee]" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></div></div></div>
+    <div class="form-group col-md-6 col-sm-6 col-xs-12" id="div_committee[`+committee_counter+`]"><div class="form-group"><label class="col-md-12 col-sm-12">Member Fee</label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control number_only" name="committee[`+committee_counter+`][member_fee]" id="committee[`+committee_counter+`][member_fee]" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></div></div></div>
+    <div class="form-group col-md-6 col-sm-6 col-xs-12" id="div_committee[`+committee_counter+`]"><div class="form-group"><label class="col-md-12 col-sm-12">No of meetings<span class="required">*</span></label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control number_only" name="committee[`+committee_counter+`][no_of_meetings]" id="committee[`+committee_counter+`][no_of_meetings]" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'></div></div></div>
     <div class="form-group col-md-12 col-sm-12 col-xs-12" >
 
     <button class="btn btn-danger" style="margin-bottom: 0" name="div_committee[`+committee_counter+`]" onclick="remove_committee($(this))"><i class="fas fa-minus " title="Remove company" type="button"></i></button>
@@ -339,6 +339,13 @@ document.getElementById("financial[year]").innerHTML = options;
       `;
     $('#committee_div').prepend( html );
     committee_counter++;
+    $('.number_only').on('input',function(event) {
+ var patt=/^[\d]+$/gm;
+              if(!patt.test($(this).val())) {
+               $(this).val($(this).val().replace(/[^\d]/g, '')); 
+              
+    }
+    });
   }
   function add_director ()
   {
@@ -452,7 +459,7 @@ document.getElementById("financial[year]").innerHTML = options;
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Fee</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <input class="form-control " name="director_company[`+director_counter+`][director_fee]" id="director_company[`+director_counter+`][director_fee]" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode==46'> 
+    <input class="form-control decimal_only" name="director_company[`+director_counter+`][director_fee]" id="director_company[`+director_counter+`][director_fee]" > 
     </div>
     </div>
     </div>
@@ -460,7 +467,7 @@ document.getElementById("financial[year]").innerHTML = options;
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Superannuation</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <input  class="form-control" name="director_company[`+director_counter+`][superannuation]" id="director_company[`+director_counter+`][superannuation]"   onkeypress='return (event.charCode >= 48 && event.charCode <= 57)'>
+    <input  class="form-control number_only" name="director_company[`+director_counter+`][superannuation]" id="director_company[`+director_counter+`][superannuation]"   >
     </div>
     </div>
     </div>
@@ -468,7 +475,7 @@ document.getElementById("financial[year]").innerHTML = options;
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Other fee</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <input class="form-control" name="director_company[`+director_counter+`][other_fee]" id="director_company[`+director_counter+`][other_fee]"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+    <input class="form-control number_only" name="director_company[`+director_counter+`][other_fee]" id="director_company[`+director_counter+`][other_fee]"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
     </div>
     </div>
     </div>
@@ -476,7 +483,7 @@ document.getElementById("financial[year]").innerHTML = options;
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Committee fee</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <input class="form-control" name="director_company[`+director_counter+`][committee_fee]" id="director_company[`+director_counter+`][committee_fee]"   onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+    <input class="form-control number_only" name="director_company[`+director_counter+`][committee_fee]" id="director_company[`+director_counter+`][committee_fee]"   onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
     </div>
     </div>
     </div>
@@ -484,7 +491,7 @@ document.getElementById("financial[year]").innerHTML = options;
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Vested Share</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <input class="form-control" name="director_company[`+director_counter+`][vested_share]" id="director_company[`+director_counter+`][vested_share]"   onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+    <input class="form-control number_only" name="director_company[`+director_counter+`][vested_share]" id="director_company[`+director_counter+`][vested_share]"   onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
     </div>
     </div>
     </div>
@@ -492,7 +499,7 @@ document.getElementById("financial[year]").innerHTML = options;
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Unvested Share</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <input class="form-control" name="director_company[`+director_counter+`][unvested_share]" id="director_company[`+director_counter+`][unvested_share]" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+    <input class="form-control number_only" name="director_company[`+director_counter+`][unvested_share]" id="director_company[`+director_counter+`][unvested_share]" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
     </div>
     </div>
     </div>
@@ -516,6 +523,21 @@ document.getElementById("financial[year]").innerHTML = options;
               $(":input[data-inputmask-mask]").inputmask();
   $(":input[data-inputmask-alias]").inputmask();
   $(":input[data-inputmask-regex]").inputmask("Regex");
+  $('.number_only').on('input',function(event) {
+ var patt=/^[\d]+$/gm;
+              if(!patt.test($(this).val())) {
+               $(this).val($(this).val().replace(/[^\d]/g, '')); 
+              
+    }
+    });
+
+  $('.decimal_only').on('input',function(event) {
+    // x.replace(/[^.\d]/g, '').replace(/^(\d*\.?)|(\d*)\.?/g, "$1$2")
+         var patt=/^[\d\.]+$/gm;
+              if(!patt.test($(this).val())) {
+               $(this).val($(this).val().replace(/[^.\d]/g, '')); 
+    }
+    });
   }
   function remove_committee (clicked)
   {
@@ -525,19 +547,19 @@ document.getElementById("financial[year]").innerHTML = options;
   {
     clicked.parent().parent().remove()
   }
-  $('.number_only').keydown(function(event) {
-
- var patt=/[\d]/gm;
-              if(!patt.test(event.key)) {
-                event.preventDefault(); 
-      
+  $('.number_only').on('input',function(event) {
+ var patt=/^[\d]+$/gm;
+              if(!patt.test($(this).val())) {
+               $(this).val($(this).val().replace(/[^\d]/g, '')); 
+              
     }
     });
-  $('.decimal_only').keydown(function(event) {
-         var patt=/[\d\.]/gm;
-              if(!patt.test(event.key)) {
-                event.preventDefault(); 
-      
+
+  $('.decimal_only').on('input',function(event) {
+    // x.replace(/[^.\d]/g, '').replace(/^(\d*\.?)|(\d*)\.?/g, "$1$2")
+         var patt=/^[\d\.]+$/gm;
+              if(!patt.test($(this).val())) {
+               $(this).val($(this).val().replace(/[^.\d]/g, '')); 
     }
     });
 </script>
