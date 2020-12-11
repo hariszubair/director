@@ -460,6 +460,9 @@
                   <div class="x_content" id='committee_div'>
                  
                     @foreach($company->committee as $key=>$committee)
+                    @php
+                    $committee->preventAttrSet = true;
+                    @endphp
                      <form method="POST" action="{{route('update_committee',['id'=>$committee->id])}}" accept-charset="UTF-8">
                   <input name="_method" type="hidden" value="PATCH">
                   @csrf

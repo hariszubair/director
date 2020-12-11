@@ -117,7 +117,6 @@ class CompanyController extends Controller
     $company->financial->preventAttrSet = true;
     $company->committee->preventAttrSet = true;
     $company->company_director->preventAttrSet = true;
-    $company->company_director->preventAttrSet = true;
 
     $company->preventAttrSet = true;
         $company_reference=CompanyReference::all();

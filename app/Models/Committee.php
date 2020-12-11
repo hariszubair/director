@@ -21,10 +21,20 @@ class Committee extends Model
 	}
 	 public function getChairFeeAttribute($value)
     {
-       return number_format($value);
+      if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
     public function getMemberFeeAttribute($value)
     {
-       return number_format($value);
+       if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
 }
