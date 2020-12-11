@@ -44,30 +44,65 @@ class CompanyDirector extends Model
     }
      public function getDirectorFeeAttribute($value)
     {
-       return number_format($value);
+       if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
     public function getSuperannuationAttribute($value)
     {
-       return number_format($value);
+        if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
     public function getOtherFeeAttribute($value)
     {
-       return number_format($value);
+       if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
     public function getVestedShareAttribute($value)
     {
-       return number_format($value);
+        if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
     public function getUnvestedShareAttribute($value)
     {
-       return number_format($value);
+       if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
     public function getCommitteeFeeAttribute($value)
     {
-       return number_format($value);
+        if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
      public function getTotalFeeAttribute($value)
     {
-       return number_format($value);
+        if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
 }

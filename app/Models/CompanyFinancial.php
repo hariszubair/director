@@ -17,26 +17,56 @@ class CompanyFinancial extends Model
 	}
 	 public function getSaleRevenueAttribute($value)
     {
-       return number_format($value);
+      if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
     public function getUnderlyingProfitAttribute($value)
     {
-       return number_format($value);
+      if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
     public function getACIAttribute($value)
     {
-       return number_format($value);
+       if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
     public function getWeightShareAttribute($value)
     {
-       return number_format($value);
+      if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
      public function getFreeCashflowAttribute($value)
     {
-       return number_format($value);
+       if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
      public function getMarketCapAttribute($value)
     {
-       return number_format($value);
+      if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
 }

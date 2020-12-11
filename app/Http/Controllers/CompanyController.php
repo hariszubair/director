@@ -114,6 +114,12 @@ class CompanyController extends Controller
     }   
     public function edit($id){
     $company=Company::with('committee','financial','company_director.director')->find($id);
+    $company->financial->preventAttrSet = true;
+    $company->committee->preventAttrSet = true;
+    $company->company_director->preventAttrSet = true;
+    $company->company_director->preventAttrSet = true;
+
+    $company->preventAttrSet = true;
         $company_reference=CompanyReference::all();
         return view('company.edit',compact('company_reference','company')); 
     }
@@ -234,6 +240,7 @@ class CompanyController extends Controller
     }
     public function update_director(Request $request, $id)
     {
+        // return $request;
         $temp=explode('-',  $id);
         $director_id=$temp[1];
         $director_company_id=$temp[0];
@@ -245,7 +252,7 @@ class CompanyController extends Controller
         
          $value['joining_date']=(isset($value['joining_date']) ? Carbon::parse($value['joining_date'])->format('Y-m-d') : NULL);
             $value['leaving_date']=(isset($value['leaving_date']) ? Carbon::parse($value['leaving_date'])->format('Y-m-d') : NULL);
-
+            // return $value;
         CompanyDirector::find($director_company_id)->update($value);
     }
         return redirect()->back();

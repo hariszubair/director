@@ -229,7 +229,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">BASIC EPS(EARNING PER SHARE)<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
-                                                <input  class="form-control number_only" name="financial[basic_eps]" id="financial[basic_eps]" value="{{old('financial[basic_eps]')}}" tabindex="17" required   step=".01">
+                                                <input  class="form-control decimal_only" name="financial[basic_eps]" id="financial[basic_eps]" value="{{old('financial[basic_eps]')}}" tabindex="17" required   step=".01">
                                             </div>
                                         </div>
                                       </div>

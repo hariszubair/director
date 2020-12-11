@@ -265,6 +265,9 @@
                   </div>
                   <div class="x_content" id='director_div'>
                     @foreach($company->company_director as $key=>$director)
+                    @php
+                    $director->preventAttrSet = true;
+                    @endphp
                      <form method="POST" action="{{route('update_director',['id'=>$director->id.'-'.$director->director->id])}}" accept-charset="UTF-8" id="update_form">
                   <input name="_method" type="hidden" value="PATCH">
                   @csrf

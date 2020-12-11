@@ -35,10 +35,21 @@ class Company extends Model
     }
      public function getDirFeePoolAttribute($value)
     {
-       return number_format($value);
+        if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
+       
     }
     public function getNoOfEmployeesAttribute($value)
     {
-       return number_format($value);
+       if ($this->preventAttrSet) {
+        // Ignore Mutator
+            return $value;
+    } else {
+        return number_format($value);
+    }
     }
 }
