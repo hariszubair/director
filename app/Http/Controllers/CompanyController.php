@@ -13,16 +13,21 @@ use Yajra\Datatables\Datatables;
 use App\Models\CommitteeComposition;
 use App\Models\OtherMembership;
 use \Carbon\Carbon;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 class CompanyController extends Controller
 {
    /**
      * Create a new controller instance.
      *
+
      * @return void
      */
     public function __construct()
     {
         $this->middleware('auth');
+            $this->middleware(['role:DataEntry']);
+
     }
 
     /**

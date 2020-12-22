@@ -52,4 +52,8 @@ class Company extends Model
         return number_format($value);
     }
     }
+    public function reference()
+  {
+    return $this->hasOne('App\Models\CompanyReference','ASX_code','index')->latest();
+  }
 }

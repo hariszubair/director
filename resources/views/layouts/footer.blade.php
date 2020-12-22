@@ -1,6 +1,6 @@
 
         <!-- footer content -->
-        <footer>
+        <footer style="position: fixed;width: 100%;bottom: 0">
           <div class="pull-right">
             Eustaceai</a>
           </div>
@@ -23,6 +23,10 @@
     <script src="{{ asset('public/js/custom.min.js')}}"></script>
       <script src="{{asset('public/js/datepicker.min.js')}}"></script>
        <script src="{{asset('public/js/jquery.inputmask.bundle.js')}}"></script>
-      
+      <script type="text/javascript">
+  $(document).ready(function(){
+    $('.right_col').height($(window).height()-10);
+});
+</script>
   </body>
 </html>

@@ -105,4 +105,12 @@ class CompanyDirector extends Model
         return number_format($value);
     }
     }
+      public function director_committee()
+    {
+        return $this->hasMany('App\Models\CommitteeComposition','director_id','director_id');
+    }
+      public function other_membership()
+    {
+        return $this->hasMany('App\Models\OtherMembership','director_id','director_id');
+    }
 }

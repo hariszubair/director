@@ -17,7 +17,7 @@
               <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Plain Page</h2>
+                    <h2>Search By Following</h2>
                    <!--  <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -34,7 +34,24 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                      Add content to the page ...
+                    <ol>
+                      <li>
+                        <a href="search_director"><h2>Director Name</h2></a>
+                      </li>
+                      <li>
+                        <a href="search_company"><h2>Company Name</h2></a>
+                      </li>
+                      <li>
+                        <a href="search_sector"><h2>Sector/Industry</h2></a>
+                      </li>
+                      <li>
+                        <a href="search_custom"><h2>Customised</h2></a>
+                      </li>
+                    </ol>
+                    
+
+
+
                   </div>
                 </div>
               </div>
