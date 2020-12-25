@@ -1,6 +1,6 @@
 
         <!-- footer content -->
-        <footer style="position: fixed;width: 100%;bottom: 0">
+        <footer style="">
           <div class="pull-right">
             Eustaceai</a>
           </div>

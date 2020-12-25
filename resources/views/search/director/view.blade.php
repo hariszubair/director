@@ -34,12 +34,8 @@
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Gender<span class="required">*</span></label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <select class="form-control" disabled>
-    <option value="">Please select an option</option>
-    <option {{$director->director->gender == 'Male' ? 'selected' : ''}}>Male</option>
-    <option {{$director->director->gender == 'Female' ? 'selected' : ''}}>Female</option>
-    <option {{$director->director->gender == 'Not Specified' ? 'selected' : ''}}>Not Specified</option>
-    </select>
+        <input class="form-control" value="{{$director->director->gender}}" readonly>
+   
     </div>
     </div>
     </div>
@@ -100,10 +96,7 @@
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Status</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <select class="form-control" disabled>
-    <option {{$director->director->status == 'Active' ? 'selected' : ''}}>Active</option>
-    <option {{$director->director->status == 'Former' ? 'selected' : ''}}>Former</option>
-    </select>
+        <input class="form-control" value="{{$director->status}}" readonly>
     </div>
     </div>
     </div>
@@ -111,11 +104,7 @@
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Board</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <select class="form-control" disabled>
-    <option value="">Please select an option</option>
-    <option  {{$director->board == 'Chairman' ? 'selected' : ''}}>Chairman</option>
-    <option  {{$director->board == 'Member' ? 'selected' : ''}}>Member</option>
-    </select>
+        <input class="form-control" value="{{$director->board}}" readonly>
     </div>
     </div>
     </div>
@@ -123,11 +112,7 @@
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Non Executive Type</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <select class="form-control" disabled>
-    <option value="">Please select an option</option>
-    <option {{$director->ned_type == 'Non-Executive Chairman' ? 'selected' : ''}}>Non-Executive Chairman</option>
-    <option {{$director->ned_type == 'Non-Executive Director' ? 'selected' : ''}}>Non-Executive Director</option>
-    </select>
+        <input class="form-control" value="{{$director->ned_type}}" readonly>
     </div>
     </div>
     </div>
@@ -135,11 +120,7 @@
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Independent/ Non Independent</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <select class="form-control" readonly>
-    <option value="">Please select an option</option>
-    <option {{$director->independent_type == 'Independent' ? 'selected' : ''}}>Independent</option>
-    <option {{$director->independent_type == 'Non Independent' ? 'selected' : ''}}>Non Independent</option>
-    </select>
+        <input class="form-control" value="{{$director->independent_type}}" readonly>
     </div>
     </div>
     </div>

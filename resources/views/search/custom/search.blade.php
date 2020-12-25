@@ -1,6 +1,8 @@
 @extends('layouts.master')
 
 @section('content')
+    <link href="{{ asset('public/css/ion.rangeSlider.min.css')}}" rel="stylesheet">
+
 <link rel="stylesheet" href="{{asset('public/css/select2.min.css')}}">
 <meta name="csrf-token" content="{{ csrf_token() }}">
  <!-- page content -->
@@ -24,12 +26,12 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <form class="" action="{{route('result_sector')}}" method="post" >
+                    <form class="" action="{{route('result_custom')}}" method="post" >
                       @csrf
                      <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
                               <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both ">Sector:</label>
                               <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <select class="form-control js-example-basic-single" name="sector" id="sector" required  tabindex="1" style="width: 100%">
+                                  <select class="form-control js-example-basic-single" name="sector" id="sector"  tabindex="1" style="width: 100%">
                                   <option value="">Select Sector Name</option>
 
                                   @foreach($sector_industry as $sector_industry)
@@ -41,14 +43,14 @@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
                               <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both ">Industry:</label>
                               <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <select class="form-control js-example-basic-single" name="industry" id="industry" required  tabindex="2" style="width: 100%">
+                                  <select class="form-control js-example-basic-single" name="industry" id="industry"  tabindex="2" style="width: 100%">
                                  </select>
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
                               <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both ">Index:</label>
                               <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <select class="form-control js-example-basic-single" name="index" id="index" required  tabindex="3" style="width: 100%">
+                                  <select class="form-control js-example-basic-single" name="index" id="index"   tabindex="3" style="width: 100%">
                                     <option value="">Select Index</option>
                                     <option>ASX-50</option>
                                     <option>ASX-100</option>
@@ -57,6 +59,20 @@
                                  </select>
                             </div>
                         </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
+                              <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both "><br>Revenue:</label> <span style="font-size: 12px;padding-left: 10px" > Adjust the range by clicking the bar</span>
+                               
+                              <div class="col-md-8 col-sm-8 col-xs-12">
+                        <input type="text" id="range_27" value="" name="range" />
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
+                              <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both ">Market Cap:</label>
+                              <div class="col-md-8 col-sm-8 col-xs-12">
+                        <input type="text" id="range_mar_cap" value="" name="range_mar_cap" />
+                            </div>
+                        </div>
+                  
                      <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
                               <div class="col-md-8 col-sm-8 col-xs-12">
                         <button class="btn btn-success">Submit</button>
@@ -77,6 +93,8 @@
 
 @section('footer')
     <script src="{{asset('public/js/select2.min.js')}}"></script>
+    <script src="{{ asset('public/js/ion.rangeSlider.min.js')}}"></script>
+
     <script type="text/javascript">
       $(document).on('focus', '.select2.select2-container', function (e) {
   // only open on original attempt - close focus event should not fire open
@@ -87,6 +105,15 @@
      
  $(document).ready(function(){
   $('.js-example-basic-single').select2();
+  $("#range").ionRangeSlider({
+        type: "double",
+        grid: true,
+        min: 0,
+        max: 1000,
+        from: 200,
+        to: 800,
+        prefix: "$"
+    });
 });
  $('#sector').on('change', function (e) {
      $.ajax({url: "./search_industry",

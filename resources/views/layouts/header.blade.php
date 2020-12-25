@@ -16,7 +16,8 @@
     <link href="{{ asset('public/css/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
     <!-- NProgress -->
     <link href="{{ asset('public/css/nprogress.css')}}" rel="stylesheet">
-
+    <link href="{{ asset('public/css/ion.rangeSlider.css')}}" rel="stylesheet">
+    <!-- <link href="{{ asset('public/css/ion.rangeSlider.skinFlat.css')}}" rel="stylesheet"> -->
     <!-- Custom Theme Style -->
     <link href="{{ asset('public/css/custom.min.css')}}" rel="stylesheet">
  <link rel="stylesheet" href="{{asset('public/css/datepicker.min.css')}}">

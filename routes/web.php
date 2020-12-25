@@ -84,7 +84,7 @@ Route::post('/result_sector', [App\Http\Controllers\SearchController::class, 're
 
 //company
 Route::get('/search_custom', [App\Http\Controllers\SearchController::class, 'search_custom'])->name('search_custom');
-// Route::post('/result_company', [App\Http\Controllers\SearchController::class, 'result_company'])->name('result_company');
+Route::post('/result_custom', [App\Http\Controllers\SearchController::class, 'result_custom'])->name('result_custom');
 
 
 

@@ -73,6 +73,13 @@
 })(), true);
  $(document).ready(function(){
   $('.js-example-basic-single').select2();
+   $('#director_name').select2({
+      allowClear: true,
+       placeholder: {
+    },
+    minimumResultsForSearch: -1,
+    width: 600,
+  });
 
 });
 </script>

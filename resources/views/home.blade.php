@@ -2,7 +2,7 @@
 
 @section('content')
  <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" style="min-height: 800px">
           <div class="">
             <div class="page-title">
               <div class="title_left">
@@ -14,10 +14,48 @@
             <div class="clearfix"></div>
 
             <div class="row">
+               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="far fa-building"></i>
+                          </div>
+
+                          <div class="count">{{App\Models\Company::count()}}</div>
+
+                          <h3>Companies</h3>
+                        </div>
+                      </div>
+                       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fas fa-users"></i>
+                          </div>
+                          <div class="count">{{App\Models\Director::count()}}</div>
+
+                          <h3>Directors</h3>
+                        </div>
+                      </div>
+                       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+                        <div class="tile-stats">
+                          <div class="icon" style="padding-right: 20px"><i class="fas fa-bezier-curve"></i>
+                          </div>
+                          <div class="count">{{App\Models\Industry::groupBy('sector')->count()}}</div>
+
+                          <h3>Sectors</h3>
+                        </div>
+                      </div>
+                       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fas fa-industry"></i>
+                          </div>
+                          <div class="count">{{App\Models\Industry::groupBy('industry')->count()}}</div>
+
+                          <h3>Industries</h3>
+                        </div>
+                      </div>
               <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Search By Following</h2>
+
                    <!--  <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -34,7 +72,8 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <ol>
+                    
+                    <ol style="list-style: none">
                       <li>
                         <a href="search_director"><h2>Director Name</h2></a>
                       </li>
