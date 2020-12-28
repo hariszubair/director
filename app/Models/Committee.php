@@ -9,7 +9,7 @@ class Committee extends Model
 {
     use HasFactory;
     protected $fillable =[
-     	'id', 'name','company_name','company_id','chair_fee','member_fee','no_of_meetings'
+     	'id', 'name','map','company_name','company_id','chair_fee','member_fee','no_of_meetings'
      ];
      public function company()
 	{

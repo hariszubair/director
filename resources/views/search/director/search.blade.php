@@ -26,10 +26,10 @@
                   <div class="x_content">
                     <form class="" action="{{route('result_director')}}" method="post" >
                       @csrf
-                     <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
-                              <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both ">Name:</label>
-                              <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <select class="form-control js-example-basic-single" name="director_name" id="director_name" required>
+                     <div class="col-md-12 col-sm-12 col-xs-12 " style="width: 100%">
+                              <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px">Name:</label>
+                              <div class="col-md-8 col-sm-8 col-xs-12" style="width: 100%">
+                                  <select class="form-control js-example-basic-single" name="director_name" id="director_name" required style="max-width: 100%">
                                   <option value="">Select Director Name</option>
 
                                   @foreach($directors as $director)
@@ -78,7 +78,6 @@
        placeholder: {
     },
     minimumResultsForSearch: -1,
-    width: 600,
   });
 
 });

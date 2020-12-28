@@ -225,6 +225,39 @@
 
 
             </div>
+             <div class="row">
+              <div class="col-md-12 col-sm-12  ">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Other Membership</h2>
+                  
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content"> 
+                    <table class="table table-bordered" width="100%">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Name</th>
+                          <th>Membership Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          @foreach($director->other_membership as $key=>$membership)
+                        <tr>
+                          <td>{{$key+1}}</td>
+                          <td>{{$membership->organization}}</td>
+                          <td>{{$membership->type}}</td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
             </div>
         </div>
         <!-- /page content -->

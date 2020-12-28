@@ -2,6 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="{{asset('public/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('public/css/jquery.dataTables.min.css')}}">
 
  <!-- page content -->
         <div class="right_col" role="main">
@@ -24,36 +25,35 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+                       <form class="" action="{{route('result_sector_final')}}" method="post" target="_blank">
+                      @csrf
+
                     <table id="company" class="table table-bordered" width="100%" style="font-size: 12px;text-align: left">
                     <thead style="text-align: left;align-content: left">
                         <tr >
                           <th style="width: 5%">#</th>
                             <th class="th-sm" style="width: 10%">Company Name</th>
-                            <th class="th-sm" style="width: 10%">Index</th>
-                            <th class="th-sm" style="width: 15%">Action</th>
+                            <th class="th-sm" style="width: 10%">Sector</th>
+                            <th class="th-sm" style="width: 10%">Industry</th>
                         </tr>
                     </thead>
                     <tbody style="text-align: left;align-content: left">
                       @foreach($companies as $key=>$company)
+                        <input name="company_id[]" id="company_id" required value="{{$company->id}}" type="checkbox" checked style="display: none;">
                         <tr>
                           <td>{{$key+1}}</td>
-                          <td>{{$company->name}}</td>
-                          <td>{{$company->index}}</td>
-                          <td style="padding: 0">
-
-                             <form class="" action="{{route('result_company')}}" method="post" target="_blank">
-                      @csrf
-                   
-                                <input name="company_id" id="company_id" required value="{{$company->id}}" style="display: none">
-                        <button class="btn btn-success" >View</button>
-                     
-                  </form>
-                          </td>
+                          <td>{{$company->name}} ({{$company->index}})</td>
+                          <td>{{$company->sector}}</td>
+                          <td>{{$company->industry}}</td>
+                       
                         </tr>
                       @endforeach
                     </tbody>
                     
                 </table>
+                <button type="submit" class="btn btn-success" >Proceed</button>
+                     </form>
+
                   </div>
                 </div>
               </div>
@@ -67,6 +67,8 @@
 
 
 @section('footer')
+<script src="{{ asset('public/js/jquery.dataTables.min.js')}}"></script>
+
     <script src="{{asset('public/js/select2.min.js')}}"></script>
     <script type="text/javascript">
       $(document).on('focus', '.select2.select2-container', function (e) {
@@ -83,7 +85,9 @@
 })(), true);
  $(document).ready(function(){
   $('.js-example-basic-single').select2();
+    $('#company').DataTable( {
 
+    });
 });
 </script>
 @endsection

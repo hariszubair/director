@@ -11,6 +11,7 @@ use App\Models\Director;
 use App\Models\CompanyDirector;
 use Yajra\Datatables\Datatables;
 use App\Models\CommitteeComposition;
+use App\Models\CommitteeReference;
 use App\Models\OtherMembership;
 use \Carbon\Carbon;
 use Spatie\Permission\Models\Role;
@@ -94,6 +95,7 @@ class CompanyController extends Controller
             $temp=[];
             foreach ($request->committee as $key => $value) {
             $temp['name']=$value['name'];
+            $temp['map']=$value['map'];
             $temp['company_name']=$company->name;
             $temp['company_id']=$company->id;
             $temp['chair_fee']=$value['chair_fee'];
@@ -118,6 +120,7 @@ class CompanyController extends Controller
 
     }   
     public function edit($id){
+    $committee_reference=CommitteeReference::all();   
     $company=Company::with('committee','financial','company_director.director')->find($id);
     $company->financial->preventAttrSet = true;
     $company->committee->preventAttrSet = true;
@@ -125,7 +128,7 @@ class CompanyController extends Controller
 
     $company->preventAttrSet = true;
         $company_reference=CompanyReference::all();
-        return view('company.edit',compact('company_reference','company')); 
+        return view('company.edit',compact('company_reference','company','committee_reference')); 
     }
     public function update(Request $request, $id){
             $committee=[];
@@ -279,6 +282,7 @@ class CompanyController extends Controller
             $temp=[];
             foreach ($request->committee as $key => $value) {
             $temp['name']=$value['name'];
+            $temp['map']=$value['map'];
             $temp['company_name']=$request->company_name;
             $temp['company_id']=$request->company_id;
             $temp['chair_fee']=$value['chair_fee'];
@@ -295,7 +299,7 @@ class CompanyController extends Controller
         // return $request;
 
          foreach ($request->committee as $key => $value) {
-        Committee::find($id)->update(['name'=>$value['name'],'chair_fee'=>$value['chair_fee'],'member_fee'=>$value['member_fee'],'no_of_meetings'=>$value['no_of_meetings'] ]);
+        Committee::find($id)->update(['name'=>$value['name'],'map'=>$value['map'],'chair_fee'=>$value['chair_fee'],'member_fee'=>$value['member_fee'],'no_of_meetings'=>$value['no_of_meetings'] ]);
          }
         return redirect()->back();
     }

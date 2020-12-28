@@ -1,22 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<style type="text/css">
-        input:focus, select:focus, textarea:focus,  option:focus {
-            background-color: #E5E4DE ;
-            }
-            body
-{
-    counter-reset: Serial;           /* Set the Serial counter to 0 */
-}
 
-
-tr td:first-child:before
-{
-  counter-increment: Serial;      /* Increment the Serial counter */
-  content: counter(Serial); /* Display the counter */
-}
- </style>
 <link rel="stylesheet" href="{{asset('public/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{ asset('public/css/jquery.dataTables.min.css')}}">
 
@@ -41,7 +26,9 @@ tr td:first-child:before
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+                    <p><font size="2" color="red">* are preselected companies</font></p>
                     <div class="btn-group pull-left" role="group">
+
      <button id="btnHidden" class="btn btn-default"  type="button" style="margin:5px">Filtered</button>
      <button id="btnAll" class="btn btn-default"  type="button" style="margin:5px">All</button>
                             <div class="col-md-12 form-row form-inline">
@@ -56,15 +43,20 @@ tr td:first-child:before
                                
                             </div>
                      
-  </div>  
-  <form id='form_companies' method="POST">
+  </div>  <span id='text_message'><b>{{$count_companies}} companies are selected</b></span>
+  <input type="" id='selected_companies' value="{{$count_companies}}" style="display: none">
+   <form class="" action="{{route('result_custom_final')}}" method="post" target="_blank">
+    @csrf
+    <div style="max-height: 500px;overflow: scroll;">
 
-                    <table id="company" class="table table-bordered" width="100%" style="font-size: 12px;text-align: left">
+                    <table id="company" class="table table-bordered" width="100%" style="font-size: 12px;text-align: left;">
                     <thead style="text-align: left;align-content: left">
                         <tr >
-                          <th style="width: 5%">#</th>
-                            <th class="th-sm" style="width: 30%">Company Name</th>
-                            <th class="th-sm" style="width: 20%">Index</th>
+                            <th class="th-sm" style="width: 25%">Company Name</th>
+                            <th class="th-sm" style="width: 15%">Sector</th>
+                            <th class="th-sm" style="width: 15%">Industry</th>
+                            <th class="th-sm" style="width: 20%">Revenue</th>
+                            <th class="th-sm" style="width: 20%">Market Cap</th>
                             <th class="th-sm" style="width: 10%">Available</th>
                             <th class="th-sm" style="width: 5%">Action</th>
                         </tr>
@@ -72,18 +64,23 @@ tr td:first-child:before
                     <tbody style="text-align: left;align-content: left">
                       @foreach($companies as $key=>$company)
                         <tr>
-                          <td></td>
-                          <td>{{$company['name']}}</td>
-                          <td>{{$company['index']}}</td>
+                          <td>{{$company['name']}} ({{$company['index']}}) <font color="red" size="4">{{$company['action']== 1 ? '*': '' }}</font></td>
+                          <td>{{$company['sector']}}</td>
+                          <td>{{$company['industry']}}</td>
+                          <td>${{$company['revenue']}}</td>
+                          <td>${{$company['market_cap']}}</td>
                           <td>{{$company['action']== 1 ? 'Available' : 'x' }}</td>
-                          <td><input type="checkbox" {{$company['action']== 1 ? 'checked' : '' }} ></td>
+                          <td>
+                          <input name="company_id[]" class="selected_companies" type="checkbox" {{$company['action']== 1 ? 'checked' : '' }} value="{{$company['id']}}" ></td>
                         </tr>
                       @endforeach
                     </tbody>
                     
                 </table>
+                 
+</div>
+<button type="submit" class="btn btn-success" >Proceed</button>
                        </form>
-
                   </div>
                 </div>
               </div>
@@ -116,12 +113,13 @@ tr td:first-child:before
 },
 "columnDefs": [
             {
-                "targets": [ 3 ],
+                "targets": [5],
                 "visible": false,
                 "searchable": false
             },
             
         ]
+   
     } );
 
 });
@@ -158,21 +156,24 @@ $("#btnHidden").on('click', function () {
 $('#company').DataTable().draw()
 });
  $('#all').click(function(){
-          var allInputs = $( "form#form_companies :input[type='checkbox']" ).filter(function(){
-        return  $(this).is(':visible') ;
-    });;
-          allInputs.prop('checked', true);
-          
-           // $( "input" ).value()="on";
+  $('input[type="checkbox"]').prop('checked', true)
+       $('#text_message').html('<b>'+$('input[type="checkbox"]:checked').length+ ' companies are selected.</b>')
+
       });
       $('#none').click(function(){
-          var allInputs = $( "form#form_companies :input[type='checkbox'] " ).filter(function(){
-        return  $(this).is(':visible') ;
-    });
-          allInputs.prop('checked', false);
-          
-           // $( "input" ).value()="on";
+       $('input[type="checkbox"]').prop('checked', false)
+       $('#text_message').html('<b>0 company is selected.</b>')
       });
+      $(".selected_companies").change(function(){
+        if($('input[type="checkbox"]:checked').length < 2){
+           $('#text_message').html('<b>'+$('input[type="checkbox"]:checked').length+ ' company is selected.</b>')
+        }
+        else{
+           $('#text_message').html('<b>'+$('input[type="checkbox"]:checked').length+ ' companies are selected.</b>')
+        }
+       
+        $('#selected_companies').val($('input[type="checkbox"]:checked').length);
+});
 </script>
 @endsection
 

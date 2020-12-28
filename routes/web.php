@@ -78,13 +78,16 @@ Route::post('/result_company', [App\Http\Controllers\SearchController::class, 'r
 Route::get('/search_sector', [App\Http\Controllers\SearchController::class, 'search_sector'])->name('search_sector');
 Route::post('/search_industry', [App\Http\Controllers\SearchController::class, 'search_industry'])->name('search_industry');
 Route::post('/result_sector', [App\Http\Controllers\SearchController::class, 'result_sector'])->name('result_sector');
+Route::post('/result_sector_final', [App\Http\Controllers\SearchController::class, 'result_sector_final'])->name('result_sector_final');
+
 // Route::post('/result_director', [App\Http\Controllers\SearchController::class, 'result_director'])->name('result_director');
 // Route::get('/view_director/{id}', [App\Http\Controllers\SearchController::class, 'view_director'])->name('view_director');
 
 
-//company
+//custom
 Route::get('/search_custom', [App\Http\Controllers\SearchController::class, 'search_custom'])->name('search_custom');
 Route::post('/result_custom', [App\Http\Controllers\SearchController::class, 'result_custom'])->name('result_custom');
+Route::post('/result_custom_final', [App\Http\Controllers\SearchController::class, 'result_custom_final'])->name('result_custom_final');
 
 
 

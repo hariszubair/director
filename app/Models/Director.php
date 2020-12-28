@@ -16,4 +16,8 @@ class Director extends Model
 	{
 		return $this->hasMany('App\Models\CompanyDirector');
 	}
+	public function committee_composition()
+	{
+		return $this->hasMany('App\Models\CommitteeComposition');
+	}
 }

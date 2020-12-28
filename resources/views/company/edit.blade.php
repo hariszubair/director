@@ -478,6 +478,19 @@
                     </div>
                     <div class="form-group col-md-6 col-sm-6 col-xs-12" >
                       <div class="form-group">
+                        <label class="col-md-12 col-sm-12">Reference<span class="required">*</span></label>
+                        <div class="col-md-12 col-sm-12" style="display: inline-flex;">
+                          <select class="form-control" name="committee[{{$key}}][map]" id="commitee[{{$key}}][map]" required value="{{$committee->map}}">
+                            @foreach($committee_reference as $reference)
+                            <option {{$reference->code==$committee->map ? 'selected' : ''}} value="{{$reference->code}}">{{$reference->name}}</option>
+                            @endforeach
+                          </select>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-6 col-xs-12" >
+                      <div class="form-group">
                         <label class="col-md-12 col-sm-12">Chair Fee</label>
                         <div class="col-md-12 col-sm-12" style="display: inline-flex;">
                           <input class="form-control" name="committee[{{$key}}][chair_fee]" id="commitee[{{$key}}][chair_fee]"  value="{{$committee->chair_fee}}">
@@ -565,6 +578,29 @@ document.getElementById("financial[year]").innerHTML += options;
       <input class="form-control" name="company_id"  value="<?php echo $company->id ?>" style="display:none">
       <input class="form-control" name="company_name"  value="<?php echo $company->name ?>" style="display:none">
       <div id="div_committee[`+committee_counter+`]"><div class="form-group col-md-6 col-sm-6 col-xs-12" ><div class="form-group"><label class="col-md-12 col-sm-12">Committee Name<span class="required">*</span></label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control" name="committee[`+committee_counter+`][name]" id="committee[`+committee_counter+`][name]" required></div></div></div>
+      <div class="form-group col-md-6 col-sm-6 col-xs-12" id="div_committee[`+committee_counter+`]"><div class="form-group"><label class="col-md-12 col-sm-12">Reference</label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><select class="form-control" name="committee[`+committee_counter+`][map]" id="committee[`+committee_counter+`][map]" required><option value="">Please select a reference committee</option> <option value="ARC">Audit, Risk &amp; Compliance Committee</option>
+<option value="AUC">Audit &amp; Compliance Committee</option>
+<option value="AUD">Audit Committee</option>
+<option value="AUR">Audit &amp; Risk Management Committee</option>
+<option value="COG">Corporate Governance Committee</option>
+<option value="NOM">Nomination Committee</option>
+<option value="OHS">Health, Safety &amp; Environment Committee</option>
+<option value="HRS">Human Resources Committee</option>
+<option value="NOR">Nomination &amp; Remuneration Committee</option>
+<option value="REM">Remuneration Committee</option>
+<option value="RIS">Risk Committee</option>
+<option value="ACQ">Mergers &amp; Acquisition Committee</option>
+<option value="BOM">Board Meeting</option>
+<option value="BOR">Review Committee</option>
+<option value="COM">Compliance Committee</option>
+<option value="FIN">Finance Committee</option>
+<option value="INV">Investment Committee</option>
+<option value="MAK">Marketing Committee</option>
+<option value="NED">Non-executive/Independent Director Committee</option>
+<option value="OTH">Other Committee</option>
+<option value="PLN">Planning/Strategy Committee</option>
+<option value="SBM">Special Board Meeting</option>
+<option value="Board">Board</option></select></div></div></div>
     <div class="form-group col-md-6 col-sm-6 col-xs-12" id="div_committee[`+committee_counter+`]"><div class="form-group"><label class="col-md-12 col-sm-12">Chair Fee</label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control" name="committee[`+committee_counter+`][chair_fee]" id="committee[`+committee_counter+`][chair_fee]"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' type='number'></div></div></div>
     <div class="form-group col-md-6 col-sm-6 col-xs-12" id="div_committee[`+committee_counter+`]"><div class="form-group"><label class="col-md-12 col-sm-12">Member Fee</label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control" name="committee[`+committee_counter+`][member_fee]" id="committee[`+committee_counter+`][member_fee]" onkeypress='return event.charCode >= 48 && event.charCode <= 57'  type='number'></div></div></div>
     <div class="form-group col-md-6 col-sm-6 col-xs-12" id="div_committee[`+committee_counter+`]"><div class="form-group"><label class="col-md-12 col-sm-12">No of meetings<span class="required">*</span></label><div class="col-md-12 col-sm-12" style="display: inline-flex;"><input class="form-control" name="committee[`+committee_counter+`][no_of_meetings]" id="committee[`+committee_counter+`][no_of_meetings]" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'  type='number'></div></div></div>
