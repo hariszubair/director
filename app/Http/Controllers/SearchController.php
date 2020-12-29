@@ -308,9 +308,14 @@ class SearchController extends Controller
           $no_of_directors[$ref->code]=[];
         }
          // return $ref->code;
-
+        if($committee->chair_fee != 0 && $committee->chair_fee != Null){
         array_push($chair_fee[$ref->code], $committee->chair_fee);
+        }
+        if($committee->member_fee != 0 && $committee->member_fee != Null){
+
         array_push($member_fee[$ref->code], $committee->member_fee);
+        }
+          
         array_push($no_of_meetings[$ref->code], $committee->no_of_meetings);
         array_push($no_of_directors[$ref->code], $committee->composition->count());
         $committee_names[$ref->name]=$ref->code;
@@ -324,7 +329,7 @@ class SearchController extends Controller
  $committee_names=array_unique($committee_names);
        
 
-    // return $chair_fee;
+    // return $member_fee;
      $percentile_chair_fee=[];
      $percentile_member_fee=[];
      $percentile_no_of_meetings=[];
@@ -337,8 +342,20 @@ class SearchController extends Controller
       $percentile_no_of_employees[$i]=$this->get_percentile($i,$no_of_employees);
 
        foreach ($committee_names as $key => $value) {
+        if($chair_fee[$value] != Null){
          $percentile_chair_fee[$value][$i]=$this->get_percentile($i,$chair_fee[$value]);
+        }
+        else{
+          $percentile_chair_fee[$value][$i]=0;
+        }
+        if($member_fee[$value] != Null){
       $percentile_member_fee[$value][$i]=$this->get_percentile($i,$member_fee[$value]);
+
+        }
+        else{
+      $percentile_member_fee[$value][$i]=0;
+
+        }
       $percentile_no_of_meetings[$value][$i]=$this->get_percentile($i,$no_of_meetings[$value]);
       $percentile_no_of_directors[$value][$i]=$this->get_percentile($i,$no_of_directors[$value]);
       }

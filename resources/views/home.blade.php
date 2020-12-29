@@ -37,7 +37,7 @@
                         <div class="tile-stats">
                           <div class="icon" style="padding-right: 20px"><i class="fas fa-bezier-curve"></i>
                           </div>
-                          <div class="count">{{App\Models\Industry::groupBy('sector')->count()}}</div>
+                          <div class="count">{{count($sector)}}</div>
 
                           <h3>Sectors</h3>
                         </div>
