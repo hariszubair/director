@@ -116,7 +116,6 @@ class SearchController extends Controller
     }
     public function result_custom(Request $request)
     {
-      return $request;
         $user=User::with('profile')->find(Auth::user()->id);
          $companies=Company::select('id');
         if($request->sector  != null){
@@ -153,13 +152,13 @@ class SearchController extends Controller
                   $min_range=($range[0]/100) * $user->profile->sale_revenue;
                   $max_range=($range[1]/100) * $user->profile->sale_revenue;
 
-                  $query= $query->where('sale_revenue', '>=', $min_range)->where('sale_revenue', '<=', $max_range);
+                  $query= $query->where('sale_revenue', '>', $min_range-1)->where('sale_revenue', '<', $max_range+1);
               }
               if($range_mar_cap != '0;0'){
                   $range=explode(';', $range_mar_cap);
                   $min_range=($range[0]/100) * $user->profile->market_cap;
                   $max_range=($range[1]/100) * $user->profile->market_cap;
-                  $query= $query->where('market_cap', '>=', $min_range)->where('market_cap', '<=', $max_range);
+                  $query= $query->where('market_cap', '>', $min_range-1)->where('market_cap', '<', $max_range+1);
               }
               return $query;
           });
