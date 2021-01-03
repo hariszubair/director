@@ -144,6 +144,7 @@ class SearchController extends Controller
     return $query;
           });
         }
+        return $request->range. '==='.$request->range_mar_cap;
         if($request->range != '0;0' || $request->range_mar_cap != '0;0'){
             $companies=$companies->whereHas('financial', function ($query) use($request,$user) {
 
