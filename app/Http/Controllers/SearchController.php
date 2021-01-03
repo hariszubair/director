@@ -165,7 +165,7 @@ class SearchController extends Controller
           });
         }
 
-         $companies= $companies->pluck('id')->toArray();
+        return $companies= $companies->pluck('id')->toArray();
          $count_companies=count($companies);
          // return count($companies);
       $company= Company::select('id','name','index','sector','industry')->with('financial')->get();
