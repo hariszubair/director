@@ -148,12 +148,10 @@ class SearchController extends Controller
           $range=$request->range;
           $range_mar_cap=$request->range_mar_cap;
             $companies=$companies->whereHas('financial', function ($query) use($range,$user,$range_mar_cap) {
-              return $range;
               if($request->range != '0;0'){
                   $range=explode(';', $request->range);
                   $min_range=($range[0]/100) * $user->profile->sale_revenue;
                   $max_range=($range[1]/100) * $user->profile->sale_revenue;
-        return $max_range. '==='.$min_range;
 
                   $query= $query->where('sale_revenue', '>=', $min_range)->where('sale_revenue', '<=', $max_range);
               }
