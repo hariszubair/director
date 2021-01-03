@@ -45,7 +45,7 @@
                      
   </div>  <span id='text_message'><b>{{$count_companies}} companies are selected</b></span>
   <input type="" id='selected_companies' value="{{$count_companies}}" style="display: none">
-   <form class="" action="{{route('result_custom_final')}}" method="post" target="_blank">
+   <form class="" action="{{route('result_custom_final')}}" method="post" target="_blank" id='proceed'>
     @csrf
     <div style="max-height: 500px;overflow: scroll;">
 
@@ -71,7 +71,7 @@
                           <td>${{$company['market_cap']}}</td>
                           <td>{{$company['action']== 1 ? 'Available' : 'x' }}</td>
                           <td>
-                          <input name="company_id[]" class="selected_companies" type="checkbox" {{$company['action']== 1 ? 'checked' : '' }} value="{{$company['id']}}" ></td>
+                          <input name="company_id[]" class="selected_companies" type="checkbox" {{$company['action']== 1 ? 'checked="checked"' : '' }} value="{{$company['id']}}" ></td>
                         </tr>
                       @endforeach
                     </tbody>
@@ -102,7 +102,7 @@
    $('#company').DataTable( {
     dom:'ft',
      "pageLength": -1,
-        "order": [[ 3, "asc" ]],
+        "order": [[ 5, "asc" ]],
         rowCallback: function( row, data, index ) {
     if (data[3] === 'x' && $("#btnHidden").hasClass("active")) {
         $(row).hide();
@@ -111,12 +111,23 @@
        $(row).show();
     }
 },
+ 
+
 "columnDefs": [
             {
                 "targets": [5],
                 "visible": false,
-                "searchable": false
+                "searchable": false,
+                        
+
             },
+             {
+               targets: [0, 1,2,3,4,6],   //first name & last name
+          orderable: false
+                        
+
+            },
+             
             
         ]
    
@@ -173,7 +184,38 @@ $('#company').DataTable().draw()
         }
        
         $('#selected_companies').val($('input[type="checkbox"]:checked').length);
+         var row=$(this).closest('tr');
+         var index= $('#company').DataTable().row(row).index();
+         if($(this).is(':checked')){
+            $('#company').DataTable().cell( index, 5 ) 
+        .data( 'Available')
+        .draw();
+         }
+         else{
+            $('#company').DataTable().cell( index, 5 ) 
+        .data( 'x')
+        .draw();
+         }
+
+        
+         // var data1=$('#company').DataTable().row(index).data();
+         // data1[0]=-data1[0];
+         // console.log(data1[0]);
+         // $('#company').DataTable().row(index).data(data1).draw();
 });
+      $("#btnAll").on('click', function () {
+       $("#btnHidden").removeClass("active");
+       $("#btnAll").addClass("active");
+$('#company').DataTable().draw()
+});
+ 
+//  $( "#proceed" ).submit(function( event ) {
+//   if($('input[type="checkbox"]:checked').length < 10 || $('input[type="checkbox"]:checked').length > 20){
+//   event.preventDefault();
+//   alert('please select 10-20 companies to proceed')
+
+//   }
+// });
 </script>
 @endsection
 

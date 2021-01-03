@@ -74,18 +74,23 @@
                   <div class="x_content">
                     
                     <ol style="list-style: none">
+                    @hasanyrole('Director|Company')
+
                       <li>
                         <a href="search_director"><h2>Director Name</h2></a>
                       </li>
                       <li>
                         <a href="search_company"><h2>Company Name</h2></a>
                       </li>
+                     @endhasanyrole
+                    @hasrole('Company')
                       <li>
                         <a href="search_sector"><h2>Sector/Industry</h2></a>
                       </li>
                       <li>
                         <a href="search_custom"><h2>Customised</h2></a>
                       </li>
+                      @endhasrole
                     </ol>
                     
 

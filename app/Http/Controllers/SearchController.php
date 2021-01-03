@@ -12,6 +12,9 @@ use App\Models\Company;
 use App\Models\SectorIndustry;
 use App\Models\CommitteeReference;
 use DB;
+use App\Models\UserCommittee;
+use Illuminate\Support\Facades\Auth;
+
 
 class SearchController extends Controller
 {
@@ -189,87 +192,20 @@ class SearchController extends Controller
     }
     public function result_sector_final(Request $request)
     {
-       $committee_ref=CommitteeReference::all();
-     $company= Company::whereIn('id',$request->company_id)->with('financial','committee.composition')->get(['id','no_of_employees']);
-     $market_cap=[];
-     $revenue=[];
-     $basic_eps=[];
-     $no_of_employees=[];
-    $chair_fee=[];
-    $member_fee=[];
-    $no_of_meetings=[];
-    $no_of_directors=[];
-     $committee_names=[];
+         // $committee_ref=CommitteeReference::all();
+     $user_committee= UserCommittee::where('user_id',Auth::user()->id)->get();
+    $committee_ref=[];
+    foreach ($user_committee as $key => $committee) {
+     $comb_com[$committee->name]=[];
 
-     // for market_cap and others
-     foreach ($company as $key => $value) {
-     $value->financial->preventAttrSet = true;
-     $value->preventAttrSet = true;
-     $market_cap[$key]=$value->financial->market_cap;
-     $revenue[$key]=$value->financial->sale_revenue;
-     $basic_eps[$key]=$value->financial->basic_eps;
-     $no_of_employees[$key]=$value->no_of_employees;
-     // return $value->committee;
-     foreach ($value->committee as $key2 => $committee) {
-     $committee->preventAttrSet = true;
-     foreach ($committee_ref as $key3 => $ref) {
-       if($committee->map == $ref->code){
-         // return $ref->code;
-        if(!isset($chair_fee[$ref->code])){
-          $chair_fee[$ref->code]=[];
-        }
-        if(!isset($member_fee[$ref->code])){
-          $member_fee[$ref->code]=[];
-        }
-        if(!isset($no_of_meetings[$ref->code])){
-          $no_of_meetings[$ref->code]=[];
-        }
-        if(!isset($no_of_directors[$ref->code])){
-          $no_of_directors[$ref->code]=[];
-        }
-         // return $ref->code;
-
-        array_push($chair_fee[$ref->code], $committee->chair_fee);
-        array_push($member_fee[$ref->code], $committee->member_fee);
-        array_push($no_of_meetings[$ref->code], $committee->no_of_meetings);
-        array_push($no_of_directors[$ref->code], $committee->composition->count());
-        $committee_names[$ref->name]=$ref->code;
-        // array_push($committee_names, $ref->code);
-
+      $arr= explode(',', preg_replace('/[^a-zA-Z,]/', '', $committee->map)) ;
+      foreach ($arr as $key => $value) {
+        array_push($comb_com[$committee->name],$value);
+        array_push($committee_ref,$value);
       }
-     }
-     }
-     }
-
- $committee_names=array_unique($committee_names);
-       
-
-    // return $chair_fee;
-     $percentile_chair_fee=[];
-     $percentile_member_fee=[];
-     $percentile_no_of_meetings=[];
-     $percentile_no_of_directors=[];
-    // return $audit_no_of_meetings;
-     for($i=25;$i<100;$i+=25){
-      $percentile_market_cap[$i]=$this->get_percentile($i,$market_cap);
-      $percentile_revenue[$i]=$this->get_percentile($i,$revenue);
-      $percentile_basic_eps[$i]=$this->get_percentile($i,$basic_eps);
-      $percentile_no_of_employees[$i]=$this->get_percentile($i,$no_of_employees);
-
-       foreach ($committee_names as $key => $value) {
-         $percentile_chair_fee[$value][$i]=$this->get_percentile($i,$chair_fee[$value]);
-      $percentile_member_fee[$value][$i]=$this->get_percentile($i,$member_fee[$value]);
-      $percentile_no_of_meetings[$value][$i]=$this->get_percentile($i,$no_of_meetings[$value]);
-      $percentile_no_of_directors[$value][$i]=$this->get_percentile($i,$no_of_directors[$value]);
-      }
-     }
-        return view('search.custom.view',compact('percentile_market_cap','percentile_revenue','percentile_basic_eps','percentile_no_of_employees','percentile_chair_fee','percentile_member_fee','percentile_no_of_meetings','percentile_no_of_directors','committee_names'));
     }
-
-
-    public function result_custom_final(Request $request)
-    {
-      $committee_ref=CommitteeReference::all();
+    $committee_ref=CommitteeReference::whereIn('code',$committee_ref)->get();
+     // $comb_com['Compliance Committee']=['ARC','AUC','AUD'];
      $company= Company::whereIn('id',$request->company_id)->with('financial','committee.composition')->get(['id','no_of_employees']);
      $market_cap=[];
      $revenue=[];
@@ -279,8 +215,13 @@ class SearchController extends Controller
     $member_fee=[];
     $no_of_meetings=[];
     $no_of_directors=[];
+    $comb_chair_fee=[];
+    $comb_member_fee=[];
+    $comb_no_of_meetings=[];
+    $comb_no_of_directors=[];
      $committee_names=[];
-
+     $comb_committee_names=[];
+     // return $company[0]->committee;
      // for market_cap and others
      foreach ($company as $key => $value) {
      $value->financial->preventAttrSet = true;
@@ -294,7 +235,6 @@ class SearchController extends Controller
      $committee->preventAttrSet = true;
      foreach ($committee_ref as $key3 => $ref) {
        if($committee->map == $ref->code){
-         // return $ref->code;
         if(!isset($chair_fee[$ref->code])){
           $chair_fee[$ref->code]=[];
         }
@@ -307,7 +247,6 @@ class SearchController extends Controller
         if(!isset($no_of_directors[$ref->code])){
           $no_of_directors[$ref->code]=[];
         }
-         // return $ref->code;
         if($committee->chair_fee != 0 && $committee->chair_fee != Null){
         array_push($chair_fee[$ref->code], $committee->chair_fee);
         }
@@ -319,14 +258,53 @@ class SearchController extends Controller
         array_push($no_of_meetings[$ref->code], $committee->no_of_meetings);
         array_push($no_of_directors[$ref->code], $committee->composition->count());
         $committee_names[$ref->name]=$ref->code;
-        // array_push($committee_names, $ref->code);
 
       }
      }
-     }
-     }
+    foreach ($comb_com as $key4 => $com) {
+            foreach ($com as $key5 => $single_com) {
 
- $committee_names=array_unique($committee_names);
+              if($committee->map == $single_com){
+        if(!isset($comb_chair_fee[$key4])){
+          $comb_chair_fee[$key4]=[];
+        }
+        if(!isset($comb_member_fee[$key4])){
+          $comb_member_fee[$key4]=[];
+        }
+        if(!isset($comb_no_of_meetings[$key4])){
+          $comb_no_of_meetings[$key4]=[];
+        }
+        if(!isset($comb_no_of_directors[$key4])){
+          $comb_no_of_directors[$key4]=[];
+        }
+        if($committee->chair_fee != 0 && $committee->chair_fee != Null){
+        array_push($comb_chair_fee[$key4], $committee->chair_fee);
+        }
+        if($committee->member_fee != 0 && $committee->member_fee != Null){
+
+        array_push($comb_member_fee[$key4], $committee->member_fee);
+        }
+          
+        array_push($comb_no_of_meetings[$key4], $committee->no_of_meetings);
+        array_push($comb_no_of_directors[$key4], $committee->composition->count());
+        array_push($comb_committee_names, $key4);
+
+      }
+            }
+
+
+
+         }     
+
+
+
+
+
+     }
+     }
+      // $comb_chair_fee;
+  $comb_committee_names=array_unique($comb_committee_names);
+  $committee_names=array_unique($committee_names);
        
 
     // return $member_fee;
@@ -334,6 +312,10 @@ class SearchController extends Controller
      $percentile_member_fee=[];
      $percentile_no_of_meetings=[];
      $percentile_no_of_directors=[];
+     $percentile_comb_chair_fee=[];
+     $percentile_comb_member_fee=[];
+     $percentile_comb_no_of_meetings=[];
+     $percentile_comb_no_of_directors=[];
     // return $audit_no_of_meetings;
      for($i=25;$i<100;$i+=25){
       $percentile_market_cap[$i]=$this->get_percentile($i,$market_cap);
@@ -359,8 +341,204 @@ class SearchController extends Controller
       $percentile_no_of_meetings[$value][$i]=$this->get_percentile($i,$no_of_meetings[$value]);
       $percentile_no_of_directors[$value][$i]=$this->get_percentile($i,$no_of_directors[$value]);
       }
+      foreach ($comb_committee_names as $key => $value) {
+        // return $comb_chair_fee[$value];
+        if($comb_chair_fee[$value] != Null){
+         $percentile_comb_chair_fee[$value][$i]=$this->get_percentile($i,$comb_chair_fee[$value]);
+        }
+        else{
+          $percentile_comb_chair_fee[$value][$i]=0;
+        }
+        if($comb_member_fee[$value] != Null){
+      $percentile_comb_member_fee[$value][$i]=$this->get_percentile($i,$comb_member_fee[$value]);
+
+        }
+        else{
+      $percentile_comb_member_fee[$value][$i]=0;
+
+        }
+      $percentile_comb_no_of_meetings[$value][$i]=$this->get_percentile($i,$comb_no_of_meetings[$value]);
+      $percentile_comb_no_of_directors[$value][$i]=$this->get_percentile($i,$comb_no_of_directors[$value]);
+      }
      }
-        return view('search.custom.view',compact('percentile_market_cap','percentile_revenue','percentile_basic_eps','percentile_no_of_employees','percentile_chair_fee','percentile_member_fee','percentile_no_of_meetings','percentile_no_of_directors','committee_names'));
+        return view('search.custom.view',compact('percentile_market_cap','percentile_revenue','percentile_basic_eps','percentile_no_of_employees','percentile_chair_fee','percentile_member_fee','percentile_no_of_meetings','percentile_no_of_directors','committee_names','percentile_comb_no_of_meetings','percentile_comb_no_of_directors','percentile_comb_member_fee','percentile_comb_chair_fee','comb_committee_names'));
+    }
+
+
+    public function result_custom_final(Request $request)
+    {
+      // $committee_ref=CommitteeReference::all();
+     $user_committee= UserCommittee::where('user_id',Auth::user()->id)->get();
+    $committee_ref=[];
+    foreach ($user_committee as $key => $committee) {
+     $comb_com[$committee->name]=[];
+
+      $arr= explode(',', preg_replace('/[^a-zA-Z,]/', '', $committee->map)) ;
+      foreach ($arr as $key => $value) {
+        array_push($comb_com[$committee->name],$value);
+        array_push($committee_ref,$value);
+      }
+    }
+    $committee_ref=CommitteeReference::whereIn('code',$committee_ref)->get();
+    
+     // $comb_com['Compliance Committee']=['ARC','AUC','AUD'];
+     $company= Company::whereIn('id',$request->company_id)->with('financial','committee.composition')->get(['id','no_of_employees']);
+     $market_cap=[];
+     $revenue=[];
+     $basic_eps=[];
+     $no_of_employees=[];
+    $chair_fee=[];
+    $member_fee=[];
+    $no_of_meetings=[];
+    $no_of_directors=[];
+    $comb_chair_fee=[];
+    $comb_member_fee=[];
+    $comb_no_of_meetings=[];
+    $comb_no_of_directors=[];
+     $committee_names=[];
+     $comb_committee_names=[];
+     // return $company[0]->committee;
+     // for market_cap and others
+     foreach ($company as $key => $value) {
+     $value->financial->preventAttrSet = true;
+     $value->preventAttrSet = true;
+     $market_cap[$key]=$value->financial->market_cap;
+     $revenue[$key]=$value->financial->sale_revenue;
+     $basic_eps[$key]=$value->financial->basic_eps;
+     $no_of_employees[$key]=$value->no_of_employees;
+     // return $value->committee;
+     foreach ($value->committee as $key2 => $committee) {
+     $committee->preventAttrSet = true;
+     foreach ($committee_ref as $key3 => $ref) {
+       if($committee->map == $ref->code){
+        if(!isset($chair_fee[$ref->code])){
+          $chair_fee[$ref->code]=[];
+        }
+        if(!isset($member_fee[$ref->code])){
+          $member_fee[$ref->code]=[];
+        }
+        if(!isset($no_of_meetings[$ref->code])){
+          $no_of_meetings[$ref->code]=[];
+        }
+        if(!isset($no_of_directors[$ref->code])){
+          $no_of_directors[$ref->code]=[];
+        }
+        if($committee->chair_fee != 0 && $committee->chair_fee != Null){
+        array_push($chair_fee[$ref->code], $committee->chair_fee);
+        }
+        if($committee->member_fee != 0 && $committee->member_fee != Null){
+
+        array_push($member_fee[$ref->code], $committee->member_fee);
+        }
+          
+        array_push($no_of_meetings[$ref->code], $committee->no_of_meetings);
+        array_push($no_of_directors[$ref->code], $committee->composition->count());
+        $committee_names[$ref->name]=$ref->code;
+
+      }
+     }
+    foreach ($comb_com as $key4 => $com) {
+           
+            foreach ($com as $key5 => $single_com) {
+
+              if($committee->map == $single_com){
+        if(!isset($comb_chair_fee[$key4])){
+          $comb_chair_fee[$key4]=[];
+        }
+        if(!isset($comb_member_fee[$key4])){
+          $comb_member_fee[$key4]=[];
+        }
+        if(!isset($comb_no_of_meetings[$key4])){
+          $comb_no_of_meetings[$key4]=[];
+        }
+        if(!isset($comb_no_of_directors[$key4])){
+          $comb_no_of_directors[$key4]=[];
+        }
+        if($committee->chair_fee != 0 && $committee->chair_fee != Null){
+        array_push($comb_chair_fee[$key4], $committee->chair_fee);
+        }
+        if($committee->member_fee != 0 && $committee->member_fee != Null){
+
+        array_push($comb_member_fee[$key4], $committee->member_fee);
+        }
+          
+        array_push($comb_no_of_meetings[$key4], $committee->no_of_meetings);
+        array_push($comb_no_of_directors[$key4], $committee->composition->count());
+        array_push($comb_committee_names, $key4);
+
+      }
+            }
+
+
+
+         }     
+
+
+
+
+
+     }
+     }
+     // return $comb_chair_fee;
+ $comb_committee_names=array_unique($comb_committee_names);
+  $committee_names=array_unique($committee_names);
+       
+
+    // return $member_fee;
+     $percentile_chair_fee=[];
+     $percentile_member_fee=[];
+     $percentile_no_of_meetings=[];
+     $percentile_no_of_directors=[];
+     $percentile_comb_chair_fee=[];
+     $percentile_comb_member_fee=[];
+     $percentile_comb_no_of_meetings=[];
+     $percentile_comb_no_of_directors=[];
+    // return $audit_no_of_meetings;
+     for($i=25;$i<100;$i+=25){
+      $percentile_market_cap[$i]=$this->get_percentile($i,$market_cap);
+      $percentile_revenue[$i]=$this->get_percentile($i,$revenue);
+      $percentile_basic_eps[$i]=$this->get_percentile($i,$basic_eps);
+      $percentile_no_of_employees[$i]=$this->get_percentile($i,$no_of_employees);
+
+       foreach ($committee_names as $key => $value) {
+        if($chair_fee[$value] != Null){
+         $percentile_chair_fee[$value][$i]=$this->get_percentile($i,$chair_fee[$value]);
+        }
+        else{
+          $percentile_chair_fee[$value][$i]=0;
+        }
+        if($member_fee[$value] != Null){
+      $percentile_member_fee[$value][$i]=$this->get_percentile($i,$member_fee[$value]);
+
+        }
+        else{
+      $percentile_member_fee[$value][$i]=0;
+
+        }
+      $percentile_no_of_meetings[$value][$i]=$this->get_percentile($i,$no_of_meetings[$value]);
+      $percentile_no_of_directors[$value][$i]=$this->get_percentile($i,$no_of_directors[$value]);
+      }
+      foreach ($comb_committee_names as $key => $value) {
+        // return $comb_chair_fee[$value];
+        if($comb_chair_fee[$value] != Null){
+         $percentile_comb_chair_fee[$value][$i]=$this->get_percentile($i,$comb_chair_fee[$value]);
+        }
+        else{
+          $percentile_comb_chair_fee[$value][$i]=0;
+        }
+        if($comb_member_fee[$value] != Null){
+      $percentile_comb_member_fee[$value][$i]=$this->get_percentile($i,$comb_member_fee[$value]);
+
+        }
+        else{
+      $percentile_comb_member_fee[$value][$i]=0;
+
+        }
+      $percentile_comb_no_of_meetings[$value][$i]=$this->get_percentile($i,$comb_no_of_meetings[$value]);
+      $percentile_comb_no_of_directors[$value][$i]=$this->get_percentile($i,$comb_no_of_directors[$value]);
+      }
+     }
+        return view('search.custom.view',compact('percentile_market_cap','percentile_revenue','percentile_basic_eps','percentile_no_of_employees','percentile_chair_fee','percentile_member_fee','percentile_no_of_meetings','percentile_no_of_directors','committee_names','percentile_comb_no_of_meetings','percentile_comb_no_of_directors','percentile_comb_member_fee','percentile_comb_chair_fee','comb_committee_names'));
     }
 
     public function get_percentile($percentile, $array) {

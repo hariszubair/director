@@ -25,6 +25,21 @@
        <script src="{{asset('public/js/jquery.inputmask.bundle.js')}}"></script>
       <script type="text/javascript">
   $(document).ready(function(){
+     $('.number_only').on('input',function(event) {
+ var patt=/^[\d]+$/gm;
+              if(!patt.test($(this).val())) {
+               $(this).val($(this).val().replace(/[^\d]/g, '')); 
+              
+    }
+    });
+
+  $('.decimal_only').on('input',function(event) {
+    // x.replace(/[^.\d]/g, '').replace(/^(\d*\.?)|(\d*)\.?/g, "$1$2")
+         var patt=/^[\d\.]+$/gm;
+              if(!patt.test($(this).val())) {
+               $(this).val($(this).val().replace(/[^.\d]/g, '')); 
+    }
+  });
     $('.right_col').height($(window).height()-10);
 });
 </script>

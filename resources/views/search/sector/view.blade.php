@@ -26,14 +26,14 @@
                   </div>
                   <div class="x_content" >
                     @foreach($committee_names as $key=>$committee)
-                 <div class="col-md-6 col-sm-6">
+                 <div class="col-md-12 col-sm-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>{{ucwords($key)}}</h2>
                   
                     <div class="clearfix"></div>
                   </div>
-                  <div class="x_content" style="overflow: scroll">
+                  <div class="x_content" >
                 <table class="table table-bordered" width="100%" >
                   <thead>
                     <tr>
@@ -79,14 +79,14 @@
             </div>
           </div>
                 @endforeach
-                 <div class="col-md-6 col-sm-6" >
+                 <div class="col-md-12 col-sm-12" >
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Company Details</h2>
                   
                     <div class="clearfix"></div>
                   </div>
-                  <div class="x_content" style="overflow: scroll">
+                  <div class="x_content">
                 <table class="table table-bordered" width="100%" >
                   <thead>
                     <tr>

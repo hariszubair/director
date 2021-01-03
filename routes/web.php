@@ -61,7 +61,9 @@ Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('config:cache');
     $exitCode = Artisan::call('cache:clear');
 });
-
+Route::get('/migrate', function() {
+    $exitCode = Artisan::call('migrate');
+});
 
 //Search Controller
 //director
@@ -75,19 +77,27 @@ Route::post('/result_company', [App\Http\Controllers\SearchController::class, 'r
 
 
 //sector
-Route::get('/search_sector', [App\Http\Controllers\SearchController::class, 'search_sector'])->name('search_sector')->middleware(['role_or_permission:NonEntry']);
-Route::post('/search_industry', [App\Http\Controllers\SearchController::class, 'search_industry'])->name('search_industry')->middleware(['role_or_permission:NonEntry']);
-Route::post('/result_sector', [App\Http\Controllers\SearchController::class, 'result_sector'])->name('result_sector')->middleware(['role_or_permission:NonEntry']);
-Route::post('/result_sector_final', [App\Http\Controllers\SearchController::class, 'result_sector_final'])->name('result_sector_final')->middleware(['role_or_permission:NonEntry']);
+Route::get('/search_sector', [App\Http\Controllers\SearchController::class, 'search_sector'])->name('search_sector')->middleware(['role_or_permission:NonEntry|Company']);
+Route::post('/search_industry', [App\Http\Controllers\SearchController::class, 'search_industry'])->name('search_industry')->middleware(['role_or_permission:NonEntry|Company']);
+Route::post('/result_sector', [App\Http\Controllers\SearchController::class, 'result_sector'])->name('result_sector')->middleware(['role_or_permission:NonEntry|Company']);
+Route::post('/result_sector_final', [App\Http\Controllers\SearchController::class, 'result_sector_final'])->name('result_sector_final')->middleware(['role_or_permission:NonEntry|Company']);
 
 // Route::post('/result_director', [App\Http\Controllers\SearchController::class, 'result_director'])->name('result_director');
 // Route::get('/view_director/{id}', [App\Http\Controllers\SearchController::class, 'view_director'])->name('view_director');
 
 
 //custom
-Route::get('/search_custom', [App\Http\Controllers\SearchController::class, 'search_custom'])->name('search_custom')->middleware(['role_or_permission:NonEntry']);
-Route::post('/result_custom', [App\Http\Controllers\SearchController::class, 'result_custom'])->name('result_custom')->middleware(['role_or_permission:NonEntry']);
-Route::post('/result_custom_final', [App\Http\Controllers\SearchController::class, 'result_custom_final'])->name('result_custom_final')->middleware(['role_or_permission:NonEntry']);
+Route::get('/search_custom', [App\Http\Controllers\SearchController::class, 'search_custom'])->name('search_custom')->middleware(['role_or_permission:NonEntry|Company']);
+Route::post('/result_custom', [App\Http\Controllers\SearchController::class, 'result_custom'])->name('result_custom')->middleware(['role_or_permission:NonEntry|Company']);
+Route::post('/result_custom_final', [App\Http\Controllers\SearchController::class, 'result_custom_final'])->name('result_custom_final')->middleware(['role_or_permission:NonEntry|Company']);
+
+
+
+//profile
+Route::get('/edit_profile/{id}', [App\Http\Controllers\HomeController::class, 'edit_profile'])->name('edit_profile')->middleware(['role_or_permission:Director|Company']);
+Route::post('/edit_company_profile', [App\Http\Controllers\HomeController::class, 'edit_company_profile'])->name('edit_company_profile')->middleware(['role_or_permission:Director|Company']);
+Route::post('/create_director_profile', [App\Http\Controllers\HomeController::class, 'create_director_profile'])->name('create_director_profile')->middleware(['role_or_permission:Director']);
+Route::post('/create_company_profile', [App\Http\Controllers\HomeController::class, 'create_company_profile'])->name('create_company_profile')->middleware(['role_or_permission:Company']);
 
 
 

@@ -38,7 +38,17 @@
                                 @enderror
                             </div>
                         </div>
+                         <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Registered As') }}</label>
 
+                            <div class="col-md-6">
+                              <select class="form-control" name="role_id" required>
+                                  <option value="">Please Select as Role</option>
+                                  <option value="3">Director</option>
+                                  <option value="4">Company</option>
+                              </select>
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
