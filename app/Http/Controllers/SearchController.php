@@ -117,7 +117,7 @@ class SearchController extends Controller
     public function result_custom(Request $request)
     {
       // return $request;
-        return $user=User::with('profile')->find(Auth::user()->id);
+        $user=User::with('profile')->find(Auth::user()->id);
          $companies=Company::select('id');
         if($request->sector){
           $companies=$companies->where('sector',$request->sector);
