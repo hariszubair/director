@@ -12,6 +12,7 @@ use App\Models\Company;
 use App\Models\SectorIndustry;
 use App\Models\CommitteeReference;
 use DB;
+use App\Models\User;
 use App\Models\UserCommittee;
 use Illuminate\Support\Facades\Auth;
 
@@ -116,6 +117,7 @@ class SearchController extends Controller
     public function result_custom(Request $request)
     {
       // return $request;
+        $user=User::with('profile')->find(Auth::user()->id);
          $companies=Company::select('id');
         if($request->sector){
           $companies=$companies->where('sector',$request->sector);
@@ -143,18 +145,18 @@ class SearchController extends Controller
           });
         }
         if($request->range != '0;0' || $request->range_mar_cap != '0;0'){
-            $companies=$companies->whereHas('financial', function ($query) use($request) {
+            $companies=$companies->whereHas('financial', function ($query) use($request,$user) {
 
               if($request->range != '0;0'){
                   $range=explode(';', $request->range);
-                  $min_range=($range[0]/100) * 3918200000;
-                  $max_range=($range[1]/100) * 3918200000;
+                  $min_range=($range[0]/100) * $user->profile->sale_revenue;
+                  $max_range=($range[1]/100) * $user->profile->sale_revenue;
                   $query= $query->where('sale_revenue', '>=', $min_range)->where('sale_revenue', '<=', $max_range);
               }
               if($request->range_mar_cap != '0;0'){
                   $range=explode(';', $request->range_mar_cap);
-                  $min_range=($range[0]/100) * 4430000000;
-                  $max_range=($range[1]/100) * 4430000000;
+                  $min_range=($range[0]/100) * $user->profile->market_cap;
+                  $max_range=($range[1]/100) * $user->profile->market_cap;
                   $query= $query->where('market_cap', '>=', $min_range)->where('market_cap', '<=', $max_range);
               }
               return $query;
