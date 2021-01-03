@@ -116,16 +116,15 @@ class SearchController extends Controller
     }
     public function result_custom(Request $request)
     {
-      return $request;
         $user=User::with('profile')->find(Auth::user()->id);
          $companies=Company::select('id');
-        if($request->sector){
+        if($request->sector  != null){
           $companies=$companies->where('sector',$request->sector);
         }
-        if($request->industry){
+        if($request->industry  != null){
           $companies=$companies->where('industry',$request->industry);
         }
-        if($request->index){
+        if($request->index != null){
           $companies=$companies->whereHas('reference', function ($query) use($request) {
           switch ($request->index) {
             case 'ASX-50':
@@ -165,7 +164,7 @@ class SearchController extends Controller
           });
         }
 
-        return $companies= $companies->pluck('id')->toArray();
+         $companies= $companies->pluck('id')->toArray();
          $count_companies=count($companies);
          // return count($companies);
       $company= Company::select('id','name','index','sector','industry')->with('financial')->get();
