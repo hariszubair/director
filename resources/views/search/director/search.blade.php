@@ -75,9 +75,7 @@
   $('.js-example-basic-single').select2();
    $('#director_name').select2({
       allowClear: true,
-       placeholder: {
-    },
-    minimumResultsForSearch: -1,
+       placeholder: 'Please Select a director'
   });
 
 });
