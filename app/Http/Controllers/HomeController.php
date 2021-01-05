@@ -121,4 +121,8 @@ class HomeController extends Controller
         return redirect()->route('home');
 
     }
+    public function packages()
+    {
+            return view('packages');
+    }
 }

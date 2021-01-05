@@ -25,6 +25,8 @@
   </head>
 
   <body class="nav-md">
+            <a href="{{URL('packages')}}" class="btn btn-success" style="position: fixed;bottom: 10px;right: 10px">Pay</a>
+
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">

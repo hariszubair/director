@@ -24,7 +24,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <form class="" action="{{route('result_director')}}" method="post" >
+                    <form id="form" class="" action="{{route('result_director')}}" method="post" >
                       @csrf
                      <div class="col-md-12 col-sm-12 col-xs-12 " style="width: 100%">
                               <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px">Name:</label>
@@ -81,6 +81,7 @@
   });
 
 });
+
 </script>
 @endsection
 

@@ -79,7 +79,17 @@
                 </table>
                  
 </div>
-<button type="submit" class="btn btn-success" >Proceed</button>
+                       
+   @if(Auth::user()->profile->membership_type != null)
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
+                              <div class="col-md-8 col-sm-8 col-xs-12">
+                <button type="submit" class="btn btn-success" >Proceed</button>
+                      </div>
+                    </div>
+                            @else
+                            <a href="#" class="btn btn-success">Please Pay to View</a>
+                            
+                            @endif
                        </form>
                   </div>
                 </div>
@@ -209,13 +219,13 @@ $('#company').DataTable().draw()
 $('#company').DataTable().draw()
 });
  
-//  $( "#proceed" ).submit(function( event ) {
-//   if($('input[type="checkbox"]:checked').length < 10 || $('input[type="checkbox"]:checked').length > 20){
-//   event.preventDefault();
-//   alert('please select 10-20 companies to proceed')
+ $( "#proceed" ).submit(function( event ) {
+  if($('input[type="checkbox"]:checked').length < 10 || $('input[type="checkbox"]:checked').length > 20){
+  event.preventDefault();
+  alert('please select 10-20 companies to proceed')
 
-//   }
-// });
+  }
+});
 </script>
 @endsection
 

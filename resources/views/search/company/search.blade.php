@@ -38,11 +38,17 @@
                                  </select>
                             </div>
                         </div>
-                     <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
+                         @if(Auth::user()->profile->membership_type != null)
+                            <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
                               <div class="col-md-8 col-sm-8 col-xs-12">
                         <button class="btn btn-success">Submit</button>
                       </div>
                     </div>
+                            @else
+                            <a href="#" class="btn btn-success">Please Pay to View</a>
+                            
+                            @endif
+                     
                   </form>
                   </div>
                 </div>
