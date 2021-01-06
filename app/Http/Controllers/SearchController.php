@@ -46,7 +46,7 @@ class SearchController extends Controller
     }
     public function view_director($id)
     {
-        $director=CompanyDirector::with('director_committee.committee','other_membership','director')->find($id);
+        $director=CompanyDirector::with('director_committee.committee','other_membership','director')->where('director_id',$id)->first();
         return view('search.director.view',compact('director'));
 
     }
@@ -116,6 +116,7 @@ class SearchController extends Controller
     }
     public function result_custom(Request $request)
     {
+      // return $request;
         $user=User::with('profile')->find(Auth::user()->id);
          $companies=Company::select('id');
         if($request->sector  != null){
@@ -143,26 +144,227 @@ class SearchController extends Controller
     return $query;
           });
         }
-        if($request->range != '0;0' || $request->range_mar_cap != '0;0'){
-          $range=$request->range;
-          $range_mar_cap=$request->range_mar_cap;
-            $companies=$companies->whereHas('financial', function ($query) use($range,$user,$range_mar_cap) {
-              if($range != '0;0'){
-                  $range=explode(';', $range);
-                  $min_range=($range[0]/100) * $user->profile->sale_revenue;
-                  $max_range=($range[1]/100) * $user->profile->sale_revenue;
+    
 
-                  $query= $query->where('sale_revenue', '>', $min_range-1)->where('sale_revenue', '<', $max_range+1);
+          if($request->range != null){
+          switch ($request->range) {
+            case '1/2-2':
+              $range_min=1/2*$user->profile->sale_revenue;
+              $range_max=2*$user->profile->sale_revenue;
+              break;
+            case '1/3-3':
+              $range_min=1/3*$user->profile->sale_revenue;
+              $range_max=3*$user->profile->sale_revenue;
+              break;
+             case '1/4-4':
+              $range_min=1/4*$user->profile->sale_revenue;
+              $range_max=4*$user->profile->sale_revenue;
+              break;
+               case '0':
+                if($request->range_min != null){
+              $range_min=$request->range_min;
+               }
+               else{
+              $range_min=0;
+
+               }
+               if($request->range_max != null){
+              $range_max=$request->range_max;
+               }
+               else{
+              $range_max=0;
+
+               }
+              break;
+          }
+         
+        
+        }
+        if($request->range_mar_cap != null){
+          switch ($request->range_mar_cap) {
+            case '1/2-2':
+              $range_mar_cap_min=1/2*$user->profile->market_cap;
+              $range_mar_cap_max=2*$user->profile->market_cap;
+              break;
+            case '1/3-3':
+              $range_mar_cap_min=1/3*$user->profile->market_cap;
+              $range_mar_cap_max=3*$user->profile->market_cap;
+              break;
+             case '1/4-4':
+              $range_mar_cap_min=1/4*$user->profile->market_cap;
+              $range_mar_cap_max=4*$user->profile->market_cap;
+              break;
+               case '0':
+               if($request->range_mar_cap_min != null){
+              $range_mar_cap_min=$request->range_mar_cap_min;
+               }
+               else{
+              $range_mar_cap_min=0;
+
+               }
+               if($request->range_mar_cap_min != null){
+              $range_mar_cap_max=$request->range_mar_cap_max;
+               }
+               else{
+              $range_mar_cap_max=0;
+
+               }
+              break;
+          }
+
+
+
+        }
+         if($request->operator != null){
+            $companies=$companies->whereHas('financial', function ($query2) use($range_max,$range_min,$range_mar_cap_max,$range_mar_cap_min,$request) {
+
+              if($request->operator==1){
+            $query2=$query2->where(function ($query3) use ($range_max,$range_min,$range_mar_cap_max,$range_mar_cap_min,$request) {
+              $query3=$query3->where(function ($query4) use ($range_max,$range_min) {
+
+                  $query4=$query4->where('sale_revenue', '>=', $range_min)->where('sale_revenue', '<=', $range_max);
+              });
+              $query3=$query3->where(function ($query4) use ($range_mar_cap_max,$range_mar_cap_min) {
+
+                  $query4=$query4->where('market_cap', '>=', $range_mar_cap_min)->where('market_cap', '<=', $range_mar_cap_max);
+              });
+
+
+
+
+              });
+          }
+              elseif($request->operator==0){
+                $query2=$query2->where(function ($query3) use ($range_max,$range_min,$range_mar_cap_max,$range_mar_cap_min,$request) {
+              $query3=$query3->where(function ($query4) use ($range_max,$range_min) {
+
+                  $query4=$query4->where('sale_revenue', '>=', $range_min)->where('sale_revenue', '<=', $range_max);
+              });
+              $query3=$query3->orWhere(function ($query4) use ($range_mar_cap_max,$range_mar_cap_min) {
+
+                  $query4=$query4->where('market_cap', '>=', $range_mar_cap_min)->where('market_cap', '<=', $range_mar_cap_max);
+              });
+
+
+
+
+              });
+
               }
-              if($range_mar_cap != '0;0'){
-                  $range=explode(';', $range_mar_cap);
-                  $min_range=($range[0]/100) * $user->profile->market_cap;
-                  $max_range=($range[1]/100) * $user->profile->market_cap;
-                  $query= $query->where('market_cap', '>', $min_range-1)->where('market_cap', '<', $max_range+1);
-              }
+
+   
+        }); 
+
+          }
+          else{
+
+            if($request->range_mar_cap != null){
+          $companies=$companies->whereHas('financial', function ($query) use($range_mar_cap_min,$range_mar_cap_max) {
+              
+                  $query= $query->where('market_cap', '>=', $range_mar_cap_min)->where('market_cap', '<=', $range_mar_cap_max);
+             
               return $query;
           });
-        }
+
+
+            }
+            if($request->range != null){
+   $companies=$companies->whereHas('financial', function ($query) use($range_min,$range_max) {
+              
+                  $query= $query->where('sale_revenue', '>=', $range_min)->where('sale_revenue', '<=', $range_max);
+             
+              return $query;
+          });
+
+            }
+
+          }
+     
+
+
+        // if($request->range != null){
+        //   switch ($request->range) {
+        //     case '1/2-2':
+        //       $range_min=1/2*$user->profile->sale_revenue;
+        //       $range_max=2*$user->profile->sale_revenue;
+        //       break;
+        //     case '1/3-3':
+        //       $range_min=1/3*$user->profile->sale_revenue;
+        //       $range_max=3*$user->profile->sale_revenue;
+        //       break;
+        //      case '1/4-4':
+        //       $range_min=1/4*$user->profile->sale_revenue;
+        //       $range_max=4*$user->profile->sale_revenue;
+        //       break;
+        //        case '0':
+        //       $range_min=$request->range_min;
+        //       $range_max=$request->range_max;
+        //       break;
+        //   }
+
+
+        //    $companies=$companies->whereHas('financial', function ($query) use($range_min,$range_max) {
+              
+        //           $query= $query->where('sale_revenue', '>=', $range_min)->where('sale_revenue', '<=', $range_max);
+             
+        //       return $query;
+        //   });
+
+        // }
+        // if($request->range_mar_cap != null){
+        //   switch ($request->range_mar_cap) {
+        //     case '1/2-2':
+        //       $range_mar_cap_min=1/2*$user->profile->market_cap;
+        //       $range_mar_cap_max=2*$user->profile->market_cap;
+        //       break;
+        //     case '1/3-3':
+        //       $range_mar_cap_min=1/3*$user->profile->market_cap;
+        //       $range_mar_cap_max=3*$user->profile->market_cap;
+        //       break;
+        //      case '1/4-4':
+        //       $range_mar_cap_min=1/4*$user->profile->market_cap;
+        //       $range_mar_cap_max=4*$user->profile->market_cap;
+        //       break;
+        //        case '0':
+        //       $range_mar_cap_min=$request->range_min;
+        //       $range_mar_cap_max=$request->range_max;
+        //       break;
+        //   }
+
+
+        //    $companies=$companies->whereHas('financial', function ($query) use($range_mar_cap_min,$range_mar_cap_max) {
+              
+        //           $query= $query->where('market_cap', '>=', $range_mar_cap_min)->where('market_cap', '<=', $range_mar_cap_max);
+             
+        //       return $query;
+        //   });
+
+        // }
+
+
+
+
+
+        // if($request->range != '0;0' || $request->range_mar_cap != '0;0'){
+        //   $range=$request->range;
+        //   $range_mar_cap=$request->range_mar_cap;
+        //     $companies=$companies->whereHas('financial', function ($query) use($range,$user,$range_mar_cap) {
+        //       if($range != '0;0'){
+        //           $range=explode(';', $range);
+        //           $min_range=($range[0]/100) * $user->profile->sale_revenue;
+        //           $max_range=($range[1]/100) * $user->profile->sale_revenue;
+
+        //           $query= $query->where('sale_revenue', '>', $min_range-1)->where('sale_revenue', '<', $max_range+1);
+        //       }
+        //       if($range_mar_cap != '0;0'){
+        //           $range=explode(';', $range_mar_cap);
+        //           $min_range=($range[0]/100) * $user->profile->market_cap;
+        //           $max_range=($range[1]/100) * $user->profile->market_cap;
+        //           $query= $query->where('market_cap', '>', $min_range-1)->where('market_cap', '<', $max_range+1);
+        //       }
+        //       return $query;
+        //   });
+        // }
 
          $companies= $companies->pluck('id')->toArray();
          $count_companies=count($companies);
