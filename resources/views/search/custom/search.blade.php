@@ -60,16 +60,58 @@
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
-                              <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both "><br>Revenue:</label> <span style="font-size: 12px;padding-left: 10px" > Adjust the range by clicking the bar</span>
+                              <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both ">Revenue:</label>
                                
                               <div class="col-md-8 col-sm-8 col-xs-12">
-                        <input type="text" id="range_27" value="" name="range" />
+                        
+
+                                <select id="range" class="form-control" name="range">
+                                  <option value="">Please select revenue</option>
+                                  <option value="1/2-2">1/2 to 2 times</option>
+                                  <option value="1/3-3">1/3 to 3 times</option>
+                                  <option value="1/4-4">1/4 to 4 times</option>
+                                  <option value="0">Range</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group " id="custom_range" style="display: none">
+                              <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both "></label>
+                               
+                              <div class="col-md-8 col-sm-8 col-xs-12" style="display: inline-flex;">
+                        
+<input  name="range_min" id="range_min" class="form-control number_only" style="width: 40%;margin-right: 5%" value="0"> to <input  name="range_max" id="range_min" class="form-control number_only" style="width: 40%;margin-left: 5%" value="0"> 
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
+                              <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both ">Revenue & Market Cap</label>
+                               
+                              <div class="col-md-8 col-sm-8 col-xs-12">
+                        
+
+                                <select id="operator" class="form-control" name="operator">
+                                  <option value="">Please select and/or operator</option>
+                                  <option value="1">AND</option>
+                                  <option value="0">OR</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
                               <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both ">Market Cap:</label>
                               <div class="col-md-8 col-sm-8 col-xs-12">
-                        <input type="text" id="range_mar_cap" value="" name="range_mar_cap" />
+                        <select id="range_mar_cap" class="form-control" name="range_mar_cap">
+                                  <option value="">Please select market cap</option>
+                                  <option value="1/2-2">1/2 to 2 times</option>
+                                  <option value="1/3-3">1/3 to 3 times</option>
+                                  <option value="1/4-4">1/4 to 4 times</option>
+                                  <option value="0">Range</option>
+                                </select>
+                            </div>
+                        </div>
+                          <div class="col-md-12 col-sm-12 col-xs-12 form-group "  id="custom_range_mar_cap" style="display: none">
+                              <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both "></label>
+                              <div class="col-md-8 col-sm-8 col-xs-12" style="display: inline-flex;">
+                        
+<input  name="range_mar_cap_min" id="range_mar_cap_min" class="form-control number_only" style="width: 40%;margin-right: 5%" value="0"> to <input  name="range_mar_cap_max" id="range_mar_cap_min" class="form-control number_only" style="width: 40%;margin-left: 5%" value="0"> 
                             </div>
                         </div>
                   
@@ -93,7 +135,6 @@
 
 @section('footer')
     <script src="{{asset('public/js/select2.min.js')}}"></script>
-    <script src="{{ asset('public/js/ion.rangeSlider.min.js')}}"></script>
 
     <script type="text/javascript">
       $(document).on('focus', '.select2.select2-container', function (e) {
@@ -105,15 +146,7 @@
      
  $(document).ready(function(){
   $('.js-example-basic-single').select2();
-  $("#range").ionRangeSlider({
-        type: "double",
-        grid: true,
-        min: 0,
-        max: 1000,
-        from: 200,
-        to: 800,
-        prefix: "$"
-    });
+  
 });
  $('#sector').on('change', function (e) {
      $.ajax({url: "./search_industry",
@@ -132,6 +165,27 @@
   }
 });
 });
+ $('#range').on('change', function (e) {
+  if($('#range').val()==0){
+    $('#custom_range').show();
+  }
+  else{
+    $('#custom_range').hide();
+  }
+  
+
+ });
+  $('#range_mar_cap').on('change', function (e) {
+
+  if($('#range_mar_cap').val()==0){
+    $('#custom_range_mar_cap').show();
+  }
+  else{
+    $('#custom_range_mar_cap').hide();
+  }
+  
+
+ });
 </script>
 @endsection
 
