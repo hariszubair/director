@@ -47,8 +47,10 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <form  method="post" action="./create_director_profile" >
+                    <form  method="post" action="../edit_director_profile" >
                   {!! csrf_field() !!}
+                     <input type="text" class="form-control has-feedback-left" id="id" name="id" placeholder="Company Name" value="{{$user->id}}" style="display: none;">
+
                   <div class="item form-group" title="Name">
                       <div class="col-md-3 col-sm-3  form-group has-feedback">
                       </div>

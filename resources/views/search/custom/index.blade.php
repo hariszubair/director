@@ -45,7 +45,7 @@
                      
   </div>  <span id='text_message'><b>{{$count_companies}} companies are selected</b></span>
   <input type="" id='selected_companies' value="{{$count_companies}}" style="display: none">
-   <form class="" action="{{route('result_custom_final')}}" method="post" target="_blank" id='proceed'>
+   <form class="" action="{{route('result_custom_final')}}" method="post" id='proceed'>
     @csrf
     <div style="max-height: 500px;overflow: scroll;">
 
@@ -83,6 +83,16 @@
    @if(Auth::user()->profile->membership_type != null)
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
                               <div class="col-md-8 col-sm-8 col-xs-12">
+                                  <input type="" name="sector" id="sector" value="{{$request->sector}}" style="display: none;">
+                                <input type="" name="industry" id="industry" value="{{$request->industry}}" style="display: none;">
+                                <input type="" name="index" id="index" value="{{$request->index}}" style="display: none;">
+                                <input type="" name="range" id="range" value="{{$request->range}}" style="display: none;">
+                                <input type="" name="range_min" id="range_min" value="{{$request->range_min}}" style="display: none;">
+                                <input type="" name="range_max" id="range_max" value="{{$request->range_max}}" style="display: none;">
+                                <input type="" name="operator" id="operator" value="{{$request->operator}}" style="display: none;">
+                                <input type="" name="range_mar_cap" id="range_mar_cap" value="{{$request->range_mar_cap}}" style="display: none;">
+                                <input type="" name="range_mar_cap_min" id="range_mar_cap_min" value="{{$request->range_mar_cap_min}}" style="display: none;"><input type="" name="range_mar_cap_max" id="range_mar_cap_max" value="{{$request->range_mar_cap_max}}" style="display: none;">
+
                 <button type="submit" class="btn btn-success" >Proceed</button>
                       </div>
                     </div>
@@ -219,13 +229,13 @@ $('#company').DataTable().draw()
 $('#company').DataTable().draw()
 });
  
- $( "#proceed" ).submit(function( event ) {
-  if($('input[type="checkbox"]:checked').length < 10 || $('input[type="checkbox"]:checked').length > 20){
-  event.preventDefault();
-  alert('please select 10-20 companies to proceed')
+//  $( "#proceed" ).submit(function( event ) {
+//   if($('input[type="checkbox"]:checked').length < 10 || $('input[type="checkbox"]:checked').length > 20){
+//   event.preventDefault();
+//   alert('please select 10-20 companies to proceed')
 
-  }
-});
+//   }
+// });
 </script>
 @endsection
 

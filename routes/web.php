@@ -94,14 +94,46 @@ Route::post('/result_custom_final', [App\Http\Controllers\SearchController::clas
 
 
 //profile
-Route::get('/edit_profile/{id}', [App\Http\Controllers\HomeController::class, 'edit_profile'])->name('edit_profile')->middleware(['role_or_permission:Director|Company']);
-Route::post('/edit_company_profile', [App\Http\Controllers\HomeController::class, 'edit_company_profile'])->name('edit_company_profile')->middleware(['role_or_permission:Director|Company']);
+Route::get('/edit_profile/{id}', [App\Http\Controllers\HomeController::class, 'edit_profile'])->name('edit_profile')->middleware(['role_or_permission:Director|Company|Administrator']);
+Route::post('/edit_company_profile', [App\Http\Controllers\HomeController::class, 'edit_company_profile'])->name('edit_company_profile')->middleware(['role_or_permission:Administrator|Company']);
+Route::post('/edit_director_profile', [App\Http\Controllers\HomeController::class, 'edit_director_profile'])->name('edit_director_profile')->middleware(['role_or_permission:Director|Administrator']);
+
 Route::post('/create_director_profile', [App\Http\Controllers\HomeController::class, 'create_director_profile'])->name('create_director_profile')->middleware(['role_or_permission:Director']);
 Route::post('/create_company_profile', [App\Http\Controllers\HomeController::class, 'create_company_profile'])->name('create_company_profile')->middleware(['role_or_permission:Company']);
 
 
 //packages
-Route::get('/packages', '\App\Http\Controllers\HomeController@packages');
+Route::get('/packages', '\App\Http\Controllers\PaymentController@packages');
+Route::post('/payment', '\App\Http\Controllers\PaymentController@payment');
+Route::post('stripe', '\App\Http\Controllers\PaymentController@stripePost')->name('stripe.post');
+
+Route::get('/close_browser', '\App\Http\Controllers\PaymentController@close_browser');
+
+
+
+//admin
+Route::get('/delete/{id}', '\App\Http\Controllers\AdminController@delete')->middleware(['role:Administrator']);
+
+
+
+
+//directors
+Route::get('/directors', '\App\Http\Controllers\AdminController@directors')->name('directors')->middleware(['role:Administrator']);
+Route::post('/ajax_directors', '\App\Http\Controllers\AdminController@ajax_directors')->name('ajax_directors')->middleware(['role:Administrator']);
+
+
+//companies
+Route::get('/companies', '\App\Http\Controllers\AdminController@companies')->name('companies')->middleware(['role:Administrator']);
+Route::post('/ajax_companies', '\App\Http\Controllers\AdminController@ajax_companies')->name('ajax_companies')->middleware(['role:Administrator']);
+Route::get('/reports', '\App\Http\Controllers\HomeController@reports')->middleware(['role_or_permission:Director|Company']);
+Route::post('/ajax_reports', '\App\Http\Controllers\HomeController@ajax_reports')->middleware(['role_or_permission:Director|Company']);
+
+
+//mail
+Route::get('/mail/{id?}', '\App\Http\Controllers\AdminController@mail')->middleware(['role:Administrator']);
+Route::post('/send_mail', '\App\Http\Controllers\AdminController@send_mail')->middleware(['role:Administrator']);
+
+
 
 
 

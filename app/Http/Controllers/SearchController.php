@@ -15,8 +15,11 @@ use DB;
 use App\Models\User;
 use App\Models\UserCommittee;
 use Illuminate\Support\Facades\Auth;
-
-
+use PDF;
+use App\Models\Attachment;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
+use App\Models\Profile;
 class SearchController extends Controller
 {
     /**
@@ -46,8 +49,37 @@ class SearchController extends Controller
     }
     public function view_director($id)
     {
+     
+      $user=User::with('profile')->find(Auth::user()->id);
+       if( $user->profile &&  $user->profile->membership_type != null)
+      {
         $director=CompanyDirector::with('director_committee.committee','other_membership','director')->where('director_id',$id)->first();
+        // $arr=$director->toArray();
+
+$message='Director Search ('.$director->director_name.')';
+ if(Attachment::where('user_id',$user->id)->where('title','=',$message)->count() == 0)
+ {
+
+
+        $pdf = PDF::loadView('pdf.director', ['director'=>$director]);
+$name= Carbon::now()->timestamp.'.pdf';
+        $path ='pdf\\'.$user->id.'\\';
+
+Storage::disk('public')->put($path.$name, $pdf->output());
+        Attachment::create(['user_id'=>$user->id,'path'=>$path.$name,'title'=>$message]);
+}
+
+
+        if($user->profile->membership_type == '99'){
+         Profile::where('user_id',$user->id)->update(['membership_type'=>null]);
+        }
+
         return view('search.director.view',compact('director'));
+
+      }
+        else{
+        return redirect()->route('home');
+        }
 
     }
     public function search_company()
@@ -57,6 +89,10 @@ class SearchController extends Controller
     }
     public function result_company(Request $request)
     {
+      $user=Auth::user();
+
+      if( $user->profile &&  $user->profile->membership_type != null)
+      {
  			 $company=Company::with('committee','financial','company_director.director')->find( $request->company_id);
        $directors=Director::whereHas('committee_composition', function ( $query) use($request) {
     $query->where('company_id', '=', $request->company_id);
@@ -81,15 +117,34 @@ class SearchController extends Controller
            } 
 
        }
-        // $composition=CommitteeComposition::where('company_id',$request->company_id)->get();
-            // $composition_chairman=CommitteeComposition::where('company_id',$request->company_id)->where('type','Chairman')->get();
-         // $composition_member=CommitteeComposition::where('company_id',$request->company_id)->where('type','Member')->get(['director_id','committee_id']);
-        // $other_membership=OtherMembership::whereIn('director_id',CompanyDirector::where('company_id',$request->company_id)->pluck('director_id'))->get();
-        // $arr_committee=Committee::where('company_id',$request->company_id)->pluck('id');
-       // return count($committees);
-          // $companies= CompanyDirector::where('company_id',$request->company_id)->with('director')->with('committee')->get();
-          // return $company->company_director;
+       $message='Company Search ('.$company->name.')';
+ if(Attachment::where('user_id',$user->id)->where('title','=',$message)->count() == 0)
+ {
+
+         $pdf = PDF::loadView('pdf.company', ['company'=>$company,'committees'=>$committees,'directors'=>$directors,'director_committee'=>$director_committee]);
+$name= Carbon::now()->timestamp.'.pdf';
+        $path ='pdf\\'.$user->id.'\\';
+
+Storage::disk('public')->put($path.$name, $pdf->output());
+        Attachment::create(['user_id'=>$user->id,'path'=>$path.$name,'title'=>$message]);
+}
+
+
+        if($user->profile->membership_type == '99'){
+         Profile::where('user_id',$user->id)->update(['membership_type'=>null]);
+        }
+
         return view('search.company.view',compact('company','committees','directors','director_committee')); 
+
+      }
+        else{
+        return redirect()->route('home');
+        }
+
+
+
+
+       
     }
 
     public function search_sector()
@@ -104,9 +159,8 @@ class SearchController extends Controller
     }
      public function result_sector(Request $request)
     {
-        // return $request;
               $companies=Company::where('sector',$request->sector)->where('industry',$request->industry)->get();
-        return view('search.sector.index',compact('companies'));
+        return view('search.sector.index',compact('companies','request'));
 
     }
     public function search_custom()
@@ -116,7 +170,7 @@ class SearchController extends Controller
     }
     public function result_custom(Request $request)
     {
-      // return $request;
+        
         $user=User::with('profile')->find(Auth::user()->id);
          $companies=Company::select('id');
         if($request->sector  != null){
@@ -390,18 +444,27 @@ class SearchController extends Controller
         }
       }
       $companies=$tempcompany;
-        return view('search.custom.index',compact('companies','count_companies'));
+        return view('search.custom.index',compact('companies','count_companies','request'));
 
       return $tempcompany;
      
     }
     public function result_sector_final(Request $request)
     {
+      $user=Auth::user();
+
+       if( $user->profile &&  $user->profile->membership_type != null)
+      {
+
          // $committee_ref=CommitteeReference::all();
      $user_committee= UserCommittee::where('user_id',Auth::user()->id)->get();
     $committee_ref=[];
+    $personal_com=[];
     foreach ($user_committee as $key => $committee) {
      $comb_com[$committee->name]=[];
+ $personal_com[$committee->name]['chair_fee']=$committee->chair_fee;
+     $personal_com[$committee->name]['member_fee']=$committee->member_fee;
+     $personal_com[$committee->name]['no_of_meetings']=$committee->no_of_meetings;
 
       $arr= explode(',', preg_replace('/[^a-zA-Z,]/', '', $committee->map)) ;
       foreach ($arr as $key => $value) {
@@ -566,17 +629,52 @@ class SearchController extends Controller
       $percentile_comb_no_of_directors[$value][$i]=$this->get_percentile($i,$comb_no_of_directors[$value]);
       }
      }
-        return view('search.custom.view',compact('percentile_market_cap','percentile_revenue','percentile_basic_eps','percentile_no_of_employees','percentile_chair_fee','percentile_member_fee','percentile_no_of_meetings','percentile_no_of_directors','committee_names','percentile_comb_no_of_meetings','percentile_comb_no_of_directors','percentile_comb_member_fee','percentile_comb_chair_fee','comb_committee_names'));
+
+ $message='Sector/Industry Search ('.$request->sector.'/'.$request->industry.')';
+ if(Attachment::where('user_id',$user->id)->where('title','=',$message)->count() == 0)
+ {
+
+
+       $pdf = PDF::loadView('pdf.sector', ['percentile_market_cap'=>$percentile_market_cap,'percentile_revenue'=>$percentile_revenue,'percentile_basic_eps'=>$percentile_basic_eps,'percentile_no_of_employees'=>$percentile_no_of_employees,'percentile_chair_fee'=>$percentile_chair_fee,'percentile_member_fee'=>$percentile_member_fee,'percentile_no_of_meetings'=>$percentile_no_of_meetings,'percentile_no_of_directors'=>$percentile_no_of_directors,'percentile_comb_member_fee'=>$percentile_comb_member_fee,'percentile_comb_chair_fee'=>$percentile_comb_chair_fee,'comb_committee_names'=>$comb_committee_names,'personal_com'=>$personal_com,'percentile_comb_no_of_meetings'=>$percentile_comb_no_of_meetings,'percentile_comb_no_of_directors'=>$percentile_comb_no_of_directors,'committee_names'=>$committee_names]);
+$name= Carbon::now()->timestamp.'.pdf';
+        $path ='pdf\\'.$user->id.'\\';
+
+Storage::disk('public')->put($path.$name, $pdf->output());
+        Attachment::create(['user_id'=>$user->id,'path'=>$path.$name,'title'=>$message]);
+}
+
+  if($user->profile->membership_type == '99'){
+         Profile::where('user_id',$user->id)->update(['membership_type'=>null]);
+        }
+
+        return view('search.sector.view',compact('percentile_market_cap','percentile_revenue','percentile_basic_eps','percentile_no_of_employees','percentile_chair_fee','percentile_member_fee','percentile_no_of_meetings','percentile_no_of_directors','committee_names','percentile_comb_no_of_meetings','percentile_comb_no_of_directors','percentile_comb_member_fee','percentile_comb_chair_fee','comb_committee_names','personal_com'));
+
+      }
+        else{
+        return redirect()->route('home');
+        }
+
+        
     }
 
 
     public function result_custom_final(Request $request)
     {
+      // return $request;
+      $user=Auth::user();
+
+       if( $user->profile &&  $user->profile->membership_type != null)
+      {
+
       // $committee_ref=CommitteeReference::all();
      $user_committee= UserCommittee::where('user_id',Auth::user()->id)->get();
     $committee_ref=[];
+    $personal_com=[];
     foreach ($user_committee as $key => $committee) {
      $comb_com[$committee->name]=[];
+     $personal_com[$committee->name]['chair_fee']=$committee->chair_fee;
+     $personal_com[$committee->name]['member_fee']=$committee->member_fee;
+     $personal_com[$committee->name]['no_of_meetings']=$committee->no_of_meetings;
 
       $arr= explode(',', preg_replace('/[^a-zA-Z,]/', '', $committee->map)) ;
       foreach ($arr as $key => $value) {
@@ -587,7 +685,7 @@ class SearchController extends Controller
     $committee_ref=CommitteeReference::whereIn('code',$committee_ref)->get();
     
      // $comb_com['Compliance Committee']=['ARC','AUC','AUD'];
-     $company= Company::whereIn('id',$request->company_id)->with('financial','committee.composition')->get(['id','no_of_employees']);
+     $company= Company::whereIn('id',$request->company_id)->with('financial','committee.composition')->get(['id','name','no_of_employees']);
      $market_cap=[];
      $revenue=[];
      $basic_eps=[];
@@ -643,9 +741,7 @@ class SearchController extends Controller
       }
      }
     foreach ($comb_com as $key4 => $com) {
-           
             foreach ($com as $key5 => $single_com) {
-
               if($committee->map == $single_com){
         if(!isset($comb_chair_fee[$key4])){
           $comb_chair_fee[$key4]=[];
@@ -743,7 +839,64 @@ class SearchController extends Controller
       $percentile_comb_no_of_directors[$value][$i]=$this->get_percentile($i,$comb_no_of_directors[$value]);
       }
      }
-        return view('search.custom.view',compact('percentile_market_cap','percentile_revenue','percentile_basic_eps','percentile_no_of_employees','percentile_chair_fee','percentile_member_fee','percentile_no_of_meetings','percentile_no_of_directors','committee_names','percentile_comb_no_of_meetings','percentile_comb_no_of_directors','percentile_comb_member_fee','percentile_comb_chair_fee','comb_committee_names'));
+$message='';
+if($request->sector){
+  $message.='Sector: '.$request->sector.', ';
+}
+if($request->industry){
+  $message.='Industry: '.$request->industry.', ';
+}
+if($request->index){
+  $message.='Index: '.$request->index.', ';
+}
+if($request->operator){
+  $message.='Operator: '.$request->operator.', ';
+}
+if($request->range != null){
+  if($request->range==0){
+  $message.='Range: '.$request->range_min.'-'.$request->range_max.', ';
+  }
+  else{
+  $message.='Range: '.$request->range.', ';
+
+  }
+}
+if($request->range_mar_cap != null){
+  if($request->range_mar_cap==0){
+  $message.='Market Cap: '.$request->range_mar_cap_min.'-'.$request->range_mar_cap_max.', ';
+  }
+  else{
+  $message.='Market Cap: '.$request->range_mar_cap.', ';
+
+  }
+}
+$message='Customized Search ('.rtrim($message, ", ").')';
+if($message == 'Customized Search ()'){
+  $message='Customized Search (No filter applied)';
+}
+ if(Attachment::where('user_id',$user->id)->where('title','=',$message)->count() == 0)
+ {
+       $pdf = PDF::loadView('pdf.custom', ['percentile_market_cap'=>$percentile_market_cap,'percentile_revenue'=>$percentile_revenue,'percentile_basic_eps'=>$percentile_basic_eps,'percentile_no_of_employees'=>$percentile_no_of_employees,'percentile_chair_fee'=>$percentile_chair_fee,'percentile_member_fee'=>$percentile_member_fee,'percentile_no_of_meetings'=>$percentile_no_of_meetings,'percentile_no_of_directors'=>$percentile_no_of_directors,'percentile_comb_member_fee'=>$percentile_comb_member_fee,'percentile_comb_chair_fee'=>$percentile_comb_chair_fee,'comb_committee_names'=>$comb_committee_names,'personal_com'=>$personal_com,'percentile_comb_no_of_meetings'=>$percentile_comb_no_of_meetings,'percentile_comb_no_of_directors'=>$percentile_comb_no_of_directors,'committee_names'=>$committee_names,'company'=>$company]);
+$name= Carbon::now()->timestamp.'.pdf';
+        $path ='pdf\\'.$user->id.'\\';
+
+
+Storage::disk('public')->put($path.$name, $pdf->output());
+        Attachment::create(['user_id'=>$user->id,'path'=>$path.$name,'title'=>$message]);
+
+
+}
+
+         if($user->profile->membership_type == '99'){
+         Profile::where('user_id',$user->id)->update(['membership_type'=>null]);
+        }
+
+        return view('search.sector.view',compact('percentile_market_cap','percentile_revenue','percentile_basic_eps','percentile_no_of_employees','percentile_chair_fee','percentile_member_fee','percentile_no_of_meetings','percentile_no_of_directors','committee_names','percentile_comb_no_of_meetings','percentile_comb_no_of_directors','percentile_comb_member_fee','percentile_comb_chair_fee','comb_committee_names','personal_com'));
+
+      }
+        else{
+        return redirect()->route('home');
+        }
     }
 
     public function get_percentile($percentile, $array) {

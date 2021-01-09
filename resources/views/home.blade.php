@@ -54,7 +54,9 @@
               <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                   <div class="x_title">
+                    @hasanyrole('Director|Company')
                     <h2>Search By Following</h2>
+                     @endhasanyrole
 
                    <!--  <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -92,10 +94,7 @@
                       </li>
                       @endhasrole
                     </ol>
-                    
-
-
-
+                   
                   </div>
                 </div>
               </div>
@@ -104,4 +103,33 @@
         </div>
         <!-- /page content -->
 
+@endsection
+
+
+@section('footer')
+
+<script src="{{ asset('public/js/Chart.bundle.min.js') }}"></script>
+<script type="text/javascript">
+$( document ).ready(function() {
+
+  var unregistered=1
+var registered=1
+
+var directors = document.getElementById("directors").getContext('2d');
+var myChart2 = new Chart(directors, {
+  type: 'doughnut',
+  data: {
+    labels: ['Registered','Unregistered'],
+    datasets: [{
+      backgroundColor: [
+        "#2ecc71",
+        "red"
+      ],
+      data: [1,1]
+    }]
+  },
+
+});
+});
+</script>
 @endsection

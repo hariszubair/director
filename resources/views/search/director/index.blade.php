@@ -40,12 +40,8 @@
                           <td>{{$director->director_name}}</td>
                           <td>{{$director->company_name}}</td>
                           <td style="padding: 0">
-                            @if(Auth::user()->profile->membership_type != null)
                             <a class="btn btn-success" href="./view_director/{{$director->director_id}}" class="btn btn-green">view</a>
-                            @else
-                            <a href="#" class="btn btn-success">Please Pay to View</a>
-                            
-                            @endif
+                           
                             
                           </td>
                         </tr>

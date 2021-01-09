@@ -28,10 +28,10 @@ footer {
             </div>
 
             <div class="clearfix"></div>
- <form  method="post" action="../edit_company_profile" >
-                  {!! csrf_field() !!}
+ 
             <div class="row">
-              
+              <form  method="post" action="../edit_company_profile" >
+                  {!! csrf_field() !!}
               <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                   <div class="x_title">
@@ -53,6 +53,7 @@ footer {
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+                     <input type="text" class="form-control has-feedback-left" id="id" name="id" placeholder="Company Name" value="{{$user->id}}" style="display: none;">
                    
                   <div class="item form-group" title="Name">
                       <div class="col-md-3 col-sm-3  form-group has-feedback">
@@ -179,7 +180,9 @@ footer {
                   </form>
 
           </div>
+
         </div>
+</div>
         <!-- /page content -->
 
 @endsection

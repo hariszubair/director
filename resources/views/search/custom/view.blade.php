@@ -81,7 +81,7 @@
                  <div class="col-md-12 col-sm-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>{{ucwords($committee)}}</h2>
+                    <h2>{{ucwords($committee)}} </h2>
                   
                     <div class="clearfix"></div>
                   </div>
@@ -126,7 +126,11 @@
                       <td>{{number_format(($percentile_comb_no_of_directors[$committee]['25']+$percentile_comb_no_of_directors[$committee]['50']+$percentile_comb_no_of_directors[$committee]['75'])/3)}}</td>
                     </tr>
                   </tbody>
+                  
                 </table>
+                   <b>Your Company Data:</b> <br> 
+                   <b>Chair Fee:</b> ${{number_format($personal_com[$committee]['chair_fee'])}}, <b>Member Fee:</b> ${{number_format($personal_com[$committee]['member_fee'])}}, <b>No. of meetings:</b> {{number_format($personal_com[$committee]['no_of_meetings'])}}
+
               </div>
             </div>
           </div>

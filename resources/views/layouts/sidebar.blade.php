@@ -3,13 +3,23 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  @hasanyrole('Director|Company')
+                  @hasanyrole('Director|Company|Administrator')
                   <li><a href="{{URL('/')}}"><i class="fas fa-home"></i> Home </a>
+                  </li>
+                   @endhasanyrole
+                    @hasanyrole('Director|Company')
+                  <li><a href="{{URL('/reports')}}"><i class="far fa-newspaper"></i> Reports </a>
                   </li>
                    @endhasanyrole
                     @if(\Auth::user()->hasRole(['DataEntry']))
                    <li><a href="{{route('company')}}"><i class="fas fa-building"></i></i> Company</a></li>
                    @endif
+                    @hasrole('Administrator')
+                  <li><a href="{{URL('/directors')}}"><i class="fas fa-users"></i> Directors </a>
+                  </li>
+                   <li><a href="{{URL('/companies')}}"><i class="far fa-building"></i> Companies </a>
+                  </li>
+                   @endhasanyrole
                 </ul>
               </div>
 

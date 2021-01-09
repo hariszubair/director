@@ -1,91 +1,92 @@
 @extends('layouts.master')
 
 @section('content')
-  <div class="right_col" role="main" style="min-height: 800px">
+<style type="text/css">
+  .custom_text{
+    font-weight: bold;
+    font-size: 18px;
+     color: #73879c
+  }
+</style>
+  <div class="right_col" role="main" style="min-height: 800px;">
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Home</h3>
+                <h3>Packages</h3>
               </div>
 
             </div>
 
             <div class="clearfix"></div>
 
-            <div class="row">
-<div class="section__content section__content--p30">
-<div class="container-fluid">
-<div class="row">
-<div class="col-md-3">
+
+<div class="row" style="padding-top: 50px">
+<div class="col-md-4">
 <div class="card">
 <div class="card-header" style="text-align: center;">
-<strong class="card-title">Srandard Package</strong>
+<strong class="card-title">Basic Package</strong>
 </div>
 <div class="card-body" style="text-align: center;    color: #238DB7 !important">
 <p>
 	<span style="vertical-align: 30px;font-size: : 1px">$</span>
-	<span style="font-size: 350%">200</span>
+	<span style="font-size: 350%">{{Auth::user()->hasRole('Director') ? '200' : '3000'}}</span>
 </p>
-<p>Select upto 10 candidates</p>
+<p class="custom_text">One Search.</p>
+<p class="custom_text">Valid for one month.</p>
+<form action="./payment" method="POST">
+  @csrf
+  <input type="" name="package" style="display: none" value="99">
+  <button class="btn btn-success">Subscribe</button>
+</form>
 </div>
 </div>
 
 </div>
-<div class="col-md-3">
+<div class="col-md-4">
 <div class="card">
 <div class="card-header" style="text-align: center;">
-<strong class="card-title" >Premium Package</strong>
+<strong class="card-title" >Gold Package</strong>
 </div>
 <div class="card-body" style="text-align: center;   color: #238DB7 !important">
 <p>
 	<span style="vertical-align: 30px;font-size: : 1px">$</span>
-	<span style="font-size: 350%">300</span>
+	<span style="font-size: 350%">{{Auth::user()->hasRole('Director') ? '400' : '6000'}}</span>
 </p>
-<p>Select upto 20 candidates</p>
+<p class="custom_text">Unlimited Searches.</p>
+<p class="custom_text">Valid for 6 months.</p>
+<form action="./payment" method="POST">
+  @csrf
+  <input type="" name="package" style="display: none" value="6">
+  <button class="btn btn-success">Subscribe</button>
+</form>
 
 </div>
 </div>
 
 </div>
-<div class="col-md-3">
+<div class="col-md-4">
 <div class="card">
 <div class="card-header" style="text-align: center;">
-<strong class="card-title" >Premium Package</strong>
+<strong class="card-title" >Platinum Package</strong>
 </div>
 <div class="card-body" style="text-align: center;   color: #238DB7 !important">
 <p>
 	<span style="vertical-align: 30px;font-size: : 1px">$</span>
-	<span style="font-size: 350%">300</span>
+	<span style="font-size: 350%">{{Auth::user()->hasRole('Director') ? '600' : '15000'}}</span>
 </p>
-<p>Select upto 20 candidates</p>
+<p class="custom_text">Unlimited Searches.</p>
+<p class="custom_text">Valid for 12 months.</p>
+<form action="./payment" method="POST">
+  @csrf
+  <input type="" name="package" style="display: none" value="12">
+  <button class="btn btn-success">Subscribe</button>
+</form>
 
 </div>
 </div>
-
-</div>
-<div class="col-md-3">
-<div class="card">
-<div class="card-header" style="text-align: center;">
-<strong class="card-title" >Premium Package</strong>
-</div>
-<div class="card-body" style="text-align: center;   color: #238DB7 !important">
-<p>
-	<span style="vertical-align: 30px;font-size: : 1px">$</span>
-	<span style="font-size: 350%">300</span>
-</p>
-<p>Select upto 20 candidates</p>
-
 </div>
 </div>
 
-</div>
-<div class="col-md-12" style="text-align: center;">
-<a href="" type='button' class="btn btn-success">Subscribe Now!</a>
-</div>
-</div>
-</div>
-</div>
-</div>
 </div>
 </div>
 

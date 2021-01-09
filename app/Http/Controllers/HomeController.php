@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\UserCommittee;
-
+use App\Models\Attachment;
+use Yajra\Datatables\Datatables;
+use Carbon\Carbon;
 class HomeController extends Controller
 {
     /**
@@ -47,10 +49,29 @@ class HomeController extends Controller
             return 'Company';
         }
        
-        if(\Auth::user()->hasRole(['DataEntry'])){
+        if($user->hasRole(['DataEntry'])){
         return view('company.index');
         }
+        if($user->hasRole(['Administrator'])){
+             $partial_director=User::whereHas('roles', function ($query) {
+    $query->where('name', 'Director');
+        })->doesntHave('profile')->count();
+         $complete_director=User::whereHas('roles', function ($query) {
+    $query->where('name', 'Director');
+        })->has('profile')->count();
+         
+          $partial_company=User::whereHas('roles', function ($query) {
+             $query->where('name', 'Company');
+        })->doesntHave('profile')->count();
+           $complete_company=User::whereHas('roles', function ($query) {
+             $query->where('name', 'Company');
+        })->has('profile')->count();
+        return view('dashboard',compact('sector','partial_director','complete_director','partial_company','complete_company'));
+        }
+        else{
         return view('home',compact('sector'));
+
+        }
     }
     public function create_director_profile(Request $request)
     {
@@ -106,23 +127,63 @@ class HomeController extends Controller
     {
        $input=$request->all();
         $user=Auth::user();
-        Profile::where('user_id',$user->id)->first()->update($input);
-        $user->name=$request->name;
-        $user->save();
-        UserCommittee::where('user_id',$user->id)->delete();    
+        $company=User::find($request->id);
+        Profile::where('user_id',$request->id)->first()->update($input);
+        $company->name=$request->name;
+        $company->save();
+        UserCommittee::where('user_id',$request->id)->delete();    
         if(count($request->committee) > 0){
              $committees=$request->committee;
             foreach ($committees as $key => $committee) {
                 $committee['map']=json_encode($committee['map']);
-                $committee['user_id']=$user->id;
+                $committee['user_id']=$request->id;
                  UserCommittee::create($committee);
             }
         }
+        if($user->hasRole('Company')){
+        
         return redirect()->route('home');
+        }
+        else if($user->hasRole('Administrator')){
+        
+        return redirect()->route('companies');
+        }
 
     }
-    public function packages()
+    public function edit_director_profile(Request $request)
     {
-            return view('packages');
+       $input=$request->all();
+        $user=Auth::user();
+
+        $director=User::find($request->id);
+
+        Profile::where('user_id',$request->id)->first()->update($input);
+        $director->name=$request->name;
+        $director->save();
+        if($user->hasRole('Director')){
+        
+        return redirect()->route('home');
+        }
+        else if($user->hasRole('Administrator')){
+        
+        return redirect()->route('directors');
+        }
+
     }
+     public function reports()
+    {
+            return view('reports');
+
+    }   
+    public function ajax_reports(){
+        $user=Auth::user();
+         $reports=Attachment::where('user_id',$user->id);
+        return Datatables::of($reports)->addColumn('view', function ($row) use($user){
+               return '<a class="btn btn-success" href="./storage/app/public/'.$row->path.'" target="_blank">View</a>';
+        })->addColumn('generated_on', function ($row) use($user){
+            return Carbon::parse($row->created_at)->format('d-m-Y h:i:s');
+        })
+        ->escapeColumns([])->make(true);
+
+    } 
 }

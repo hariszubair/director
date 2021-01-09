@@ -25,7 +25,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                       <form class="" action="{{route('result_sector_final')}}" method="post" target="_blank">
+                       <form class="" action="{{route('result_sector_final')}}" method="post" >
                       @csrf
 
                     <table id="company" class="table table-bordered" width="100%" style="font-size: 12px;text-align: left">
@@ -54,6 +54,9 @@
                  @if(Auth::user()->profile->membership_type != null)
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
                               <div class="col-md-8 col-sm-8 col-xs-12">
+                                <input type="" name="sector" id="sector" value="{{$request->sector}}" style="display: none;">
+                                <input type="" name="industry" id="industry" value="{{$request->industry}}" style="display: none;">
+
                 <button type="submit" class="btn btn-success" >Proceed</button>
                       </div>
                     </div>

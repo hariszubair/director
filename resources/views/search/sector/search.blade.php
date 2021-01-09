@@ -47,7 +47,9 @@
                         </div>
                      <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
                               <div class="col-md-8 col-sm-8 col-xs-12">
+
                         <button class="btn btn-success">Submit</button>
+                        
                       </div>
                     </div>
                   </form>
