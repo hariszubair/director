@@ -29,7 +29,9 @@
                       {{\Auth::user()->email}}
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                      @if(!Auth::user()->hasRole('Administrator'))
                      <a class="dropdown-item"   href="{{ URL('/edit_profile//').'/'.\Auth::user()->id }}"><i class="fa fa-sign-out pull-right"></i>Edit Profile</a>
+                     @endif
                       <a class="dropdown-item"   href="{{ URL('/logout') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                     </div>
                   </li>

@@ -22,7 +22,7 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <!-- <h2>Search</h2> -->
-                  
+                  If you don’t want any industry or sector or index, then don’t select anything from the sector, industry, index drop-down
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -70,7 +70,7 @@
                                   <option value="1/2-2">1/2 to 2 times</option>
                                   <option value="1/3-3">1/3 to 3 times</option>
                                   <option value="1/4-4">1/4 to 4 times</option>
-                                  <option value="0">Range</option>
+                                  <option value="0">Custom Range</option>
                                 </select>
                             </div>
                         </div>
@@ -79,20 +79,23 @@
                                
                               <div class="col-md-8 col-sm-8 col-xs-12" style="display: inline-flex;">
                         
-<input  name="range_min" id="range_min" class="form-control number_only" style="width: 40%;margin-right: 5%" value="0"> to <input  name="range_max" id="range_min" class="form-control number_only" style="width: 40%;margin-left: 5%" value="0"> 
+<input  name="range_min" id="range_min" class="form-control number_only" style="width: 40%;margin-right: 5%" value="0"> <span style="padding-top: 10px">to</span> <input  name="range_max" id="range_min" class="form-control number_only" style="width: 40%;margin-left: 5%" value="0"> 
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
                               <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both ">Revenue & Market Cap</label>
                                
-                              <div class="col-md-8 col-sm-8 col-xs-12">
+                              <div class="col-md-8 col-sm-8 col-xs-12" style="padding-top: 10px">
                         
-
-                                <select id="operator" class="form-control" name="operator">
+                                <input type="radio" id="and_operator" name="operator" value="1">
+<label for="and_operator">And</label>
+<input type="radio" id="or_operator" name="operator" value="0">
+<label for="or_operator">Or</label><br>
+                             <!--    <select id="operator" class="form-control" name="operator">
                                   <option value="">Please select and/or operator</option>
                                   <option value="1">AND</option>
                                   <option value="0">OR</option>
-                                </select>
+                                </select> -->
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
@@ -103,7 +106,7 @@
                                   <option value="1/2-2">1/2 to 2 times</option>
                                   <option value="1/3-3">1/3 to 3 times</option>
                                   <option value="1/4-4">1/4 to 4 times</option>
-                                  <option value="0">Range</option>
+                                  <option value="0">Custom Range</option>
                                 </select>
                             </div>
                         </div>
@@ -111,7 +114,7 @@
                               <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both "></label>
                               <div class="col-md-8 col-sm-8 col-xs-12" style="display: inline-flex;">
                         
-<input  name="range_mar_cap_min" id="range_mar_cap_min" class="form-control number_only" style="width: 40%;margin-right: 5%" value="0"> to <input  name="range_mar_cap_max" id="range_mar_cap_min" class="form-control number_only" style="width: 40%;margin-left: 5%" value="0"> 
+<input  name="range_mar_cap_min" id="range_mar_cap_min" class="form-control number_only" style="width: 40%;margin-right: 5%" value="0"> <span style="padding-top: 10px">to</span> <input  name="range_mar_cap_max" id="range_mar_cap_min" class="form-control number_only" style="width: 40%;margin-left: 5%" value="0"> 
                             </div>
                         </div>
                   

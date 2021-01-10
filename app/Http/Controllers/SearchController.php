@@ -39,7 +39,7 @@ class SearchController extends Controller
      */
     public function search_director()
     {
-    	$directors=Director::all(['id','name']);
+    	$directors=Director::orderBy('name','asc')->get(['id','name']);
         return view('search.director.search',compact('directors'));
     }
     public function result_director(Request $request)
@@ -269,7 +269,7 @@ Storage::disk('public')->put($path.$name, $pdf->output());
 
 
         }
-         if($request->operator != null){
+         if($request->operator != null && $request->range_mar_cap != null && $request->range != null){
             $companies=$companies->whereHas('financial', function ($query2) use($range_max,$range_min,$range_mar_cap_max,$range_mar_cap_min,$request) {
 
               if($request->operator==1){
@@ -311,8 +311,8 @@ Storage::disk('public')->put($path.$name, $pdf->output());
 
           }
           else{
-
             if($request->range_mar_cap != null){
+
           $companies=$companies->whereHas('financial', function ($query) use($range_mar_cap_min,$range_mar_cap_max) {
               
                   $query= $query->where('market_cap', '>=', $range_mar_cap_min)->where('market_cap', '<=', $range_mar_cap_max);
@@ -854,7 +854,7 @@ if($request->operator){
 }
 if($request->range != null){
   if($request->range==0){
-  $message.='Range: '.$request->range_min.'-'.$request->range_max.', ';
+  $message.='Range: '.number_format($request->range_min).'-'.number_format($request->range_max).', ';
   }
   else{
   $message.='Range: '.$request->range.', ';
@@ -870,7 +870,7 @@ if($request->range_mar_cap != null){
 
   }
 }
-$message='Customized Search ('.rtrim($message, ", ").')';
+$message='Customised Search ('.rtrim($message, ", ").')';
 if($message == 'Customized Search ()'){
   $message='Customized Search (No filter applied)';
 }

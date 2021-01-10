@@ -111,6 +111,6 @@ class CompanyDirector extends Model
     }
       public function other_membership()
     {
-        return $this->hasMany('App\Models\OtherMembership','director_id','director_id');
+        return $this->hasMany('App\Models\OtherMembership','director_id','director_id')->orderBy('type','asc');
     }
 }

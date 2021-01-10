@@ -15,7 +15,7 @@ class AdminController extends Controller
    public function ajax_directors(){
          $directors=User::with('profile')->whereHas("roles", function($q){ $q->where("name", "Director");});
         return Datatables::of($directors	)->addColumn('action', function ($row) {
-               return $temp='<a href="edit_profile/'.$row->id.'" class="btn btn-primary" title="Edit"><i class="fas fa-edit"></i></a><a href="delete/'.$row->id.'" class="btn btn-danger"><i class="fas fa-trash"></i></a>';
+               return $temp='<a href="edit_profile/'.$row->id.'" class="btn btn-primary" title="Edit"><i class="fas fa-edit"></i></a><a href="delete/'.$row->id.'" class="btn btn-danger delete"><i class="fas fa-trash"  onclick="return confirm("Are you sure?")"></i></a>';
                // <a href="mail/'.$row->id.'" class="btn btn-success" title="Mail"><i class="fas fa-paper-plane"></i></a>
                // 
         })->addColumn('membership', function ($row) {
@@ -41,7 +41,7 @@ class AdminController extends Controller
             if($row->profile){
               return $row->profile->company_name;
             }
-        })
+        })->addIndexColumn()
         ->escapeColumns([])->make(true);
 
     } 
@@ -51,7 +51,7 @@ class AdminController extends Controller
    public function ajax_companies(){
          $directors=User::with('profile')->whereHas("roles", function($q){ $q->where("name", "Company");});
         return Datatables::of($directors	)->addColumn('action', function ($row) {
-               return $temp='<a href="edit_profile/'.$row->id.'" class="btn btn-primary" title="Edit"><i class="fas fa-edit"></i></a>';
+               return $temp='<a href="edit_profile/'.$row->id.'" class="btn btn-primary" title="Edit" onclick="return confirm("Are you sure?")" ><i class="fas fa-edit"></i></a><a href="delete/'.$row->id.'" class="btn btn-danger delete" onclick="return confirm("Are you sure?")" ><i class="fas fa-trash" ></i></a>';
 
                // <a href="mail/'.$row->id.'" class="btn btn-success" title="Mail"><i class="fas fa-paper-plane"></i></a>
                

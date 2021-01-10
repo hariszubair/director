@@ -52,7 +52,8 @@
                      <input type="text" class="form-control has-feedback-left" id="id" name="id" placeholder="Company Name" value="{{$user->id}}" style="display: none;">
 
                   <div class="item form-group" title="Name">
-                      <div class="col-md-3 col-sm-3  form-group has-feedback">
+                      <div class="col-md-3 col-sm-3  form-group has-feedback" style="text-align: right;padding-top: 10px;font-weight: bold">
+                        Name:  
                       </div>
                       <div class="col-md-6 col-sm-6  form-group has-feedback">
                       <input type="text" class="form-control has-feedback-left" id="name" name="name"  placeholder="Name" required="required" value="{{$user->profile->name}}">
@@ -60,7 +61,8 @@
                     </div>
                   </div>
                   <div class="item form-group"  title="Phone #">
-                      <div class="col-md-3 col-sm-3  form-group has-feedback">
+                      <div class="col-md-3 col-sm-3  form-group has-feedback" style="text-align: right;padding-top: 10px;font-weight: bold">
+                        Phone:  
                       </div>
                       <div class="col-md-6 col-sm-6  form-group has-feedback">
                      <input type="tel" class="form-control number_only has-feedback-left" id="phone" name="phone" placeholder="Phone" value="{{$user->profile->phone}}">
@@ -68,7 +70,8 @@
                     </div>
                   </div>
                   <div class="item form-group">
-                      <div class="col-md-3 col-sm-3  form-group has-feedback">
+                      <div class="col-md-3 col-sm-3  form-group has-feedback" style="text-align: right;padding-top: 10px;font-weight: bold">
+                        Company Name:  
                       </div>
                       <div class="col-md-6 col-sm-6  form-group has-feedback">
                      <input type="text" class="form-control has-feedback-left" id="company_name" name="company_name" placeholder="Company Name" value="{{$user->profile->company_name}}">
@@ -76,7 +79,8 @@
                     </div>
                   </div>
                    <div class="item form-group">
-                      <div class="col-md-3 col-sm-3  form-group has-feedback">
+                    <div class="col-md-3 col-sm-3  form-group has-feedback" style="text-align: right;padding-top: 10px;font-weight: bold">
+                        Sector:  
                       </div>
                       <div class="col-md-6 col-sm-6  form-group has-feedback">
                      <select type="text" class="form-control has-feedback-left js-example-basic-single" id="sector" name="sector" placeholder="Sector">
@@ -89,7 +93,8 @@
                     </div>
                   </div>
                   <div class="item form-group">
-                      <div class="col-md-3 col-sm-3  form-group has-feedback">
+                      <div class="col-md-3 col-sm-3  form-group has-feedback" style="text-align: right;padding-top: 10px;font-weight: bold">
+                        Industry:  
                       </div>
                       <div class="col-md-6 col-sm-6  form-group has-feedback">
                       <select type="text" class="form-control has-feedback-left js-example-basic-single" id="industry" name="industry" placeholder="Sector">
@@ -101,6 +106,32 @@
                       <span class="fas fa-industry form-control-feedback left" aria-hidden="true"></span>
                     </div>
                   </div>
+                  @if(Auth::user()->hasRole('Administrator'))
+                  <div class="item form-group">
+                      <div class="col-md-3 col-sm-3  form-group has-feedback" style="text-align: right;padding-top: 10px;font-weight: bold">
+                        Membership Type:  
+                      </div>
+                      <div class="col-md-6 col-sm-6  form-group has-feedback">
+                    <select type="text" class="form-control has-feedback-left js-example-basic-single" id="membership_type" name="membership_type" placeholder="Sector">
+                      <option>Please Select a Membership type</option>
+                       <option  {{$user->profile->membership_type == 100 ? 'selected' : ''}} value="100">Free Mode</option>
+                       <option  {{$user->profile->membership_type == 1 ? 'selected' : ''}} value="1">One Time Search</option>
+                       <option  {{$user->profile->membership_type == 6 ? 'selected' : ''}} value="6">Six Month</option>
+                       <option  {{$user->profile->membership_type == 12 ? 'selected' : ''}} value="12">One Year</option>
+                     </select>
+                      <span class="fa fa-user-plus form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                   <div class="item form-group">
+                      <div class="col-md-3 col-sm-3  form-group has-feedback" style="text-align: right;padding-top: 10px;font-weight: bold">
+                        Membership Expiry:  
+                      </div>
+                      <div class="col-md-6 col-sm-6  form-group has-feedback">
+                     <input type="date" class="form-control has-feedback-left" id="membership_time" name="membership_time" placeholder="Company Name" value="{{$user->profile->membership_time}}">
+                      <span class="far fa-clock form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                  @endif
                    <div class="item form-group">
                       <div class="col-md-3 col-sm-3  form-group has-feedback">
                       </div>

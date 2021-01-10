@@ -14,6 +14,8 @@ tr td:first-child:before
   content: counter(Serial); /* Display the counter */
 }
 </style>
+<link rel="stylesheet" type="text/css" href="{{asset('public/css/buttons.dataTables.min.css')}}">
+
   <link rel="stylesheet" href="{{ asset('public/css/jquery.dataTables.min.css')}}">
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -69,9 +71,40 @@ tr td:first-child:before
 
 @section('footer')
 <script src="{{ asset('public/js/jquery.dataTables.min.js')}}"></script>
+  <script src="{{asset('public/js/dataTables.buttons.min.js')}}"></script>
+  <script src="{{asset('public/js/buttons.flash.min.js')}}"></script>
+    <script src="{{asset('public/js/jszip.min.js')}}"></script>
+<script src="{{asset('public/js/pdfmake.min.js')}}"></script>
+<script src="{{asset('public/js/vfs_fonts.js')}}"></script>
+
+     <script src="{{asset('public/js/dataTables.buttons.min.js')}}"></script>
+     <script src="{{asset('public/js/buttons.html5.min.js')}}"></script>
+  <script src="{{asset('public/js/buttons.print.min.js')}}"></script>
 <script type="text/javascript">
    $( document ).ready(function() {
      $('#company').DataTable({
+       dom: 'Bfrltip',
+               buttons: [
+
+           {
+extend: 'excelHtml5',
+text: '<i class="fa fa-file-excel-o"></i> Excel',
+titleAttr: 'Export to Excel',
+exportOptions: {
+columns: ':not(:last-child,:first-child)',
+}
+},
+
+{
+extend: 'print',
+exportOptions: {
+columns: ':visible'
+},
+customize: function(win) {
+$(win.document.body).find( 'table' ).find('td:last-child, th:last-child').remove();
+}
+}
+        ],
         processing: true,
         serverSide: false,
 
@@ -97,12 +130,18 @@ tr td:first-child:before
       { "data": 'action','name':'action'},
 
         ],
+        "initComplete": function( settings, json ) {
+    $('.delete').click(function(){
+    return confirm('Are you sure want to continue?');
+});
+  }
       
         
              
     });
 
 });
+  
 </script>
    @endsection
 

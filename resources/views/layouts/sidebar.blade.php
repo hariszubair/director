@@ -1,14 +1,13 @@
          <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>General</h3>
                 <ul class="nav side-menu">
                   @hasanyrole('Director|Company|Administrator')
                   <li><a href="{{URL('/')}}"><i class="fas fa-home"></i> Home </a>
                   </li>
                    @endhasanyrole
                     @hasanyrole('Director|Company')
-                  <li><a href="{{URL('/reports')}}"><i class="far fa-newspaper"></i> Reports </a>
+                  <li><a href="{{URL('/reports')}}"><i class="far fa-newspaper"></i> All past searches</a>
                   </li>
                    @endhasanyrole
                     @if(\Auth::user()->hasRole(['DataEntry']))

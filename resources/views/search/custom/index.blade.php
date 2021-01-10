@@ -93,7 +93,7 @@
                                 <input type="" name="range_mar_cap" id="range_mar_cap" value="{{$request->range_mar_cap}}" style="display: none;">
                                 <input type="" name="range_mar_cap_min" id="range_mar_cap_min" value="{{$request->range_mar_cap_min}}" style="display: none;"><input type="" name="range_mar_cap_max" id="range_mar_cap_max" value="{{$request->range_mar_cap_max}}" style="display: none;">
 
-                <button type="submit" class="btn btn-success" >Proceed</button>
+                <button type="submit" class="btn btn-success" style="margin-top: 10px">Proceed</button>
                       </div>
                     </div>
                             @else
@@ -229,13 +229,13 @@ $('#company').DataTable().draw()
 $('#company').DataTable().draw()
 });
  
-//  $( "#proceed" ).submit(function( event ) {
-//   if($('input[type="checkbox"]:checked').length < 10 || $('input[type="checkbox"]:checked').length > 20){
-//   event.preventDefault();
-//   alert('please select 10-20 companies to proceed')
+ $( "#proceed" ).submit(function( event ) {
+  if($('input[type="checkbox"]:checked').length < 10 || $('input[type="checkbox"]:checked').length > 20){
+  event.preventDefault();
+  alert('please select 10-20 companies to proceed')
 
-//   }
-// });
+  }
+});
 </script>
 @endsection
 

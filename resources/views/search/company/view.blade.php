@@ -391,7 +391,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content" style="display: none">
-                <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group">
                 <label class="col-md-12 col-sm-12">Name<span class="required">*</span></label>
                 <div class="col-md-12 col-sm-12" style="display: inline-flex;">

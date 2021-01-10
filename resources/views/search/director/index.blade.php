@@ -28,9 +28,9 @@
                     <thead style="text-align: left;align-content: left">
                         <tr >
                           <th style="width: 5%">#</th>
-                            <th class="th-sm" style="width: 25%">Name</th>
-                            <th class="th-sm" style="width: 10%">Company Name</th>
-                            <th class="th-sm" style="width: 15%">Action</th>
+                            <th class="th-sm" style="width: 40%">Name</th>
+                            <th class="th-sm" style="width: 40%">Company Name</th>
+                            <th class="th-sm" style="width: 15%">View</th>
                         </tr>
                     </thead>
                     <tbody style="text-align: left;align-content: left">
@@ -39,7 +39,7 @@
                           <td>{{$key+1}}</td>
                           <td>{{$director->director_name}}</td>
                           <td>{{$director->company_name}}</td>
-                          <td style="padding: 0">
+                          <td>
                             <a class="btn btn-success" href="./view_director/{{$director->director_id}}" class="btn btn-green">view</a>
                            
                             

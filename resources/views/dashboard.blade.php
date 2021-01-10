@@ -69,7 +69,7 @@
                          <div class="col-lg-6" >
                                 <div class="au-card chart-percent-card" style="height: 450px">
                                     <div class="au-card-inner" style="text-align: center;">
-                                        <h3 class="title-2 tm-b-4" style="font-size: 18px">Registered / Unregistered Directors</h3>
+                                        <h3 class="title-2 tm-b-4" style="font-size: 18px">Complete/In-Progress Directors</h3>
                                         <div class="row no-gutters">
                                             <canvas id="directors" >
                                                 
@@ -81,11 +81,11 @@
                                     </div>
                                    
                                 </div>
-                            </div>
+                            </div>  
                             <div class="col-lg-6" >
                                 <div class="au-card chart-percent-card" style="height: 450px">
                                     <div class="au-card-inner" style="text-align: center;">
-                                        <h3 class="title-2 tm-b-4" style="font-size: 18px">Registered / Unregistered Companies</h3>
+                                        <h3 class="title-2 tm-b-4" style="font-size: 18px">Complete/In-Progress Companies</h3>
                                         <div class="row no-gutters">
                                             <canvas id="companies" >
                                                 
@@ -126,7 +126,7 @@ var directors = document.getElementById("directors").getContext('2d');
 var myChart2 = new Chart(directors, {
   type: 'doughnut',
   data: {
-    labels: ['Registered','Unregistered'],
+    labels: ['Complete','In-Progress'],
     datasets: [{
       backgroundColor: [
         "#455c73",
@@ -144,7 +144,7 @@ var companies = document.getElementById("companies").getContext('2d');
 var myChart2 = new Chart(companies, {
   type: 'doughnut',
   data: {
-    labels: ['Registered','Unregistered'],
+    labels: ['Complete','In-Progress'],
     datasets: [{
       backgroundColor: [
         "#26b99a",
