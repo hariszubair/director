@@ -98,7 +98,7 @@ Storage::disk('public')->put($path.$name, $pdf->output());
     $query->where('company_id', '=', $request->company_id);
 })->with('committee_composition.committee')->get();
         $committees=Committee::where('company_id',$request->company_id)->get();
-
+$director_committee=[];
        foreach ($directors as $key => $director) {
           // return $director;
           $director_committee[$key]['name']=$director->name;

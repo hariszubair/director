@@ -25,14 +25,22 @@
                   </div>
                   <div class="x_content"> 
                     <div>
-    <div class="form-group col-md-4 col-sm-4 col-xs-12" >
+    <div class="form-group col-md-12 col-sm-12 col-xs-12" >
     <div class="form-group">
-    <label class="col-md-12 col-sm-12">Name<span class="required">*</span></label>
+    <label class="col-md-12 col-sm-12">Name</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
     <input class="form-control" value="{{$director->director->name}}" disabled></div></div></div>
+    <div class="form-group col-md-12 col-sm-12 col-xs-12" >
+    <div class="form-group">
+    <label class="col-md-12 col-sm-12">Qualification</label>
+    <div class="col-md-12 col-sm-12" style="display: inline-flex;">
+    <input class="form-control"  value="{{$director->director->qualification}}" disabled>
+    </div>
+    </div>
+    </div>
     <div class="form-group col-md-4 col-sm-4 col-xs-12" >
     <div class="form-group">
-    <label class="col-md-12 col-sm-12">Gender<span class="required">*</span></label>
+    <label class="col-md-12 col-sm-12">Gender</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
         <input class="form-control" value="{{$director->director->gender}}" readonly>
    
@@ -47,14 +55,7 @@
     </div>
     </div>
     </div>
-    <div class="form-group col-md-4 col-sm-4 col-xs-12" >
-    <div class="form-group">
-    <label class="col-md-12 col-sm-12">Qualification</label>
-    <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-    <input class="form-control"  value="{{$director->director->qualification}}" disabled>
-    </div>
-    </div>
-    </div>
+    
     <div class="form-group col-md-4 col-sm-4 col-xs-12" >
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Institute</label>
@@ -84,7 +85,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content"> 
-                    <div class="form-group col-md-4 col-sm-4 col-xs-12" >
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12" >
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Company Name</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
