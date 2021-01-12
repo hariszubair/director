@@ -16,17 +16,17 @@
             <div class="row">
                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
                         <div class="tile-stats">
-                          <div class="icon"><i class="far fa-building"></i>
+                          <div class="" style="float: right;padding: 10px 10px 10px 0"><i class="far fa-building fa-3x" style="color: #bab8b8"></i>
                           </div>
 
                           <div class="count">{{App\Models\Company::count()}}</div>
-
-                          <h3>Companies</h3>
+<div >
+                          <h3>Companies</h3></div>
                         </div>
                       </div>
                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
                         <div class="tile-stats">
-                          <div class="icon"><i class="fas fa-users"></i>
+                          <div style="float: right;padding: 10px 10px 10px 0"><i class="fas fa-users fa-3x" style="color: #bab8b8"></i>
                           </div>
                           <div class="count">{{App\Models\Director::count()}}</div>
 
@@ -35,7 +35,7 @@
                       </div>
                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
                         <div class="tile-stats">
-                          <div class="icon" style="padding-right: 20px"><i class="fas fa-bezier-curve"></i>
+                          <div style="float: right;padding: 10px 10px 10px 0"><i class="fas fa-bezier-curve fa-3x" style="color: #bab8b8"></i>
                           </div>
                           <div class="count">{{count($sector)}}</div>
 
@@ -44,7 +44,7 @@
                       </div>
                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
                         <div class="tile-stats">
-                          <div class="icon"><i class="fas fa-industry"></i>
+                          <div style="float: right;padding: 10px 10px 10px 0"><i class="fas fa-industry fa-3x" style="color: #bab8b8"></i>
                           </div>
                           <div class="count">{{App\Models\Industry::groupBy('industry')->count()}}</div>
 

@@ -109,7 +109,7 @@
                                         <div class="form-group">
                                             <label class="col-md-12 col-sm-12">Director Fee Pool Last Updated</label>
                                             <div class="col-md-12 col-sm-12">
-                                               <input data-toggle="datepicker" class="form-control" name="dir_fee_pool_updated" id="dir_fee_pool" placeholder="dd-mm-yyyy" autocomplete="off" data-inputmask-alias="dd-mm-yyyy"  data-val="true" type="text" value="{{$company->dir_fee_pool_updated}}" readonly>
+                                               <input class="form-control" type="text" value="{{$company->dir_fee_pool_updated}}" readonly>
                                             </div>
                                         </div>
                                       </div>
@@ -252,7 +252,7 @@
                                        <div class="form-group col-md-6 col-sm-6 col-xs-12" >
                                    
                                         <div class="form-group">
-                                            <label class="col-md-12 col-sm-12">Weight Share<span class="required">*</span></label>
+                                            <label class="col-md-12 col-sm-12">No. of Shares<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
                                                 <input class="form-control" value="{{$company->financial->weight_share}}" readonly>
                                             </div>

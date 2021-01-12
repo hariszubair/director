@@ -6,11 +6,13 @@
  <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
-            <div class="page-title">
-              <div class="title_left" style="display: inline-flex;">
-                <h3>Edit Company </h3> <a href="{{route('edit_composition',['id'=>$company->id])}}" class="btn btn-primary"> Edit committee</a>
+            <div class="page-title" style="display: inline-flex;">
+              <div class="title_left">
+                <h3>Edit Company </h3> 
               </div>
-
+              <div style="margin-top: 20px">
+              <a  href="{{route('edit_composition',['id'=>$company->id])}}" class="custom_button"> Edit committee</a>
+              </div>
             </div>
 
             <div class="clearfix"></div>
@@ -212,7 +214,7 @@
                                        <div class="form-group col-md-6 col-sm-6 col-xs-12" >
                                    
                                         <div class="form-group">
-                                            <label class="col-md-12 col-sm-12">Weight Share<span class="required">*</span></label>
+                                            <label class="col-md-12 col-sm-12">No. of Shares<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
                                                 <input class="form-control" name="financial[weight_share]" id="financial[weight_share]" value="{{$company->financial->weight_share}}"tabindex="16" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                             </div>
@@ -436,7 +438,7 @@
                     @method('DELETE')
                     @csrf
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                 <button class="btn btn-danger" ><i class="fas fa-minus " title="Remove Director" type="submit"></i></button>
+                 <button class="btn btn-danger" type="submit">Remove</button>
                </div>
               </form>
                <hr style="clear: both;display: block; border: 1px solid black;">

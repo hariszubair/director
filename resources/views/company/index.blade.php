@@ -17,7 +17,7 @@ tr td:first-child:before
 <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="{{ asset('public/css/jquery.dataTables.min.css')}}">
  <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" style="min-height: 1020px;height: 1025px;" >
           <div class="">
             <div class="page-title">
               <div class="title_left">
@@ -28,7 +28,7 @@ tr td:first-child:before
 
             <div class="clearfix"></div>
 
-            <div class="row">
+            <div class="row" style="">
               <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                   <div class="x_title">
@@ -93,6 +93,7 @@ tr td:first-child:before
       { "data": 'id','name':'id'},
 
         ],
+
         "columnDefs": [
             {
                 "targets": [ 6 ],
@@ -100,7 +101,7 @@ tr td:first-child:before
                 "searchable": false
             },
         ],
-        "order": [[ 6, "desc" ]]
+        "order": [[ 1, "asc" ]]
      
         
              

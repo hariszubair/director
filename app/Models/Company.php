@@ -56,4 +56,9 @@ class Company extends Model
   {
     return $this->hasOne('App\Models\CompanyReference','ASX_code','index')->latest();
   }
+  public function getNameAttribute($value)
+    {
+       return ucwords(strtolower($value) );
+       
+    }
 }

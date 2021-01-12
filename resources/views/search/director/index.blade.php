@@ -40,7 +40,7 @@
                           <td>{{$director->director_name}}</td>
                           <td>{{$director->company_name}}</td>
                           <td>
-                            <a class="btn btn-success" href="./view_director/{{$director->director_id}}" class="btn btn-green">view</a>
+                            <a  href="./view_director/{{$director->director_id}}" class="custom_button">view</a>
                            
                             
                           </td>

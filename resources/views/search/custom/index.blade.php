@@ -6,8 +6,8 @@
   <link rel="stylesheet" href="{{ asset('public/css/jquery.dataTables.min.css')}}">
 
  <!-- page content -->
-        <div class="right_col" role="main">
-          <div class="">
+        <div class="right_col" role="main" >
+          <div class="" style="min-height: 750px !important">
             <div class="page-title">
               <div class="title_left">
                 <h3>Companies</h3>
@@ -26,27 +26,33 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+                     <form class="" action="{{route('result_custom_final')}}" method="post" id='proceed'>
+    @csrf
                     <p><font size="2" color="red">* are preselected companies</font></p>
-                    <div class="btn-group pull-left" role="group">
+                    <div class="btn-group pull-left" role="group"  style="width: 100%">
 
-     <button id="btnHidden" class="btn btn-default"  type="button" style="margin:5px">Filtered</button>
-     <button id="btnAll" class="btn btn-default"  type="button" style="margin:5px">All</button>
+   
                             <div class="col-md-12 form-row form-inline">
-                                 <button type="button" id="none" class="btn btn-primary" title="Uncheck All" style="float: right;margin: 5px">
+                                <button id="btnHidden" class="custom_button"    type="button" style="background-color: #6610f2">Filtered</button>
+     <button id="btnAll" class="custom_button"   type="button" style="background-color: #73879c" >All</button>
+
+                                 <button type="button" id="none" class="custom_button"  title="Uncheck All" style="background-color: blue">
                                     <i class="far fa-square"></i>
                                 </button>
-                                 <button type="button" id="all" class="btn btn-primary" title="Check All" style="float: right;margin: 5px">
+                                 <button type="button" id="all" class="custom_button" title="Check All" style="background-color: green">
                                   <i class="far fa-check-square"></i>
                                 </button>
                               
+<button type="submit"   class="custom_button">Proceed</button> 
+   <span id='text_message'><b>{{$count_companies}} companies are selected</b></span>
 
                                
                             </div>
                      
-  </div>  <span id='text_message'><b>{{$count_companies}} companies are selected</b></span>
+  </div>
   <input type="" id='selected_companies' value="{{$count_companies}}" style="display: none">
-   <form class="" action="{{route('result_custom_final')}}" method="post" id='proceed'>
-    @csrf
+  
+     
     <div style="max-height: 500px;overflow: scroll;">
 
                     <table id="company" class="table table-bordered" width="100%" style="font-size: 12px;text-align: left;">
@@ -93,7 +99,7 @@
                                 <input type="" name="range_mar_cap" id="range_mar_cap" value="{{$request->range_mar_cap}}" style="display: none;">
                                 <input type="" name="range_mar_cap_min" id="range_mar_cap_min" value="{{$request->range_mar_cap_min}}" style="display: none;"><input type="" name="range_mar_cap_max" id="range_mar_cap_max" value="{{$request->range_mar_cap_max}}" style="display: none;">
 
-                <button type="submit" class="btn btn-success" style="margin-top: 10px">Proceed</button>
+               
                       </div>
                     </div>
                             @else
@@ -124,7 +130,7 @@
      "pageLength": -1,
         "order": [[ 5, "asc" ]],
         rowCallback: function( row, data, index ) {
-    if (data[3] === 'x' && $("#btnHidden").hasClass("active")) {
+    if (data[5] === 'x' && $("#btnHidden").hasClass("active")) {
         $(row).hide();
     }
     else{
@@ -189,11 +195,20 @@ $('#company').DataTable().draw()
  $('#all').click(function(){
   $('input[type="checkbox"]').prop('checked', true)
        $('#text_message').html('<b>'+$('input[type="checkbox"]:checked').length+ ' companies are selected.</b>')
-
+$('#company').DataTable().column(5).nodes().each(function(node, index, dt){
+   $('#company').DataTable().cell(node).data('Available');
+}).draw();
       });
       $('#none').click(function(){
+           
+        //  $('#company').DataTable().column( 5 ) 
+        // .data( 'x')
+        // ;
        $('input[type="checkbox"]').prop('checked', false)
        $('#text_message').html('<b>0 company is selected.</b>')
+       $('#company').DataTable().column(5).nodes().each(function(node, index, dt){
+   $('#company').DataTable().cell(node).data('x');
+}).draw();
       });
       $(".selected_companies").change(function(){
         if($('input[type="checkbox"]:checked').length < 2){
@@ -213,8 +228,7 @@ $('#company').DataTable().draw()
          }
          else{
             $('#company').DataTable().cell( index, 5 ) 
-        .data( 'x')
-        .draw();
+        .data( 'x');
          }
 
         

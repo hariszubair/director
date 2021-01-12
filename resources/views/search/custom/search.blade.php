@@ -122,7 +122,7 @@
                               <div class="col-md-8 col-sm-8 col-xs-12">
                             @if(Auth::user()->profile->membership_type != null)
 
-                        <button class="btn btn-success">Submit</button>
+                        <button  class="custom_button">Submit</button>
                         @else
                         <span style="font-size: 20px">Please pay to proceed</span>
                         @endif
@@ -168,7 +168,7 @@
        $('#industry').append($("<option value=''>Please Select a Industry</option>"));
 
         $.each(result, function( index, value ) {
-       $('#industry').append($("<option value="+value+">"+value+"</option>"))
+       $('#industry').append($("<option value='"+value+"'>"+value+"</option>"))
         });
   }
 });

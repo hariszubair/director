@@ -55,9 +55,9 @@
                             <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
                               <div class="col-md-8 col-sm-8 col-xs-12">
                                 <input type="" name="sector" id="sector" value="{{$request->sector}}" style="display: none;">
-                                <input type="" name="industry" id="industry" value="{{$request->industry}}" style="display: none;">
+                                <input type="" name="industry" id="industry" value="{{json_encode($request->industry)}}" style="display: none;">
 
-                <button type="submit" class="btn btn-success" >Proceed</button>
+                <button type="submit"  class="custom_button">Proceed</button>
                       </div>
                     </div>
                             @else

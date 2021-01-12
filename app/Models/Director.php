@@ -20,4 +20,8 @@ class Director extends Model
 	{
 		return $this->hasMany('App\Models\CommitteeComposition');
 	}
+	public function getNameAttribute($value)
+    {
+       return ucwords(strtolower($value) );
+    }
 }

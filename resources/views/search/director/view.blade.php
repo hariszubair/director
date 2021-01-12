@@ -113,7 +113,7 @@
     <div class="form-group">
     <label class="col-md-12 col-sm-12">Non Executive Type</label>
     <div class="col-md-12 col-sm-12" style="display: inline-flex;">
-        <input class="form-control" value="{{$director->ned_type}}" readonly>
+        <textarea class="form-control" style="resize: none; clear: right;" readonly>{{$director->ned_type}}</textarea>
     </div>
     </div>
     </div>

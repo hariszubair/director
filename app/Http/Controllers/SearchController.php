@@ -84,7 +84,7 @@ Storage::disk('public')->put($path.$name, $pdf->output());
     }
     public function search_company()
     {
-    	$companies=Company::all(['id','name']);
+    	$companies=Company::orderBy('name','asc')->get(['id','name']);
         return view('search.company.search',compact('companies'));
     }
     public function result_company(Request $request)
@@ -149,23 +149,28 @@ Storage::disk('public')->put($path.$name, $pdf->output());
 
     public function search_sector()
     {
-        $sector_industry=SectorIndustry::select('sector')->distinct()->get();
+        $sector_industry=SectorIndustry::select('sector')->distinct()->orderBy('sector','asc')->where('sector','!=','')->get();
         return view('search.sector.search',compact('sector_industry'));
     }
     public function search_industry(Request $request)
     {
 
-       return $sector_industry=SectorIndustry::select('industry')->distinct()->where('sector',$request->sector)->where('industry', '!=' ,'')->pluck('industry');
+       return $sector_industry=SectorIndustry::select('industry')->distinct()->orderBy('industry','asc')->where('sector',$request->sector)->where('industry', '!=' ,'')->pluck('industry');
     }
      public function result_sector(Request $request)
     {
-              $companies=Company::where('sector',$request->sector)->where('industry',$request->industry)->get();
+              // return $request->industry);
+              $companies=Company::where('sector',$request->sector);
+              if($request->industry){
+                $companies=$companies->whereIn('industry',$request->industry);
+              }
+               $companies=$companies->get();
         return view('search.sector.index',compact('companies','request'));
 
     }
     public function search_custom()
     {
-        $sector_industry=SectorIndustry::select('sector')->distinct()->get();
+        $sector_industry=SectorIndustry::select('sector')->where('sector','!=','')->distinct()->orderBy('sector','asc')->get();
         return view('search.custom.search',compact('sector_industry'));
     }
     public function result_custom(Request $request)

@@ -41,14 +41,14 @@
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
                               <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both ">Industry:</label>
                               <div class="col-md-8 col-sm-8 col-xs-12">
-                                  <select class="form-control js-example-basic-single" name="industry" id="industry" required  tabindex="2">
+                                  <select class="form-control js-example-basic-multiple" name="industry[]" multiple="multiple" id="industry"  tabindex="2">
                                  </select>
                             </div>
                         </div>
                      <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
                               <div class="col-md-8 col-sm-8 col-xs-12">
 
-                        <button class="btn btn-success">Submit</button>
+                        <button  class="custom_button" type="submit">Submit</button>
                         
                       </div>
                     </div>
@@ -77,6 +77,7 @@
      
  $(document).ready(function(){
   $('.js-example-basic-single').select2();
+  $('.js-example-basic-multiple').select2();
   select.on('select2:selecting', recordFocus);
 select.on('select2:unselecting', recordFocus);
 select.on('select2:select', setFocus);
@@ -95,7 +96,7 @@ select.on('select2:unselect', setFocus);
        $('#industry').append($("<option value=''>Please Select a Industry</option>"));
 
         $.each(result, function( index, value ) {
-       $('#industry').append($("<option value="+value+">"+value+"</option>"))
+       $('#industry').append($("<option value='"+value+"'>"+value+"</option>"))
         });
   }
 });

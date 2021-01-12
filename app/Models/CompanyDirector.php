@@ -113,4 +113,13 @@ class CompanyDirector extends Model
     {
         return $this->hasMany('App\Models\OtherMembership','director_id','director_id')->orderBy('type','asc');
     }
+    public function getCompanyNameAttribute($value)
+    {
+       return ucwords(strtolower($value) );
+    }
+    public function getDirectorNameAttribute($value)
+    {
+       return ucwords(strtolower($value));
+    }
+    
 }

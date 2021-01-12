@@ -11,12 +11,12 @@
                   </li>
                    @endhasanyrole
                     @if(\Auth::user()->hasRole(['DataEntry|Administrator']))
-                   <li><a href="{{route('company')}}"><i class="fas fa-building"></i></i> Company</a></li>
+                   <li><a href="{{route('company')}}"><i class="fas fa-building"></i></i> Entered Companies</a></li>
                    @endif
                     @hasrole('Administrator')
                   <li><a href="{{URL('/directors')}}"><i class="fas fa-users"></i> Directors </a>
                   </li>
-                   <li><a href="{{URL('/companies')}}"><i class="far fa-building"></i> Companies </a>
+                   <li><a href="{{URL('/companies')}}"><i class="far fa-building"></i> Registered Companies </a>
                   </li>
                    @endhasanyrole
                 </ul>

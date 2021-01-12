@@ -130,6 +130,8 @@ $(win.document.body).find( 'table' ).find('td:last-child, th:last-child').remove
       { "data": 'action','name':'action'},
 
         ],
+        "order": [[ 1, "asc" ]],
+        
         "initComplete": function( settings, json ) {
     $('.delete').click(function(){
     return confirm('Are you sure want to continue?');

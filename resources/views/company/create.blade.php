@@ -218,7 +218,7 @@
                                        <div class="form-group col-md-6 col-sm-6 col-xs-12" >
                                    
                                         <div class="form-group">
-                                            <label class="col-md-12 col-sm-12">Weight Share<span class="required">*</span></label>
+                                            <label class="col-md-12 col-sm-12">No. of Shares<span class="required">*</span></label>
                                             <div class="col-md-12 col-sm-12">
                                                 <input   class="form-control number_only" name="financial[weight_share]" id="financial[weight_share]" value="{{old('financial[weight_share]')}}" tabindex="16" required onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                             </div>

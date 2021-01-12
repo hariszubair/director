@@ -129,7 +129,7 @@ table,th, td {
                           <td>{{$company->financial->roci}}</td>
                         </tr>
                         <tr>
-                          <td>Weight Share: </td>
+                          <td>No. of Shares: </td>
                           <td>{{$company->financial->weight_share}}</td>
                         </tr>
                         <tr>
