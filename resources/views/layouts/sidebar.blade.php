@@ -10,7 +10,7 @@
                   <li><a href="{{URL('/reports')}}"><i class="far fa-newspaper"></i> All past searches</a>
                   </li>
                    @endhasanyrole
-                    @if(\Auth::user()->hasRole(['DataEntry']))
+                    @if(\Auth::user()->hasRole(['DataEntry|Administrator']))
                    <li><a href="{{route('company')}}"><i class="fas fa-building"></i></i> Company</a></li>
                    @endif
                     @hasrole('Administrator')
