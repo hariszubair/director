@@ -82,6 +82,25 @@ Storage::disk('public')->put($path.$name, $pdf->output());
         }
 
     }
+    public function back_director(Request $request){
+      $input['name']=$request->name;
+      return redirect()->route('search_director')->withInput($input);
+    }
+    public function back_company(Request $request){
+      $input['name']=$request->name;
+      return redirect()->route('search_company')->withInput($input);
+    }
+    public function back_sector(Request $request){
+      $input['sector']=$request->sector;
+      $input['industry']=$request->industry;
+
+      return redirect()->route('search_sector')->withInput($input);
+    }
+    public function back_custom(Request $request){
+      $input=$request->all();
+
+      return redirect()->route('search_custom')->withInput($input);
+    }
     public function search_company()
     {
     	$companies=Company::orderBy('name','asc')->get(['id','name']);
@@ -652,7 +671,7 @@ Storage::disk('public')->put($path.$name, $pdf->output());
          Profile::where('user_id',$user->id)->update(['membership_type'=>null]);
         }
 
-        return view('search.sector.view',compact('percentile_market_cap','percentile_revenue','percentile_basic_eps','percentile_no_of_employees','percentile_chair_fee','percentile_member_fee','percentile_no_of_meetings','percentile_no_of_directors','committee_names','percentile_comb_no_of_meetings','percentile_comb_no_of_directors','percentile_comb_member_fee','percentile_comb_chair_fee','comb_committee_names','personal_com'));
+        return view('search.sector.view',compact('percentile_market_cap','percentile_revenue','percentile_basic_eps','percentile_no_of_employees','percentile_chair_fee','percentile_member_fee','percentile_no_of_meetings','percentile_no_of_directors','committee_names','percentile_comb_no_of_meetings','percentile_comb_no_of_directors','percentile_comb_member_fee','percentile_comb_chair_fee','comb_committee_names','personal_com','request'));
 
       }
         else{
@@ -896,7 +915,7 @@ Storage::disk('public')->put($path.$name, $pdf->output());
          Profile::where('user_id',$user->id)->update(['membership_type'=>null]);
         }
 
-        return view('search.sector.view',compact('percentile_market_cap','percentile_revenue','percentile_basic_eps','percentile_no_of_employees','percentile_chair_fee','percentile_member_fee','percentile_no_of_meetings','percentile_no_of_directors','committee_names','percentile_comb_no_of_meetings','percentile_comb_no_of_directors','percentile_comb_member_fee','percentile_comb_chair_fee','comb_committee_names','personal_com'));
+        return view('search.custom.view',compact('percentile_market_cap','percentile_revenue','percentile_basic_eps','percentile_no_of_employees','percentile_chair_fee','percentile_member_fee','percentile_no_of_meetings','percentile_no_of_directors','committee_names','percentile_comb_no_of_meetings','percentile_comb_no_of_directors','percentile_comb_member_fee','percentile_comb_chair_fee','comb_committee_names','personal_com','request'));
 
       }
         else{

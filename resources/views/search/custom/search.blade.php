@@ -35,7 +35,7 @@
                                   <option value="">Select Sector Name</option>
 
                                   @foreach($sector_industry as $sector_industry)
-                                  <option value="{{$sector_industry->sector}}"> {{$sector_industry->sector}}</option>
+                                  <option  value="{{$sector_industry->sector}}"> {{$sector_industry->sector}}</option>
                                   @endforeach
                                  </select>
                             </div>
@@ -52,10 +52,10 @@
                               <div class="col-md-8 col-sm-8 col-xs-12">
                                   <select class="form-control js-example-basic-single" name="index" id="index"   tabindex="3" style="width: 100%">
                                     <option value="">Select Index</option>
-                                    <option>ASX-50</option>
-                                    <option>ASX-100</option>
-                                    <option>ASX-200</option>
-                                    <option>ASX-300</option>
+                                    <option {{old('index') == 'ASX-50' ? 'selected' : ''  }} >ASX-50</option>
+                                    <option {{old('index') == 'ASX-100' ? 'selected' : ''  }}>ASX-100</option>
+                                    <option {{old('index') == 'ASX-200' ? 'selected' : ''  }}>ASX-200</option>
+                                    <option {{old('index') == 'ASX-300' ? 'selected' : ''  }}>ASX-300</option>
                                  </select>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
 
                                 <select id="range" class="form-control" name="range">
                                   <option value="">Please select revenue</option>
-                                  <option value="1/2-2">1/2 to 2 times</option>
+                                  <option  value="1/2-2">1/2 to 2 times</option>
                                   <option value="1/3-3">1/3 to 3 times</option>
                                   <option value="1/4-4">1/4 to 4 times</option>
                                   <option value="0">Custom Range</option>
@@ -79,7 +79,7 @@
                                
                               <div class="col-md-8 col-sm-8 col-xs-12" style="display: inline-flex;">
                         
-<input  name="range_min" id="range_min" class="form-control number_only" style="width: 40%;margin-right: 5%" value="0"> <span style="padding-top: 10px">to</span> <input  name="range_max" id="range_min" class="form-control number_only" style="width: 40%;margin-left: 5%" value="0"> 
+<input  name="range_min" id="range_min" class="form-control number_only" style="width: 40%;margin-right: 5%" value="{{old('range_min') ? old('range_min')  : '0'  }}"> <span style="padding-top: 10px">to</span> <input  name="range_max" id="range_max" class="form-control number_only" style="width: 40%;margin-left: 5%" value="{{old('range_max') ? old('range_max')  : '0'  }}"> 
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 form-group " >
@@ -87,9 +87,9 @@
                                
                               <div class="col-md-8 col-sm-8 col-xs-12" style="padding-top: 10px">
                         
-                                <input type="radio" id="and_operator" name="operator" value="1">
+                                <input type="radio" id="and_operator" name="operator" value="1" {{old('operator')==1 ? 'checked'  : ''  }}>
 <label for="and_operator">And</label>
-<input type="radio" id="or_operator" name="operator" value="0">
+<input type="radio" id="or_operator" name="operator" value="0" {{old('operator')==0 ? 'checked'  : ''  }}>
 <label for="or_operator">Or</label><br>
                              <!--    <select id="operator" class="form-control" name="operator">
                                   <option value="">Please select and/or operator</option>
@@ -114,7 +114,7 @@
                               <label class="col-md-4 col-sm-4 col-xs-12"  style="line-height: 35px;clear: both "></label>
                               <div class="col-md-8 col-sm-8 col-xs-12" style="display: inline-flex;">
                         
-<input  name="range_mar_cap_min" id="range_mar_cap_min" class="form-control number_only" style="width: 40%;margin-right: 5%" value="0"> <span style="padding-top: 10px">to</span> <input  name="range_mar_cap_max" id="range_mar_cap_min" class="form-control number_only" style="width: 40%;margin-left: 5%" value="0"> 
+<input  name="range_mar_cap_min" id="range_mar_cap_min" class="form-control number_only" style="width: 40%;margin-right: 5%" value="{{old('range_mar_cap_min') ? old('range_mar_cap_min')  : '0'  }}"> <span style="padding-top: 10px">to</span> <input  name="range_mar_cap_max" id="range_mar_cap_max" class="form-control number_only" style="width: 40%;margin-left: 5%" value="{{old('range_mar_cap_max') ? old('range_mar_cap_max')  : '0'  }}"> 
                             </div>
                         </div>
                   
@@ -154,6 +154,28 @@
      
  $(document).ready(function(){
   $('.js-example-basic-single').select2();
+  if('<?php echo old('sector'); ?>'){
+  $('#sector').val('<?php echo old('sector'); ?>').trigger('change');
+}
+if('<?php echo old('range'); ?>'){
+  if('<?php echo old('range'); ?>' == 0){
+    $('#custom_range').show();
+  }
+  else{
+    $('#custom_range').hide();
+  }
+  $('#range').val('<?php echo old('range'); ?>');
+}
+
+if('<?php echo old('range_mar_cap'); ?>'){
+  if('<?php echo old('range_mar_cap'); ?>' == 0){
+    $('#custom_range_mar_cap').show();
+  }
+  else{
+    $('#custom_range_mar_cap').hide();
+  }
+  $('#range_mar_cap').val('<?php echo old('range_mar_cap'); ?>');
+}
   
 });
  $('#sector').on('change', function (e) {
@@ -170,7 +192,14 @@
         $.each(result, function( index, value ) {
        $('#industry').append($("<option value='"+value+"'>"+value+"</option>"))
         });
-  }
+  },
+   complete: function (data) {
+      if('<?php echo old('industry'); ?>'){
+// $('')
+$('#industry').val('<?php echo old('industry'); ?>').trigger('change');
+
+}
+     }
 });
 });
  $('#range').on('change', function (e) {

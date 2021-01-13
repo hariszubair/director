@@ -7,8 +7,11 @@
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
-              <div class="title_left">
-                <h3>Director</h3>
+              <div class="title_left" style="display: inline-flex;">
+              <form action="../back_director" method="Post" style="padding-top: 15px">
+                @csrf
+                <input type="" name="name" value="{{$director->director->name}}" style="display: none">
+               <button class="custom_button" style="padding: 0 10px 0 10px">Back</button> </form> <h3>Director</h3>
               </div>
 
             </div>

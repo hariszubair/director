@@ -6,9 +6,20 @@
  <!-- page content -->
         <div class="right_col" role="main" style="min-height:100%;">
           <div class="">
-            <div class="page-title">
-              <div class="title_left">
-                <h3>Results</h3>
+            <div class="page-title" >
+              <div class="title_left" style="display: inline-flex;">
+                <form action="./back_custom" method="Post" style="padding-top: 15px">
+                @csrf
+                <input type="" name="sector" value="{{$request->sector}}" style="display: none">
+                <input type="" name="industry" value="{{$request->industry}}" style="display: none;">
+                <input type="" name="index" value="{{$request->index}}" style="display: none;">
+                <input type="" name="range" value="{{$request->range}}" style="display: none;">
+                 <input type="" name="range_min" id="range_min" value="{{$request->range_min}}" style="display: none;">
+                                <input type="" name="range_max" id="range_max" value="{{$request->range_max}}" style="display: none;">
+                                <input type="" name="operator" id="operator" value="{{$request->operator}}" style="display: none;">
+                                <input type="" name="range_mar_cap" id="range_mar_cap" value="{{$request->range_mar_cap}}" style="display: none;">
+                                <input type="" name="range_mar_cap_min" id="range_mar_cap_min" value="{{$request->range_mar_cap_min}}" style="display: none;"><input type="" name="range_mar_cap_max" id="range_mar_cap_max" value="{{$request->range_mar_cap_max}}" style="display: none;">
+               <button class="custom_button" style="padding: 0 10px 0 10px">Back</button> </form><h3>Results</h3>
 
               </div>
 

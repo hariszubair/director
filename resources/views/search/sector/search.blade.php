@@ -78,10 +78,13 @@
  $(document).ready(function(){
   $('.js-example-basic-single').select2();
   $('.js-example-basic-multiple').select2();
-  select.on('select2:selecting', recordFocus);
-select.on('select2:unselecting', recordFocus);
-select.on('select2:select', setFocus);
-select.on('select2:unselect', setFocus);
+//   select.on('select2:selecting', recordFocus);
+// select.on('select2:unselecting', recordFocus);
+// select.on('select2:select', setFocus);
+// select.on('select2:unselect', setFocus);
+if('<?php echo old('sector'); ?>'){
+  $('#sector').val('<?php echo old('sector'); ?>').trigger('change');
+}
 
 });
  $('#sector').on('change', function (e) {
@@ -98,7 +101,15 @@ select.on('select2:unselect', setFocus);
         $.each(result, function( index, value ) {
        $('#industry').append($("<option value='"+value+"'>"+value+"</option>"))
         });
-  }
+  },
+   complete: function (data) {
+      if('<?php echo old('industry'); ?>'){
+var industry =JSON.parse('<?php echo old('industry'); ?>');
+// $('')
+$('#industry').val(industry).trigger('change');
+
+}
+     }
 });
 });
 </script>

@@ -8,7 +8,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Company Search</h3>
+              <h3>Company Search</h3>
               </div>
 
             </div>
@@ -33,7 +33,7 @@
                                   <option value="">Select Company Name</option>
 
                                   @foreach($companies as $comapny)
-                                  <option value="{{$comapny->id}}"> {{$comapny->name}}</option>
+                                  <option {{old('name') == $comapny->name ? 'selected' : ''  }} value="{{$comapny->id}}"> {{$comapny->name}}</option>
                                   @endforeach
                                  </select>
                             </div>

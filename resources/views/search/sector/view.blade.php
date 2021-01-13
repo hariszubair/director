@@ -7,8 +7,13 @@
         <div class="right_col" role="main" style="min-height:100%;">
           <div class="">
             <div class="page-title">
-              <div class="title_left">
-                <h3>Results</h3>
+              <div class="title_left" style="display: inline-flex;">
+                <form action="./back_sector" method="Post" style="padding-top: 15px">
+                @csrf
+                <input type="" name="sector" value="{{$request->sector}}" style="display: none">
+                <input type="" name="industry" value="{{$request->industry}}" style="display: none">
+
+               <button class="custom_button" style="padding: 0 10px 0 10px">Back</button> </form><h3>Results</h3>
 
               </div>
 

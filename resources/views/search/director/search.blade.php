@@ -33,7 +33,7 @@
                                   <option value="">Select Director Name</option>
 
                                   @foreach($directors as $director)
-                                  <option value="{{$director->name}}"> {{ucwords(strtolower ($director->name))}}</option>
+                                  <option {{old('name') == $director->name ? 'selected' : ''  }} value="{{$director->name}}"> {{ucwords(strtolower ($director->name))}}</option>
                                   @endforeach
                                  </select>
                             </div>

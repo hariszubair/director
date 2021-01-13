@@ -34,9 +34,9 @@ Route::get('/delete_company/{id}', [App\Http\Controllers\CompanyController::clas
 //director 
 
 
-Route::post('/store_director', [App\Http\Controllers\CompanyController::class, 'store_director'])->name('store_director');
 Route::patch('/update_director/{id}', [App\Http\Controllers\CompanyController::class, 'update_director'])->name('update_director');
 Route::delete('/delete_director/{id}', [App\Http\Controllers\CompanyController::class, 'delete_director'])->name('delete_director');
+
 
 
 //committee
@@ -70,10 +70,11 @@ Route::get('/migrate', function() {
 Route::get('/search_director', [App\Http\Controllers\SearchController::class, 'search_director'])->name('search_director')->middleware(['role_or_permission:Director|Company']);
 Route::post('/result_director', [App\Http\Controllers\SearchController::class, 'result_director'])->name('result_director')->middleware(['role_or_permission:Director|Company']);
 Route::get('/view_director/{id}', [App\Http\Controllers\SearchController::class, 'view_director'])->name('view_director')->middleware(['role_or_permission:Director|Company']);
-	
+Route::post('/back_director', [App\Http\Controllers\SearchController::class, 'back_director'])->name('back_director')->middleware(['role_or_permission:Director|Company']);	
 //company
 Route::get('/search_company', [App\Http\Controllers\SearchController::class, 'search_company'])->name('search_company')->middleware(['role_or_permission:Director|Company']);
 Route::post('/result_company', [App\Http\Controllers\SearchController::class, 'result_company'])->name('result_company')->middleware(['role_or_permission:Director|Company']);
+Route::post('/back_company', [App\Http\Controllers\SearchController::class, 'back_company'])->name('back_company')->middleware(['role_or_permission:Director|Company']);	
 
 
 //sector
@@ -81,6 +82,7 @@ Route::get('/search_sector', [App\Http\Controllers\SearchController::class, 'sea
 Route::post('/search_industry', [App\Http\Controllers\SearchController::class, 'search_industry'])->name('search_industry')->middleware(['role_or_permission:Director|Company']);
 Route::post('/result_sector', [App\Http\Controllers\SearchController::class, 'result_sector'])->name('result_sector')->middleware(['role_or_permission:Director|Company']);
 Route::post('/result_sector_final', [App\Http\Controllers\SearchController::class, 'result_sector_final'])->name('result_sector_final')->middleware(['role_or_permission:Director|Company']);
+Route::post('/back_sector', [App\Http\Controllers\SearchController::class, 'back_sector'])->name('back_sector')->middleware(['role_or_permission:Director|Company']);	
 
 // Route::post('/result_director', [App\Http\Controllers\SearchController::class, 'result_director'])->name('result_director');
 // Route::get('/view_director/{id}', [App\Http\Controllers\SearchController::class, 'view_director'])->name('view_director');
@@ -90,6 +92,7 @@ Route::post('/result_sector_final', [App\Http\Controllers\SearchController::clas
 Route::get('/search_custom', [App\Http\Controllers\SearchController::class, 'search_custom'])->name('search_custom')->middleware(['role_or_permission:NonEntry|Company']);
 Route::post('/result_custom', [App\Http\Controllers\SearchController::class, 'result_custom'])->name('result_custom')->middleware(['role_or_permission:NonEntry|Company']);
 Route::post('/result_custom_final', [App\Http\Controllers\SearchController::class, 'result_custom_final'])->name('result_custom_final')->middleware(['role_or_permission:NonEntry|Company']);
+Route::post('/back_custom', [App\Http\Controllers\SearchController::class, 'back_custom'])->name('back_custom')->middleware(['role_or_permission:Director|Company']);	
 
 
 
