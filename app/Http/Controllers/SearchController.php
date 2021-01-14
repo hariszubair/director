@@ -280,7 +280,7 @@ Storage::disk('public')->put($path.$name, $pdf->output());
               $range_mar_cap_min=0;
 
                }
-               if($request->range_mar_cap_min != null){
+               if($request->range_mar_cap_max != null){
               $range_mar_cap_max=$request->range_mar_cap_max;
                }
                else{
@@ -299,28 +299,43 @@ Storage::disk('public')->put($path.$name, $pdf->output());
               if($request->operator==1){
             $query2=$query2->where(function ($query3) use ($range_max,$range_min,$range_mar_cap_max,$range_mar_cap_min,$request) {
               $query3=$query3->where(function ($query4) use ($range_max,$range_min) {
-
-                  $query4=$query4->where('sale_revenue', '>=', $range_min)->where('sale_revenue', '<=', $range_max);
+                  if($range_min != 0 ){
+                     $query4=$query4->where('sale_revenue', '>=', $range_min);
+                  }
+                  if($range_max != 0 ){
+                     $query4=$query4->where('sale_revenue', '<=', $range_max);
+                  }
+                 
               });
               $query3=$query3->where(function ($query4) use ($range_mar_cap_max,$range_mar_cap_min) {
-
-                  $query4=$query4->where('market_cap', '>=', $range_mar_cap_min)->where('market_cap', '<=', $range_mar_cap_max);
+                if($range_mar_cap_min != 0 ){
+                     $query4=$query4->where('market_cap', '>=', $range_mar_cap_min);
+                  }
+                  if($range_mar_cap_max != 0 ){
+                     $query4=$query4->where('market_cap', '<=', $range_mar_cap_max);
+                  }
               });
-
-
-
-
               });
           }
               elseif($request->operator==0){
                 $query2=$query2->where(function ($query3) use ($range_max,$range_min,$range_mar_cap_max,$range_mar_cap_min,$request) {
               $query3=$query3->where(function ($query4) use ($range_max,$range_min) {
-
-                  $query4=$query4->where('sale_revenue', '>=', $range_min)->where('sale_revenue', '<=', $range_max);
+                if($range_min != 0 ){
+                     $query4=$query4->where('sale_revenue', '>=', $range_min);
+                  }
+                  if($range_max != 0 ){
+                     $query4=$query4->where('sale_revenue', '<=', $range_max);
+                  }
+                 
               });
               $query3=$query3->orWhere(function ($query4) use ($range_mar_cap_max,$range_mar_cap_min) {
-
-                  $query4=$query4->where('market_cap', '>=', $range_mar_cap_min)->where('market_cap', '<=', $range_mar_cap_max);
+                 if($range_mar_cap_min != 0 ){
+                     $query4=$query4->where('market_cap', '>=', $range_mar_cap_min);
+                  }
+                  if($range_mar_cap_max != 0 ){
+                     $query4=$query4->where('market_cap', '<=', $range_mar_cap_max);
+                  }
+                 
               });
 
 
@@ -338,8 +353,13 @@ Storage::disk('public')->put($path.$name, $pdf->output());
             if($request->range_mar_cap != null){
 
           $companies=$companies->whereHas('financial', function ($query) use($range_mar_cap_min,$range_mar_cap_max) {
-              
-                  $query= $query->where('market_cap', '>=', $range_mar_cap_min)->where('market_cap', '<=', $range_mar_cap_max);
+                 if($range_mar_cap_min != 0 ){
+                     $query=$query->where('market_cap', '>=', $range_mar_cap_min);
+                  }
+                  if($range_mar_cap_max != 0 ){
+                     $query=$query->where('market_cap', '<=', $range_mar_cap_max);
+                  }
+                
              
               return $query;
           });
@@ -348,8 +368,13 @@ Storage::disk('public')->put($path.$name, $pdf->output());
             }
             if($request->range != null){
    $companies=$companies->whereHas('financial', function ($query) use($range_min,$range_max) {
-              
-                  $query= $query->where('sale_revenue', '>=', $range_min)->where('sale_revenue', '<=', $range_max);
+                if($range_min != 0 ){
+                     $query=$query->where('sale_revenue', '>=', $range_min);
+                  }
+                  if($range_max != 0 ){
+                     $query=$query->where('sale_revenue', '<=', $range_max);
+                  }
+                 
              
               return $query;
           });
@@ -476,7 +501,7 @@ Storage::disk('public')->put($path.$name, $pdf->output());
     public function result_sector_final(Request $request)
     {
       $user=Auth::user();
-
+ $comb_com=[];
        if( $user->profile &&  $user->profile->membership_type != null)
       {
 
@@ -684,6 +709,8 @@ Storage::disk('public')->put($path.$name, $pdf->output());
 
     public function result_custom_final(Request $request)
     {
+ $comb_com=[];
+
       // return $request;
       $user=Auth::user();
 
