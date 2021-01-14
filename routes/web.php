@@ -33,7 +33,7 @@ Route::get('/delete_company/{id}', [App\Http\Controllers\CompanyController::clas
 
 //director 
 
-
+Route::post('/store_director', [App\Http\Controllers\CompanyController::class, 'store_director'])->name('store_director');
 Route::patch('/update_director/{id}', [App\Http\Controllers\CompanyController::class, 'update_director'])->name('update_director');
 Route::delete('/delete_director/{id}', [App\Http\Controllers\CompanyController::class, 'delete_director'])->name('delete_director');
 
