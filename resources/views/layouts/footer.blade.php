@@ -40,6 +40,13 @@
                $(this).val($(this).val().replace(/[^.\d]/g, '')); 
     }
   });
+   $('.minus_number_only').on('input',function(event) {
+    // x.replace(/[^.\d]/g, '').replace(/^(\d*\.?)|(\d*)\.?/g, "$1$2")
+         var patt=/^[\d\.]+$/gm;
+              if(!patt.test($(this).val())) {
+               $(this).val($(this).val().replace(/[^.-\d]/g, '')); 
+    }
+  });
     $('.right_col').height($(window).height()-10);
 });
 </script>
