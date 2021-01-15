@@ -33,14 +33,14 @@
 
    
                             <div class="col-md-12 form-row form-inline">
-                                <button id="btnHidden" class="custom_button"    type="button" style="background-color: #6610f2">Filtered</button>
-     <button id="btnAll" class="custom_button"   type="button" style="background-color: #73879c" >All</button>
+                                <button id="btnHidden" class="custom_button"    type="button" style="background-color: #6610f2">View filtered companies</button>
+     <button id="btnAll" class="custom_button"   type="button" style="background-color: #73879c" >View all companies</button>
 
-                                 <button type="button" id="none" class="custom_button"  title="Uncheck All" style="background-color: blue">
-                                    <i class="far fa-square"></i>
+                                 <button type="button" id="none" class="custom_button"  title="Uncheck All" style="background-color: #20c997">
+                                    Unselect all
                                 </button>
                                  <button type="button" id="all" class="custom_button" title="Check All" style="background-color: green">
-                                  <i class="far fa-check-square"></i>
+                                  Select all
                                 </button>
                               
 <button type="submit"   class="custom_button">Proceed</button> 
